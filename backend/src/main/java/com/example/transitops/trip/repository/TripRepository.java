@@ -7,6 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/*
+ * Repository for Trip persistence.
+ *
+ * Keep only database access here.
+ * Business logic belongs in TripService.
+ */
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
     long countByStatus(TripStatus status);

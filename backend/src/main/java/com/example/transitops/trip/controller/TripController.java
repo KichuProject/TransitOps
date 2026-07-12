@@ -15,6 +15,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+ * Trip API Gateway.
+ *
+ * This controller exposes endpoints for:
+ * - Trip Creation
+ * - Dispatch
+ * - Completion
+ * - Cancellation
+ *
+ * Complex workflow logic belongs in TripService.
+ */
+
 @RestController
 @RequestMapping("/trips")
 @Tag(name = "Trips", description = "Trip lifecycle management")

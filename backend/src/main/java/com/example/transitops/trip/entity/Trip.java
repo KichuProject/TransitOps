@@ -9,6 +9,19 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/*
+ * Trip Entity
+ *
+ * Represents transport operations
+ * between a source and destination.
+ *
+ * Status:
+ * DRAFT
+ * DISPATCHED
+ * COMPLETED
+ * CANCELLED
+ */
+
 @Entity
 @Table(name = "trips")
 @Getter

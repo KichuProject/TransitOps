@@ -7,6 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/*
+ * Repository for Driver persistence.
+ *
+ * Avoid embedding business rules.
+ * Repository should only interact with the database.
+ */
+
 @Repository
 public interface DriverRepository extends JpaRepository<Driver, Long> {
     boolean existsByLicenseNumber(String licenseNumber);

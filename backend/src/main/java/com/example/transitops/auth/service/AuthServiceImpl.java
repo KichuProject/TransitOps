@@ -11,6 +11,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
+/*
+ * ============================================================
+ * AUTHENTICATION SERVICE
+ *
+ * Responsibilities:
+ * - User Authentication
+ * - JWT Generation
+ * - Password Verification
+ *
+ * Authorization is handled by Spring Security.
+ * ============================================================
+ */
 @Service
 public class AuthServiceImpl implements AuthService {
 

@@ -13,6 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+ * REST Controller for Vehicle operations.
+ *
+ * Responsibilities:
+ * - Accept HTTP requests
+ * - Validate request payload
+ * - Delegate processing to Service layer
+ * - Return standardized API responses
+ *
+ * Never implement business logic here.
+ */
+
 @RestController
 @RequestMapping("/vehicles")
 @Tag(name = "Vehicles", description = "Vehicle registry management")

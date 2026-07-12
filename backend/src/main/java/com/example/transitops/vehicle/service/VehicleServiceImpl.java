@@ -27,6 +27,13 @@ public class VehicleServiceImpl implements VehicleService {
         this.vehicleMapper = vehicleMapper;
     }
 
+    /*
+ * Registers a new vehicle.
+ *
+ * Business Rules:
+ * - Registration Number must be unique.
+ * - Initial Status = AVAILABLE.
+ */
     @Override
     public VehicleResponse create(VehicleRequest request) {
         if (vehicleRepository.existsByRegistrationNumber(request.getRegistrationNumber())) {
@@ -38,6 +45,14 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleMapper.toResponse(vehicleRepository.save(vehicle));
     }
 
+    /*
+ * Internal status transition.
+ *
+ * This method should only be called by
+ * Trip or Maintenance services.
+ *
+ * Avoid exposing this endpoint directly.
+ */
     @Override
     @Transactional(readOnly = true)
     public List<VehicleResponse> findAll() {

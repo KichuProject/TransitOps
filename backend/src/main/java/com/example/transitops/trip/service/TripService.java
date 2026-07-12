@@ -7,6 +7,15 @@ import com.example.transitops.trip.dto.TripResponse;
 
 import java.util.List;
 
+/*
+ * Service Contract.
+ *
+ * Provides transport workflow operations.
+ *
+ * All implementations must satisfy
+ * mandatory business rules defined
+ * in the project specification.
+ */
 public interface TripService {
     TripResponse create(TripRequest request);
     List<TripResponse> findAll();

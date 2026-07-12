@@ -13,6 +13,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+ * Driver REST API.
+ *
+ * Exposes CRUD operations for driver management.
+ *
+ * Security:
+ * Accessible only to authorized roles.
+ */
+
 @RestController
 @RequestMapping("/drivers")
 @Tag(name = "Drivers", description = "Driver management")
