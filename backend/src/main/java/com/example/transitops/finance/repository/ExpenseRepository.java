@@ -1,0 +1,17 @@
+package com.example.transitops.finance.repository;
+
+import com.example.transitops.finance.entity.Expense;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ExpenseRepository extends JpaRepository<Expense, Long> {
+    List<Expense> findByVehicleId(Long vehicleId);
+    List<Expense> findByTripId(Long tripId);
+
+    @Query("SELECT COALESCE(SUM(e.amount), 0) FROM Expense e WHERE e.vehicle.id = :vehicleId")
+    Double sumAmountByVehicleId(Long vehicleId);
+}
