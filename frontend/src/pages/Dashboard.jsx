@@ -61,21 +61,21 @@ export const Dashboard = () => {
 
   // Filter vehicles according to selected filters
   const filteredVehicles = vehicles.filter(v => {
-    const matchType = filterType === 'All' || v.type === filterType;
+    const matchType = filterType === 'All' || v.vehicleType === filterType;
     const matchRegion = filterRegion === 'All' || v.region === filterRegion;
     return matchType && matchRegion;
   });
 
   // KPI Calculations (Based on filtered vehicles to feel extremely dynamic!)
   const totalVehiclesCount = filteredVehicles.length;
-  const activeVehiclesCount = filteredVehicles.filter(v => v.status === 'On Trip').length;
-  const availableVehiclesCount = filteredVehicles.filter(v => v.status === 'Available').length;
-  const shopVehiclesCount = filteredVehicles.filter(v => v.status === 'In Shop').length;
+  const activeVehiclesCount = filteredVehicles.filter(v => v.status === 'ON_TRIP').length;
+  const availableVehiclesCount = filteredVehicles.filter(v => v.status === 'AVAILABLE').length;
+  const shopVehiclesCount = filteredVehicles.filter(v => v.status === 'IN_SHOP').length;
 
   // Trips calculation (all trips or filtered vehicles trips)
-  const activeTripsCount = trips.filter(t => t.status === 'Dispatched').length;
-  const pendingTripsCount = trips.filter(t => t.status === 'Draft').length;
-  const driversOnDutyCount = drivers.filter(d => d.status === 'Available' || d.status === 'On Trip').length;
+  const activeTripsCount = trips.filter(t => t.status === 'DISPATCHED').length;
+  const pendingTripsCount = trips.filter(t => t.status === 'DRAFT').length;
+  const driversOnDutyCount = drivers.filter(d => d.status === 'AVAILABLE' || d.status === 'ON_TRIP').length;
 
   const fleetUtilization = totalVehiclesCount > 0 
     ? Math.round((activeVehiclesCount / totalVehiclesCount) * 100) 
@@ -87,12 +87,12 @@ export const Dashboard = () => {
     return new Date(d.expiryDate) < today;
   }).length;
 
-  const suspendedDriversCount = drivers.filter(d => d.status === 'Suspended').length;
+  const suspendedDriversCount = drivers.filter(d => d.status === 'SUSPENDED').length;
 
   // --- Financial Aggregations ---
   const totalFuelCost = fuelLogs.reduce((sum, item) => sum + item.cost, 0);
   const totalMaintCost = maintenance.reduce((sum, item) => sum + item.cost, 0);
-  const totalOtherExpenses = expenses.reduce((sum, item) => sum + item.cost, 0);
+  const totalOtherExpenses = expenses.reduce((sum, item) => sum + item.amount, 0);
   const totalOperatingCosts = totalFuelCost + totalMaintCost + totalOtherExpenses;
 
   // Cost Allocation categories (for financial analyst pie chart)
@@ -112,7 +112,7 @@ export const Dashboard = () => {
     { name: 'Jul 09', Completed: 7, Active: 3 },
     { name: 'Jul 10', Completed: 8, Active: 2 },
     { name: 'Jul 11', Completed: 9, Active: 4 },
-    { name: 'Jul 12', Completed: trips.filter(t => t.status === 'Completed').length, Active: activeTripsCount }
+    { name: 'Jul 12', Completed: trips.filter(t => t.status === 'COMPLETED').length, Active: activeTripsCount }
   ];
 
   // 2. Fuel Log Cost per Vehicle (Bar Chart)
@@ -120,7 +120,7 @@ export const Dashboard = () => {
     const cost = fuelLogs
       .filter(f => f.vehicleId === v.id)
       .reduce((sum, item) => sum + item.cost, 0);
-    return { name: v.regNo, Cost: cost };
+    return { name: v.registrationNumber, Cost: cost };
   }).filter(item => item.Cost > 0);
 
   // 3. Maintenance Cost per Vehicle (Line Chart)
@@ -128,7 +128,7 @@ export const Dashboard = () => {
     const cost = maintenance
       .filter(m => m.vehicleId === v.id)
       .reduce((sum, item) => sum + item.cost, 0);
-    return { name: v.regNo, Cost: cost };
+    return { name: v.registrationNumber, Cost: cost };
   }).filter(item => item.Cost > 0);
 
   // 4. Vehicle Status Breakdown (Pie Chart)
@@ -136,22 +136,22 @@ export const Dashboard = () => {
     { name: 'Available', value: availableVehiclesCount, color: '#10B981' },
     { name: 'On Trip', value: activeVehiclesCount, color: '#2563EB' },
     { name: 'In Shop', value: shopVehiclesCount, color: '#F59E0B' },
-    { name: 'Retired', value: vehicles.filter(v => v.status === 'Retired').length, color: '#EF4444' }
+    { name: 'Retired', value: vehicles.filter(v => v.status === 'RETIRED').length, color: '#EF4444' }
   ].filter(d => d.value > 0);
 
   // Recent Trips Limit 5
   const recentTrips = [...trips]
-    .sort((a, b) => b.id.localeCompare(a.id))
+    .sort((a, b) => b.id - a.id)
     .slice(0, 5);
 
   // Recent Maintenance Limit 5
   const recentMaintenance = [...maintenance]
-    .sort((a, b) => b.id.localeCompare(a.id))
+    .sort((a, b) => b.id - a.id)
     .slice(0, 5);
 
   // Recent Expenses Limit 5
   const recentExpenses = [...expenses]
-    .sort((a, b) => b.id.localeCompare(a.id))
+    .sort((a, b) => b.id - a.id)
     .slice(0, 5);
 
   // Role verification helper
@@ -655,19 +655,19 @@ export const Dashboard = () => {
                 const driver = drivers.find(d => d.id === trip.driverId);
                 return (
                   <tr key={trip.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
-                    <td className="px-5 py-3 font-bold text-xs text-slate-800 dark:text-white">{trip.tripNo}</td>
+                    <td className="px-5 py-3 font-bold text-xs text-slate-800 dark:text-white">#{trip.id}</td>
                     <td className="px-5 py-3 text-xs">
                       <span className="font-semibold text-slate-800 dark:text-slate-200">{trip.source}</span>
                       <span className="mx-1 text-slate-400">&rarr;</span>
                       <span className="font-semibold text-slate-800 dark:text-slate-200">{trip.destination}</span>
                     </td>
-                    <td className="px-5 py-3 text-xs font-semibold">{vehicle?.regNo || 'N/A'}</td>
+                    <td className="px-5 py-3 text-xs font-semibold">{vehicle?.registrationNumber || 'N/A'}</td>
                     <td className="px-5 py-3 text-xs font-semibold">{driver?.name || 'N/A'}</td>
                     <td className="px-5 py-3 text-xs">
                       <Badge variant={
-                        trip.status === 'Completed' ? 'success' :
-                        trip.status === 'Dispatched' ? 'primary' :
-                        trip.status === 'Cancelled' ? 'danger' : 'secondary'
+                        trip.status === 'COMPLETED' ? 'success' :
+                        trip.status === 'DISPATCHED' ? 'primary' :
+                        trip.status === 'CANCELLED' ? 'danger' : 'secondary'
                       }>
                         {trip.status}
                       </Badge>
@@ -690,13 +690,13 @@ export const Dashboard = () => {
                 const vehicle = vehicles.find(v => v.id === log.vehicleId);
                 return (
                   <tr key={log.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
-                    <td className="px-5 py-3 font-bold text-xs text-slate-800 dark:text-white">{log.logNo}</td>
-                    <td className="px-5 py-3 text-xs font-semibold">{vehicle?.regNo || 'N/A'}</td>
+                    <td className="px-5 py-3 font-bold text-xs text-slate-800 dark:text-white">#{log.id}</td>
+                    <td className="px-5 py-3 text-xs font-semibold">{vehicle?.registrationNumber || 'N/A'}</td>
                     <td className="px-5 py-3 text-xs truncate max-w-[200px] font-semibold" title={log.description}>{log.description}</td>
                     <td className="px-5 py-3 text-xs font-black text-slate-850 dark:text-slate-100">${log.cost}</td>
                     <td className="px-5 py-3 text-xs">
-                      <Badge variant={log.status === 'Open' ? 'warning' : 'success'}>
-                        {log.status === 'Open' ? 'In Shop' : 'Closed'}
+                      <Badge variant={log.status === 'ACTIVE' ? 'warning' : 'success'}>
+                        {log.status === 'ACTIVE' ? 'In Shop' : 'Closed'}
                       </Badge>
                     </td>
                   </tr>
@@ -717,19 +717,19 @@ export const Dashboard = () => {
                 const vehicle = vehicles.find(v => v.id === exp.vehicleId);
                 return (
                   <tr key={exp.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
-                    <td className="px-5 py-3 font-bold text-xs text-slate-800 dark:text-white">{exp.expenseNo}</td>
-                    <td className="px-5 py-3 text-xs font-semibold">{vehicle?.regNo || 'N/A'}</td>
+                    <td className="px-5 py-3 font-bold text-xs text-slate-800 dark:text-white">#{exp.id}</td>
+                    <td className="px-5 py-3 text-xs font-semibold">{vehicle?.registrationNumber || 'N/A'}</td>
                     <td className="px-5 py-3 text-xs">
                       <Badge variant={
-                        exp.type === 'Maintenance' ? 'warning' :
-                        exp.type === 'Tolls' ? 'primary' :
-                        exp.type === 'Parts' ? 'danger' : 'secondary'
+                        exp.expenseType === 'MAINTENANCE' ? 'warning' :
+                        exp.expenseType === 'TOLL' ? 'primary' :
+                        exp.expenseType === 'OTHER' ? 'danger' : 'secondary'
                       }>
-                        {exp.type}
+                        {exp.expenseType}
                       </Badge>
                     </td>
-                    <td className="px-5 py-3 text-xs font-black text-slate-850 dark:text-slate-100">${Number(exp.cost).toFixed(2)}</td>
-                    <td className="px-5 py-3 text-xs font-semibold text-slate-550 dark:text-slate-450">{exp.date}</td>
+                    <td className="px-5 py-3 text-xs font-black text-slate-850 dark:text-slate-100">${Number(exp.amount).toFixed(2)}</td>
+                    <td className="px-5 py-3 text-xs font-semibold text-slate-550 dark:text-slate-450">{exp.expenseDate}</td>
                   </tr>
                 );
               })}

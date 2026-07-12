@@ -56,7 +56,7 @@ export const Vehicles = () => {
         maximumLoadCapacity: '',
         odometer: '',
         acquisitionCost: '',
-        status: 'Available',
+        status: 'AVAILABLE',
         region: 'North'
       });
     }
@@ -160,10 +160,10 @@ export const Vehicles = () => {
           <Select
             options={[
               { value: 'All', label: 'All Statuses' },
-              { value: 'Available', label: 'Available' },
-              { value: 'On Trip', label: 'On Trip' },
-              { value: 'In Shop', label: 'In Shop' },
-              { value: 'Retired', label: 'Retired' }
+              { value: 'AVAILABLE', label: 'Available' },
+              { value: 'ON_TRIP', label: 'On Trip' },
+              { value: 'IN_SHOP', label: 'In Shop' },
+              { value: 'RETIRED', label: 'Retired' }
             ]}
             value={statusFilter}
             onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}

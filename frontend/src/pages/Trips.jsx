@@ -52,11 +52,11 @@ export const Trips = () => {
 
   // --- FILTERS FOR DISPATCH SELECTORS (CRITICAL BUSINESS RULES) ---
   // Vehicles: Must be Available (cannot be Retired, In Shop, or On Trip)
-  const dispatchableVehicles = vehicles.filter(v => v.status === 'Available');
+  const dispatchableVehicles = vehicles.filter(v => v.status === 'AVAILABLE');
 
   // Drivers: Must be Available, not Suspended, and License NOT expired
   const dispatchableDrivers = drivers.filter(d => 
-    d.status === 'Available' && 
+    d.status === 'AVAILABLE' && 
     !isLicenseExpired(d.expiryDate)
   );
 
@@ -87,7 +87,7 @@ export const Trips = () => {
     
     setCompletingTripId(tripId);
     resetComplete({
-      odometerEnd: vehicle ? vehicle.odometer + trip.plannedDistance : '',
+      actualDistance: trip.plannedDistance,
       fuelConsumed: ''
     });
     setIsCompleteFormOpen(true);
@@ -102,10 +102,10 @@ export const Trips = () => {
   };
 
   const statusColors = {
-    Draft: 'secondary',
-    Dispatched: 'primary',
-    Completed: 'success',
-    Cancelled: 'danger'
+    DRAFT: 'secondary',
+    DISPATCHED: 'primary',
+    COMPLETED: 'success',
+    CANCELLED: 'danger'
   };
 
   const isWriteAuthorized = currentUser?.role === 'Dispatcher' || currentUser?.role === 'Fleet Manager';
@@ -176,7 +176,7 @@ export const Trips = () => {
                       <td className="px-5 py-4 text-xs" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center gap-1.5">
                           {/* Dispatch Trigger */}
-                          {trip.status === 'Draft' && isWriteAuthorized && (
+                          {trip.status === 'DRAFT' && isWriteAuthorized && (
                             <Button
                               variant="outline"
                               size="sm"
@@ -189,26 +189,24 @@ export const Trips = () => {
                           )}
 
                           {/* Complete Trigger */}
-                          {trip.status === 'Dispatched' && isWriteAuthorized && (
+                          {trip.status === 'DISPATCHED' && isWriteAuthorized && (
                             <Button
                               variant="success"
                               size="sm"
-                              className="px-2 py-1 text-[10px]"
+                              className="w-full text-[10px]"
                               onClick={() => handleOpenComplete(trip.id)}
                             >
-                              <FiCheckCircle size={11} />
-                              <span>Complete</span>
+                              Log Delivery
                             </Button>
                           )}
 
                           {/* Cancel Trigger */}
-                          {trip.status === 'Dispatched' && isWriteAuthorized && (
+                          {trip.status === 'DISPATCHED' && isWriteAuthorized && (
                             <button
                               onClick={async () => await cancelTrip(trip.id)}
-                              className="p-1.5 text-red-500 hover:text-red-750 hover:bg-red-50 dark:hover:bg-red-950/40 rounded transition-colors"
-                              title="Cancel Dispatch"
+                              className="text-xs text-red-500 hover:text-red-700 ml-1"
                             >
-                              <FiXCircle size={14} />
+                              Cancel
                             </button>
                           )}
                         </div>
@@ -261,22 +259,17 @@ export const Trips = () => {
                   {/* Step 2: Dispatched */}
                   <div className="flex gap-4 relative">
                     <span className={`z-10 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold ${
-                      ['Dispatched', 'Completed'].includes(selectedTrip.status)
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                      ['DISPATCHED', 'COMPLETED'].includes(selectedTrip.status) 
+                      ? 'bg-blue-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
                     }`}>
                       2
                     </span>
-                    <div className="flex flex-col">
-                      <span className="text-xs font-bold text-slate-800 dark:text-slate-205">Dispatched to Transit</span>
-                      {['Dispatched', 'Completed'].includes(selectedTrip.status) ? (
-                        <div className="flex flex-col text-[10px] text-slate-500 dark:text-slate-450 font-semibold mt-1 gap-0.5">
-                          <span>Operator: {driver?.name}</span>
-                          <span>Vehicle Asset: {vehicle?.registrationNumber}</span>
-                          <span>Starting Odo: {vehicle?.odometer?.toLocaleString()} km</span>
-                        </div>
+                    <div className="flex flex-col pb-6">
+                      <span className="text-xs font-bold text-slate-850 dark:text-slate-205">Dispatched to Route</span>
+                      {['DISPATCHED', 'COMPLETED'].includes(selectedTrip.status) ? (
+                        <span className="text-[10px] text-blue-500 font-semibold mt-0.5">En route to {selectedTrip.destination}</span>
                       ) : (
-                        <span className="text-[10px] text-slate-400 dark:text-slate-550 font-medium mt-0.5">Awaiting dispatch orders</span>
+                        <span className="text-[10px] text-slate-400 dark:text-slate-550 font-medium mt-0.5">Awaiting dispatch</span>
                       )}
                     </div>
                   </div>
@@ -284,22 +277,22 @@ export const Trips = () => {
                   {/* Step 3: Finished / Cancelled */}
                   <div className="flex gap-4 relative">
                     <span className={`z-10 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full text-[9px] font-bold ${
-                      selectedTrip.status === 'Completed' ? 'bg-emerald-500 text-white' :
-                      selectedTrip.status === 'Cancelled' ? 'bg-red-500 text-white' :
+                      selectedTrip.status === 'COMPLETED' ? 'bg-emerald-500 text-white' :
+                      selectedTrip.status === 'CANCELLED' ? 'bg-red-500 text-white' :
                       'bg-slate-100 dark:bg-slate-800 text-slate-500'
                     }`}>
                       3
                     </span>
                     <div className="flex flex-col">
                       <span className="text-xs font-bold text-slate-850 dark:text-slate-205">
-                        {selectedTrip.status === 'Cancelled' ? 'Dispatch Cancelled' : 'Operations Completed'}
+                        {selectedTrip.status === 'CANCELLED' ? 'Dispatch Cancelled' : 'Operations Completed'}
                       </span>
-                      {selectedTrip.status === 'Completed' ? (
+                      {selectedTrip.status === 'COMPLETED' ? (
                         <div className="flex flex-col text-[10px] text-slate-550 dark:text-slate-450 font-semibold mt-1 gap-0.5">
                           <span>Actual Distance: {selectedTrip.actualDistance?.toLocaleString()} km</span>
                           <span>Fuel Logged: {selectedTrip.fuelConsumed} Liters</span>
                         </div>
-                      ) : selectedTrip.status === 'Cancelled' ? (
+                      ) : selectedTrip.status === 'CANCELLED' ? (
                         <span className="text-[10px] text-red-500 font-semibold mt-0.5">Operator & vehicle returned to available pool.</span>
                       ) : (
                         <span className="text-[10px] text-slate-400 dark:text-slate-550 font-medium mt-0.5">Pending delivery closure</span>
@@ -416,10 +409,10 @@ export const Trips = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="Final Odometer Reading (km)"
+              label="Actual Distance (km)"
               type="number"
-              error={errorsComplete.odometerEnd}
-              {...registerComplete('odometerEnd', { required: 'Closing odometer is required' })}
+              error={errorsComplete.actualDistance}
+              {...registerComplete('actualDistance', { required: 'Actual distance is required', valueAsNumber: true })}
             />
             <Input
               label="Fuel Consumed (Liters)"
@@ -427,7 +420,8 @@ export const Trips = () => {
               placeholder="e.g. 25"
               error={errorsComplete.fuelConsumed}
               {...registerComplete('fuelConsumed', {
-                required: 'Fuel logged is required',
+                required: 'Fuel consumed is required',
+                valueAsNumber: true,
                 min: { value: 0, message: 'Cannot be negative' }
               })}
             />

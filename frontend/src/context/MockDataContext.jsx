@@ -110,7 +110,7 @@ export const MockDataProvider = ({ children }) => {
     try {
       await vehicleApi.create({
         ...newVehicle,
-        maxCapacity: Number(newVehicle.maxCapacity),
+        maximumLoadCapacity: Number(newVehicle.maximumLoadCapacity),
         odometer: Number(newVehicle.odometer),
         acquisitionCost: Number(newVehicle.acquisitionCost)
       });
@@ -128,7 +128,7 @@ export const MockDataProvider = ({ children }) => {
     try {
       await vehicleApi.update(updated.id, {
         ...updated,
-        maxCapacity: Number(updated.maxCapacity),
+        maximumLoadCapacity: Number(updated.maximumLoadCapacity),
         odometer: Number(updated.odometer),
         acquisitionCost: Number(updated.acquisitionCost)
       });
@@ -136,6 +136,7 @@ export const MockDataProvider = ({ children }) => {
       addToast(`Vehicle ${updated.registrationNumber} updated!`, 'success');
       return true;
     } catch (err) {
+      console.error("Vehicle update error:", err.response?.data || err);
       const errMsg = err.response?.data?.message || 'Failed to update vehicle';
       addToast(errMsg, 'danger');
       return false;
@@ -216,20 +217,20 @@ export const MockDataProvider = ({ children }) => {
       return false;
     }
 
-    if (driver.status === 'Suspended') {
-      addToast("Cannot assign a Suspended driver to a trip!", 'danger');
+    if (driver.status === 'SUSPENDED') {
+      addToast(`Driver ${driver.name} is currently suspended and cannot take trips`, 'danger');
       return false;
     }
     if (isLicenseExpired(driver.expiryDate)) {
       addToast("Cannot assign a driver with an Expired license!", 'danger');
       return false;
     }
-    if (driver.status === 'On Trip') {
-      addToast("Driver is already On Trip!", 'danger');
+    if (driver.status === 'ON_TRIP') {
+      addToast(`Driver ${driver.name} is already on an active trip`, 'danger');
       return false;
     }
 
-    if (vehicle.status !== 'Available') {
+    if (vehicle.status === 'ON_TRIP') {
       addToast(`Vehicle is currently ${vehicle.status} (must be Available)!`, 'danger');
       return false;
     }
@@ -267,7 +268,7 @@ export const MockDataProvider = ({ children }) => {
   const completeTrip = async (tripId, data) => {
     try {
       await tripApi.completeTrip(tripId, {
-        odometerEnd: Number(data.odometerEnd),
+        actualDistance: Number(data.actualDistance),
         fuelConsumed: Number(data.fuelConsumed)
       });
       await refreshAllData();
@@ -298,7 +299,7 @@ export const MockDataProvider = ({ children }) => {
     const vehicle = vehicles.find(v => v.id == maintForm.vehicleId);
     if (!vehicle) return false;
 
-    if (vehicle.status === 'On Trip') {
+    if (vehicle.status === 'ON_TRIP') {
       addToast(`Cannot put vehicle ${vehicle.registrationNumber} in shop while on active trip!`, 'danger');
       return false;
     }

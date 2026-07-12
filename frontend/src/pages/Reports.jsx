@@ -32,30 +32,36 @@ export const Reports = () => {
     addToast
   } = useMockData();
 
-  const [reportsData, setReportsData] = useState(null);
 
-  useEffect(() => {
-    const fetchReports = async () => {
-      try {
-        const data = await reportApi.getAll();
-        setReportsData(data);
-      } catch (err) {
-        console.error('Failed to fetch reports from backend:', err);
-      }
-    };
-    fetchReports();
-  }, []);
 
-  // CSV Export simulated click
-  const handleExport = () => {
-    addToast('TransitOps Fleet Financial Report exported as CSV successfully.', 'success');
+  const handleExport = async () => {
+    try {
+      const response = await reportApi.exportCsv();
+      const csvData = response.csvData;
+      const filename = response.filename;
+      
+      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', filename || 'fleet_report.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      addToast('TransitOps Fleet Financial Report exported as CSV successfully.', 'success');
+    } catch (err) {
+      console.error(err);
+      addToast('Failed to export report.', 'danger');
+    }
   };
 
   // --- Dynamic Financial Calculations ---
   
   // Total Distance from Completed Trips
   const totalDistance = trips
-    .filter(t => t.status === 'Completed')
+    .filter(t => t.status === 'COMPLETED')
     .reduce((sum, item) => sum + item.distance, 0);
 
   // Total Fuel consumed

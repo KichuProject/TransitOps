@@ -21,6 +21,15 @@ export const AuthProvider = ({ children }) => {
   });
   const [loading, setLoading] = useState(false);
 
+  const mapRole = (backendRole) => {
+    if (!backendRole) return backendRole;
+    if (backendRole === 'ROLE_FLEET_MANAGER') return 'Fleet Manager';
+    if (backendRole === 'ROLE_DRIVER') return 'Dispatcher';
+    if (backendRole === 'ROLE_SAFETY_OFFICER') return 'Safety Officer';
+    if (backendRole === 'ROLE_FINANCIAL_ANALYST') return 'Financial Analyst';
+    return backendRole;
+  };
+
   const login = async (email, password) => {
     setLoading(true);
     try {
@@ -29,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       const loggedInUser = {
         name: data.name,
         email: data.email,
-        role: data.role
+        role: mapRole(data.role)
       };
 
       // Save to state and storage
@@ -57,7 +66,7 @@ export const AuthProvider = ({ children }) => {
       const registeredUser = {
         name: data.name,
         email: data.email,
-        role: data.role
+        role: mapRole(data.role)
       };
       
       setToken(data.token);
