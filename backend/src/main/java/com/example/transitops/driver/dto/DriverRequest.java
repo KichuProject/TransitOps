@@ -22,6 +22,10 @@ public class DriverRequest {
     @NotNull(message = "License expiry date is required")
     private LocalDate licenseExpiryDate;
 
+    @NotBlank(message = "Email is required")
+    @jakarta.validation.constraints.Email(message = "Email should be valid")
+    private String email;
+
     @NotBlank(message = "Contact number is required")
     private String contactNumber;
 

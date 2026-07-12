@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +17,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vehicles")
-@Tag(name = "Vehicles", description = "Vehicle registry management")
+@Tag(name = "Vehicles", description = "Vehicle management APIs")
 public class VehicleController {
 
     private final VehicleService vehicleService;
 
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search, filter and sort vehicles")
+    public ResponseEntity<ApiResponse<Page<VehicleResponse>>> searchVehicles(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) com.example.transitops.common.enums.VehicleStatus status,
+            @RequestParam(required = false) com.example.transitops.common.enums.VehicleType type,
+            @RequestParam(required = false) String region,
+            Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success(vehicleService.searchVehicles(keyword, status, type, region, pageable)));
     }
 
     @PostMapping

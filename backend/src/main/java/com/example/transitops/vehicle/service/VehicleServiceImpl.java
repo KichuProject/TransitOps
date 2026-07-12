@@ -4,11 +4,16 @@ import com.example.transitops.common.exception.BusinessException;
 import com.example.transitops.common.exception.DuplicateResourceException;
 import com.example.transitops.common.exception.ResourceNotFoundException;
 import com.example.transitops.common.enums.VehicleStatus;
+import com.example.transitops.common.enums.VehicleType;
+import com.example.transitops.common.specification.BaseSpecification;
 import com.example.transitops.vehicle.dto.VehicleRequest;
 import com.example.transitops.vehicle.dto.VehicleResponse;
 import com.example.transitops.vehicle.entity.Vehicle;
 import com.example.transitops.vehicle.mapper.VehicleMapper;
 import com.example.transitops.vehicle.repository.VehicleRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +30,17 @@ public class VehicleServiceImpl implements VehicleService {
     public VehicleServiceImpl(VehicleRepository vehicleRepository, VehicleMapper vehicleMapper) {
         this.vehicleRepository = vehicleRepository;
         this.vehicleMapper = vehicleMapper;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<VehicleResponse> searchVehicles(String keyword, VehicleStatus status, VehicleType type, String region, Pageable pageable) {
+        Specification<Vehicle> spec = Specification.where(BaseSpecification.<Vehicle>searchByKeyword(keyword, "vehicleName", "registrationNumber"))
+                .and(BaseSpecification.filterByEnum("status", status))
+                .and(BaseSpecification.filterByEnum("vehicleType", type))
+                .and(BaseSpecification.filterByExactMatch("region", region));
+                
+        return vehicleRepository.findAll(spec, pageable).map(vehicleMapper::toResponse);
     }
 
     @Override

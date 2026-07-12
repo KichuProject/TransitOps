@@ -3,12 +3,13 @@ package com.example.transitops.finance.repository;
 import com.example.transitops.finance.entity.FuelLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface FuelLogRepository extends JpaRepository<FuelLog, Long> {
+public interface FuelLogRepository extends JpaRepository<FuelLog, Long>, JpaSpecificationExecutor<FuelLog> {
     List<FuelLog> findByVehicleId(Long vehicleId);
     List<FuelLog> findByTripId(Long tripId);
 

@@ -5,6 +5,9 @@ import com.example.transitops.reports.dto.*;
 import com.example.transitops.reports.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import com.example.transitops.reports.service.PdfExportService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +21,21 @@ import java.util.List;
 public class ReportController {
 
     private final ReportService reportService;
+    private final PdfExportService pdfExportService;
 
-    public ReportController(ReportService reportService) {
+    public ReportController(ReportService reportService, PdfExportService pdfExportService) {
         this.reportService = reportService;
+        this.pdfExportService = pdfExportService;
+    }
+
+    @GetMapping("/export/pdf")
+    @Operation(summary = "Export fleet report as PDF")
+    public ResponseEntity<byte[]> exportPdf() {
+        byte[] pdfBytes = pdfExportService.generateFleetReportPdf();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=fleet_report.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 
     @GetMapping("/fuel-efficiency")

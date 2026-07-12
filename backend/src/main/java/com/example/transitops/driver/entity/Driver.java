@@ -29,6 +29,12 @@ public class Driver {
     @Column(name = "license_expiry_date", nullable = false)
     private LocalDate licenseExpiryDate;
 
+    @Column(nullable = false)
+    private String email;
+
+    @Column(name = "last_reminder_sent_date")
+    private LocalDate lastReminderSentDate;
+
     @Column(name = "contact_number", nullable = false)
     private String contactNumber;
 
