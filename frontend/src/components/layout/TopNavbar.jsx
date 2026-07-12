@@ -40,7 +40,7 @@ export const TopNavbar = () => {
   ];
 
   return (
-    <header className="h-16 border-b border-slate-200/60 bg-white dark:border-slate-800/80 dark:bg-slate-950 flex items-center justify-between px-8 shrink-0 relative z-30">
+    <header className="h-16 border-b border-slate-200/40 bg-white/70 dark:border-slate-800/40 dark:bg-slate-950/40 backdrop-blur-md flex items-center justify-between px-8 shrink-0 relative z-30">
       {/* Search box */}
       <div className="relative w-80 max-md:hidden">
         <span className="absolute inset-y-0 left-3 flex items-center text-slate-400 dark:text-slate-500">

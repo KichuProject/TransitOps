@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 export const Card = ({ children, className = '', ...props }) => {
+  const cardRef = useRef(null);
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
   return (
     <div
-      className={`rounded-xl border border-slate-200/85 bg-white shadow-sm dark:border-slate-800/80 dark:bg-slate-900/40 p-5 transition-all duration-200 ${className}`}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`relative overflow-hidden rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/70 dark:bg-slate-950/40 backdrop-blur-md shadow-md hover:shadow-lg hover:border-slate-350 dark:hover:border-slate-700/80 transition-all duration-300 ${className}`}
       {...props}
     >
-      {children}
+      <div
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300 rounded-xl"
+        style={{
+          background: `radial-gradient(300px circle at ${coords.x}px ${coords.y}px, rgba(59, 130, 246, 0.15), transparent 80%)`,
+          opacity: isHovered ? 1 : 0,
+        }}
+      />
+      <div className="relative z-10 h-full w-full">{children}</div>
     </div>
   );
 };

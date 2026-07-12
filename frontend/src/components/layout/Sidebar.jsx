@@ -38,8 +38,33 @@ export const Sidebar = ({ className = '' }) => {
     { name: 'Profile', path: '/profile', icon: FiUser },
   ];
 
+  const getFilteredNavItems = () => {
+    const role = currentUser?.role;
+    if (role === 'Fleet Manager') {
+      return navItems.filter(item => 
+        ['/', '/vehicles', '/drivers', '/maintenance', '/reports', '/profile'].includes(item.path)
+      );
+    }
+    if (role === 'Dispatcher') {
+      return navItems.filter(item => 
+        ['/', '/vehicles', '/trips', '/profile'].includes(item.path)
+      );
+    }
+    if (role === 'Safety Officer') {
+      return navItems.filter(item => 
+        ['/', '/drivers', '/trips', '/profile'].includes(item.path)
+      );
+    }
+    if (role === 'Financial Analyst') {
+      return navItems.filter(item => 
+        ['/', '/vehicles', '/fuel', '/expenses', '/reports', '/profile'].includes(item.path)
+      );
+    }
+    return navItems;
+  };
+
   return (
-    <aside className={`w-64 border-r border-slate-200/60 bg-white dark:border-slate-800/80 dark:bg-slate-950 flex flex-col h-screen shrink-0 ${className}`}>
+    <aside className={`w-64 border-r border-slate-200/60 bg-white/70 dark:border-slate-800/80 dark:bg-slate-950/40 backdrop-blur-md flex flex-col h-screen shrink-0 ${className}`}>
       {/* Brand Logo */}
       <div className="flex items-center gap-2.5 px-6 py-5 border-b border-slate-100 dark:border-slate-900">
         <div className="flex h-8.5 w-8.5 items-center justify-center rounded-lg bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20 shrink-0">
@@ -52,10 +77,10 @@ export const Sidebar = ({ className = '' }) => {
           </span>
         </div>
       </div>
-
+ 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-1.5">
-        {navItems.map((item) => {
+        {getFilteredNavItems().map((item) => {
           const Icon = item.icon;
           return (
             <NavLink

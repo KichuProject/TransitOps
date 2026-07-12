@@ -120,7 +120,7 @@ export const Vehicles = () => {
     Retired: 'danger'
   };
 
-  const isDispatcher = currentUser?.role === 'Dispatcher';
+  const isWriteAuthorized = currentUser?.role === 'Fleet Manager';
 
   return (
     <div className="flex flex-col gap-6">
@@ -131,8 +131,8 @@ export const Vehicles = () => {
           <p className="text-xs text-slate-500 dark:text-slate-400">Master register of transportation assets and metadata</p>
         </div>
         
-        {/* Create button, disabled for dispatchers */}
-        {!isDispatcher && (
+        {/* Create button, disabled for non-managers */}
+        {isWriteAuthorized && (
           <ShinyButton size="sm" onClick={() => handleOpenForm(null)}>
             <FiPlus size={16} />
             <span>Add Vehicle</span>
@@ -212,7 +212,7 @@ export const Vehicles = () => {
                     >
                       <FiEye size={14} />
                     </button>
-                    {!isDispatcher && (
+                    {isWriteAuthorized && (
                       <>
                         <button
                           onClick={() => handleOpenForm(vehicle)}

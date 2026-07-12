@@ -108,7 +108,7 @@ export const Trips = () => {
     Cancelled: 'danger'
   };
 
-  const isDispatcher = currentUser?.role === 'Dispatcher';
+  const isWriteAuthorized = currentUser?.role === 'Dispatcher';
 
   return (
     <div className="flex flex-col gap-6">
@@ -118,7 +118,7 @@ export const Trips = () => {
           <BlurText text="Trip Management" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Dispatch vehicles, schedule routes, and view active operator logs</p>
         </div>
-        {!isDispatcher && (
+        {isWriteAuthorized && (
           <ShinyButton size="sm" onClick={handleOpenCreate}>
             <FiPlus size={16} />
             <span>Create Trip Draft</span>
@@ -176,7 +176,7 @@ export const Trips = () => {
                       <td className="px-5 py-4 text-xs" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center gap-1.5">
                           {/* Dispatch Trigger */}
-                          {trip.status === 'Draft' && !isDispatcher && (
+                          {trip.status === 'Draft' && isWriteAuthorized && (
                             <Button
                               variant="outline"
                               size="sm"
@@ -189,7 +189,7 @@ export const Trips = () => {
                           )}
 
                           {/* Complete Trigger */}
-                          {trip.status === 'Dispatched' && (
+                          {trip.status === 'Dispatched' && isWriteAuthorized && (
                             <Button
                               variant="success"
                               size="sm"
@@ -202,7 +202,7 @@ export const Trips = () => {
                           )}
 
                           {/* Cancel Trigger */}
-                          {trip.status === 'Dispatched' && !isDispatcher && (
+                          {trip.status === 'Dispatched' && isWriteAuthorized && (
                             <button
                               onClick={async () => await cancelTrip(trip.id)}
                               className="p-1.5 text-red-500 hover:text-red-750 hover:bg-red-50 dark:hover:bg-red-950/40 rounded transition-colors"
