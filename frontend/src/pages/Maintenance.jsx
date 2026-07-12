@@ -45,8 +45,8 @@ export const Maintenance = () => {
     setIsOpenFormOpen(true);
   };
 
-  const onSubmitOpen = (data) => {
-    const success = createMaintenance(data);
+  const onSubmitOpen = async (data) => {
+    const success = await createMaintenance(data);
     if (success) {
       setIsOpenFormOpen(false);
     }
@@ -63,10 +63,12 @@ export const Maintenance = () => {
     setIsCloseFormOpen(true);
   };
 
-  const onSubmitClose = (data) => {
-    closeMaintenance(selectedLogId, data.finalCost);
-    setIsCloseFormOpen(false);
-    setSelectedLogId(null);
+  const onSubmitClose = async (data) => {
+    const success = await closeMaintenance(selectedLogId, data.finalCost);
+    if (success) {
+      setIsCloseFormOpen(false);
+      setSelectedLogId(null);
+    }
   };
 
   // Tab Filtering

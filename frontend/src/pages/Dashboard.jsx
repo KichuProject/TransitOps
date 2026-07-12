@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMockData } from '../context/MockDataContext';
+import { useDashboard } from '../context/DashboardContext';
 import SpotlightCard from '../components/reactbits/SpotlightCard';
 import Badge from '../components/ui/Badge';
 import Table from '../components/ui/Table';
@@ -39,6 +40,12 @@ export const Dashboard = () => {
     fuelLogs,
     expenses
   } = useMockData();
+
+  const { fetchDashboardData } = useDashboard();
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
 
   // Filter States
   const [filterType, setFilterType] = useState('All');

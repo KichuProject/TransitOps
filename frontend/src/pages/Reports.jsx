@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMockData } from '../context/MockDataContext';
+import reportApi from '../api/report';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Table from '../components/ui/Table';
@@ -28,6 +29,20 @@ export const Reports = () => {
     getVehicleOperationalCost,
     addToast
   } = useMockData();
+
+  const [reportsData, setReportsData] = useState(null);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const data = await reportApi.getAll();
+        setReportsData(data);
+      } catch (err) {
+        console.error('Failed to fetch reports from backend:', err);
+      }
+    };
+    fetchReports();
+  }, []);
 
   // CSV Export simulated click
   const handleExport = () => {

@@ -70,8 +70,8 @@ export const Trips = () => {
     setIsCreateOpen(true);
   };
 
-  const onSubmitCreate = (data) => {
-    const success = createTrip(data);
+  const onSubmitCreate = async (data) => {
+    const success = await createTrip(data);
     if (success) {
       setIsCreateOpen(false);
     }
@@ -91,8 +91,8 @@ export const Trips = () => {
     setIsCompleteFormOpen(true);
   };
 
-  const onSubmitComplete = (data) => {
-    const success = completeTrip(completingTripId, data);
+  const onSubmitComplete = async (data) => {
+    const success = await completeTrip(completingTripId, data);
     if (success) {
       setIsCompleteFormOpen(false);
       setCompletingTripId(null);
@@ -179,7 +179,7 @@ export const Trips = () => {
                               variant="outline"
                               size="sm"
                               className="px-2 py-1 text-[10px]"
-                              onClick={() => dispatchTrip(trip.id)}
+                              onClick={async () => await dispatchTrip(trip.id)}
                             >
                               <FiSend size={11} />
                               <span>Dispatch</span>
@@ -202,7 +202,7 @@ export const Trips = () => {
                           {/* Cancel Trigger */}
                           {trip.status === 'Dispatched' && !isDispatcher && (
                             <button
-                              onClick={() => cancelTrip(trip.id)}
+                              onClick={async () => await cancelTrip(trip.id)}
                               className="p-1.5 text-red-500 hover:text-red-750 hover:bg-red-50 dark:hover:bg-red-950/40 rounded transition-colors"
                               title="Cancel Dispatch"
                             >

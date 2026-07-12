@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useMockData } from '../../context/MockDataContext';
+import { useAuth } from '../../context/AuthContext';
 import {
   FiGrid,
   FiTruck,
@@ -16,12 +17,12 @@ import {
 import ShinyText from '../reactbits/ShinyText';
 
 export const Sidebar = ({ className = '' }) => {
-  const { currentUser, setCurrentUser, addToast } = useMockData();
+  const { currentUser, addToast } = useMockData();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setCurrentUser(null);
-    addToast('Successfully logged out of TransitOps.', 'info');
+    logout();
     navigate('/login');
   };
 

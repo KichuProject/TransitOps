@@ -61,12 +61,12 @@ export const Vehicles = () => {
     setIsFormOpen(true);
   };
 
-  const onSubmitForm = (data) => {
+  const onSubmitForm = async (data) => {
     let success = false;
     if (editingVehicle) {
-      success = updateVehicle({ ...editingVehicle, ...data });
+      success = await updateVehicle({ ...editingVehicle, ...data });
     } else {
-      success = addVehicle(data);
+      success = await addVehicle(data);
     }
     if (success) {
       setIsFormOpen(false);
@@ -86,9 +86,9 @@ export const Vehicles = () => {
     setIsDeleteOpen(true);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (selectedVehicle) {
-      deleteVehicle(selectedVehicle.id);
+      await deleteVehicle(selectedVehicle.id);
       setIsDeleteOpen(false);
     }
   };

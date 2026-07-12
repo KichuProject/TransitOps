@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useMockData } from '../context/MockDataContext';
+import { useAuth } from '../context/AuthContext';
 import { INITIAL_USERS } from '../constants/mockData';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
@@ -9,7 +9,7 @@ import ShinyText from '../components/reactbits/ShinyText';
 import SpotlightCard from '../components/reactbits/SpotlightCard';
 
 export const Login = () => {
-  const { setCurrentUser, addToast } = useMockData();
+  const { login, loading } = useAuth();
   const navigate = useNavigate();
   
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
@@ -19,18 +19,10 @@ export const Login = () => {
     }
   });
 
-  const onSubmit = (data) => {
-    // Find matched credentials
-    const matchedUser = INITIAL_USERS.find(
-      u => u.email.toLowerCase() === data.email.toLowerCase() && u.password === data.password
-    );
-
-    if (matchedUser) {
-      setCurrentUser(matchedUser);
-      addToast(`Welcome back, ${matchedUser.name}! Active View: ${matchedUser.role}.`, 'success');
+  const onSubmit = async (data) => {
+    const success = await login(data.email, data.password);
+    if (success) {
       navigate('/');
-    } else {
-      addToast('Credentials do not match any mock accounts. Use demo quick-selectors.', 'danger');
     }
   };
 
@@ -38,6 +30,7 @@ export const Login = () => {
     setValue('email', user.email);
     setValue('password', user.password);
   };
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-900 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-950 to-slate-950 px-6 py-12 select-none">

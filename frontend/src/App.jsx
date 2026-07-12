@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { DashboardProvider } from './context/DashboardContext';
 import { MockDataProvider } from './context/MockDataContext';
+import { Toaster } from 'react-hot-toast';
 import MainLayout from './components/layout/MainLayout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -16,31 +19,37 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <MockDataProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Public Login Route */}
-          <Route path="/login" element={<Login />} />
+    <AuthProvider>
+      <DashboardProvider>
+        <MockDataProvider>
+          <BrowserRouter>
+            <Toaster position="bottom-right" reverseOrder={false} />
+            <Routes>
+              {/* Public Login Route */}
+              <Route path="/login" element={<Login />} />
 
-          {/* Protected Main Application Layout Routes */}
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="vehicles" element={<Vehicles />} />
-            <Route path="drivers" element={<Drivers />} />
-            <Route path="trips" element={<Trips />} />
-            <Route path="maintenance" element={<Maintenance />} />
-            <Route path="fuel" element={<FuelLogs />} />
-            <Route path="expenses" element={<Expenses />} />
-            <Route path="reports" element={<Reports />} />
-            <Route path="profile" element={<Profile />} />
-            
-            {/* Catch-all 404 Route */}
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </MockDataProvider>
+              {/* Protected Main Application Layout Routes */}
+              <Route path="/" element={<MainLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="vehicles" element={<Vehicles />} />
+                <Route path="drivers" element={<Drivers />} />
+                <Route path="trips" element={<Trips />} />
+                <Route path="maintenance" element={<Maintenance />} />
+                <Route path="fuel" element={<FuelLogs />} />
+                <Route path="expenses" element={<Expenses />} />
+                <Route path="reports" element={<Reports />} />
+                <Route path="profile" element={<Profile />} />
+                
+                {/* Catch-all 404 Route */}
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </MockDataProvider>
+      </DashboardProvider>
+    </AuthProvider>
   );
 }
 
 export default App;
+

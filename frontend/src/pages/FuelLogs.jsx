@@ -40,8 +40,8 @@ export const FuelLogs = () => {
     setIsFormOpen(true);
   };
 
-  const onSubmit = (data) => {
-    const success = addFuelLog(data);
+  const onSubmit = async (data) => {
+    const success = await addFuelLog(data);
     if (success) {
       setIsFormOpen(false);
     }

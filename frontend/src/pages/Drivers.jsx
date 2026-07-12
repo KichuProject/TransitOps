@@ -58,12 +58,12 @@ export const Drivers = () => {
     setIsFormOpen(true);
   };
 
-  const onSubmitForm = (data) => {
+  const onSubmitForm = async (data) => {
     let success = false;
     if (editingDriver) {
-      success = updateDriver({ ...editingDriver, ...data });
+      success = await updateDriver({ ...editingDriver, ...data });
     } else {
-      success = addDriver(data);
+      success = await addDriver(data);
     }
     if (success) {
       setIsFormOpen(false);
@@ -77,9 +77,9 @@ export const Drivers = () => {
     setIsDeleteOpen(true);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (selectedDriver) {
-      deleteDriver(selectedDriver.id);
+      await deleteDriver(selectedDriver.id);
       setIsDeleteOpen(false);
     }
   };

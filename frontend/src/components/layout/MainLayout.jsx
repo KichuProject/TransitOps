@@ -4,7 +4,6 @@ import { useMockData } from '../../context/MockDataContext';
 import Sidebar from './Sidebar';
 import TopNavbar from './TopNavbar';
 import Breadcrumb from './Breadcrumb';
-import ToastContainer from '../ui/Toast';
 
 export const MainLayout = () => {
   const { currentUser } = useMockData();
@@ -35,11 +34,9 @@ export const MainLayout = () => {
           </div>
         </main>
       </div>
-
-      {/* Global toast notifications */}
-      <ToastContainer />
     </div>
   );
 };
 
 export default MainLayout;
+

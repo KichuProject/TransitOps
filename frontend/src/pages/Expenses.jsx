@@ -42,8 +42,8 @@ export const Expenses = () => {
     setIsFormOpen(true);
   };
 
-  const onSubmit = (data) => {
-    const success = addExpense(data);
+  const onSubmit = async (data) => {
+    const success = await addExpense(data);
     if (success) {
       setIsFormOpen(false);
     }
