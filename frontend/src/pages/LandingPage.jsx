@@ -5,6 +5,7 @@ import ShinyText from '../components/reactbits/ShinyText';
 import Iridescence from '../components/reactbits/Iridescence';
 import BlurText from '../components/reactbits/BlurText';
 import ShinyButton from '../components/reactbits/ShinyButton';
+import logoImg from '../images/logo.png';
 import { 
   FiTruck, 
   FiUsers, 
@@ -71,9 +72,7 @@ export const LandingPage = () => {
       {/* Header navbar */}
       <header className="relative z-10 w-full max-w-7xl mx-auto px-6 h-20 flex items-center justify-between border-b border-slate-200/60 bg-white/40 backdrop-blur-md">
         <div className="flex items-center gap-2">
-          <div className="flex h-8.5 w-8.5 items-center justify-center rounded-lg bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20 shrink-0">
-            TO
-          </div>
+          <img src={logoImg} alt="TransitOps Logo" className="h-8.5 w-8.5 object-contain shrink-0" />
           <span className="font-extrabold text-lg tracking-tight text-slate-900">TransitOps</span>
         </div>
 

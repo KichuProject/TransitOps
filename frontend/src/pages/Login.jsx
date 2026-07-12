@@ -10,6 +10,7 @@ import SpotlightCard from '../components/reactbits/SpotlightCard';
 import Iridescence from '../components/reactbits/Iridescence';
 import BlurText from '../components/reactbits/BlurText';
 import ShinyButton from '../components/reactbits/ShinyButton';
+import logoImg from '../images/logo.png';
 
 export const Login = () => {
   const { login, loading } = useAuth();
@@ -45,9 +46,7 @@ export const Login = () => {
       <div className="w-full max-w-md relative z-10">
         {/* Brand Header */}
         <div className="flex flex-col items-center mb-8">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white font-bold text-base shadow-xl shadow-blue-500/30 mb-3 select-none">
-            TO
-          </div>
+          <img src={logoImg} alt="TransitOps Logo" className="h-11 w-11 object-contain mb-3 select-none" />
           <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
             <BlurText text="Sign in to" className="text-white" />
             <ShinyText text="TransitOps" speed={6} className="font-extrabold text-xl" />

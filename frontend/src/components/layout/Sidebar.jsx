@@ -15,6 +15,7 @@ import {
   FiLogOut
 } from 'react-icons/fi';
 import ShinyText from '../reactbits/ShinyText';
+import logoImg from '../../images/logo.png';
 
 export const Sidebar = ({ className = '' }) => {
   const { currentUser, addToast } = useMockData();
@@ -63,9 +64,7 @@ export const Sidebar = ({ className = '' }) => {
     <aside className={`w-64 border-r border-slate-200/40 bg-white/60 dark:border-slate-800/40 dark:bg-slate-950/65 backdrop-blur-md flex flex-col h-screen shrink-0 ${className}`}>
       {/* Brand Logo */}
       <div className="flex items-center gap-2.5 px-6 py-5 border-b border-slate-100 dark:border-slate-900">
-        <div className="flex h-8.5 w-8.5 items-center justify-center rounded-lg bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20 shrink-0">
-          TO
-        </div>
+        <img src={logoImg} alt="TransitOps Logo" className="h-8.5 w-8.5 object-contain shrink-0" />
         <div className="flex flex-col min-w-0">
           <ShinyText text="TransitOps" speed={5} className="font-extrabold text-sm tracking-tight leading-none" />
           <span className="text-[9px] text-slate-400 dark:text-slate-500 font-bold tracking-wider uppercase mt-1">
