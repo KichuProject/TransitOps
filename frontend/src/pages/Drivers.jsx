@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMockData } from '../context/MockDataContext';
 import Button from '../components/ui/Button';
+import ShinyButton from '../components/reactbits/ShinyButton';
+import BlurText from '../components/reactbits/BlurText';
 import Card from '../components/ui/Card';
 import Table from '../components/ui/Table';
 import Modal from '../components/ui/Modal';
@@ -138,14 +140,14 @@ export const Drivers = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-800 dark:text-white">Driver Profiles</h1>
+          <BlurText text="Driver Profiles" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Manage credentials, contact directories, compliance records, and driver safety scoring</p>
         </div>
         {!isDispatcher && (
-          <Button variant="primary" size="sm" onClick={() => handleOpenForm(null)}>
+          <ShinyButton size="sm" onClick={() => handleOpenForm(null)}>
             <FiPlus size={16} />
             <span>Add Driver</span>
-          </Button>
+          </ShinyButton>
         )}
       </div>
 

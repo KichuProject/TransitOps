@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMockData } from '../context/MockDataContext';
 import Button from '../components/ui/Button';
+import ShinyButton from '../components/reactbits/ShinyButton';
+import BlurText from '../components/reactbits/BlurText';
 import Card from '../components/ui/Card';
 import Table from '../components/ui/Table';
 import Modal from '../components/ui/Modal';
@@ -46,14 +48,18 @@ export const Expenses = () => {
     const success = await addExpense(data);
     if (success) {
       setIsFormOpen(false);
+      reset();
     }
   };
 
   // Filter Expense Logs
   const filteredExpenses = expenses.filter(exp => {
     const vehicle = vehicles.find(v => v.id === exp.vehicleId);
-    const matchesSearch = vehicle?.regNo.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          exp.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const regNo = vehicle?.regNo || '';
+    const description = exp.description || '';
+    
+    const matchesSearch = regNo.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = typeFilter === 'All' || exp.type === typeFilter;
     return matchesSearch && matchesType;
   });
@@ -73,14 +79,14 @@ export const Expenses = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-800 dark:text-white">Operational Expenses</h1>
+          <BlurText text="Operational Expenses" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Track ancillary transit fees including tolls, lodging, parts, and workshop invoices</p>
         </div>
         {!isDispatcher && (
-          <Button variant="primary" size="sm" onClick={handleOpenForm}>
+          <ShinyButton size="sm" onClick={handleOpenForm}>
             <FiPlus size={16} />
             <span>Log Expense</span>
-          </Button>
+          </ShinyButton>
         )}
       </div>
 
@@ -136,7 +142,7 @@ export const Expenses = () => {
                   <td className="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[220px] truncate" title={exp.description}>
                     {exp.description}
                   </td>
-                  <td className="px-5 py-4 text-xs font-black text-slate-850 dark:text-slate-100">${exp.cost}</td>
+                  <td className="px-5 py-4 text-xs font-black text-slate-850 dark:text-slate-100">${Number(exp.cost).toFixed(2)}</td>
                   <td className="px-5 py-4 text-xs font-semibold text-slate-550 dark:text-slate-450">{exp.date}</td>
                 </tr>
               );

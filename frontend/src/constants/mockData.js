@@ -16,7 +16,7 @@ export const INITIAL_VEHICLES = [
 export const INITIAL_DRIVERS = [
   { id: 'D1', name: 'Alex Johnson', licenseNo: 'DL-88492', category: 'Class A', expiryDate: '2027-10-15', contact: '+1 555-0192', safetyScore: 95, status: 'Available' },
   { id: 'D2', name: 'John Doe', licenseNo: 'DL-12345', category: 'Class A', expiryDate: '2028-04-20', contact: '+1 555-0143', safetyScore: 88, status: 'On Trip' },
-  { id: 'D3', name: 'Marcus Aurelius', licenseNo: 'DL-54321', category: 'Class B', expiryDate: '2026-03-01', contact: '+1 555-0167', safetyScore: 72, status: 'Available' }, // expired
+  { id: 'D3', name: 'Marcus Aurelius', licenseNo: 'DL-54321', category: 'Class B', expiryDate: '2026-03-01', contact: '+1 555-0167', safetyScore: 72, status: 'Available' },
   { id: 'D4', name: 'Sarah Jenkins', licenseNo: 'DL-99887', category: 'Class A', expiryDate: '2027-01-12', contact: '+1 555-0112', safetyScore: 45, status: 'Suspended' },
   { id: 'D5', name: 'Bob Smith', licenseNo: 'DL-11223', category: 'Class C', expiryDate: '2029-06-30', contact: '+1 555-0125', safetyScore: 90, status: 'Off Duty' }
 ];

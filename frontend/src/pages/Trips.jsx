@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMockData } from '../context/MockDataContext';
 import Button from '../components/ui/Button';
+import ShinyButton from '../components/reactbits/ShinyButton';
+import BlurText from '../components/reactbits/BlurText';
 import Card from '../components/ui/Card';
 import Table from '../components/ui/Table';
 import Modal from '../components/ui/Modal';
@@ -113,14 +115,14 @@ export const Trips = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-800 dark:text-white">Trip Management</h1>
+          <BlurText text="Trip Management" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Dispatch vehicles, schedule routes, and view active operator logs</p>
         </div>
         {!isDispatcher && (
-          <Button variant="primary" size="sm" onClick={handleOpenCreate}>
+          <ShinyButton size="sm" onClick={handleOpenCreate}>
             <FiPlus size={16} />
             <span>Create Trip Draft</span>
-          </Button>
+          </ShinyButton>
         )}
       </div>
 

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useMockData } from '../context/MockDataContext';
 import { useDashboard } from '../context/DashboardContext';
 import SpotlightCard from '../components/reactbits/SpotlightCard';
+import TiltedCard from '../components/reactbits/TiltedCard';
+import BlurText from '../components/reactbits/BlurText';
 import Badge from '../components/ui/Badge';
 import Table from '../components/ui/Table';
 import {
@@ -127,7 +129,7 @@ export const Dashboard = () => {
       {/* Page Title Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-800 dark:text-white">Operations Dashboard</h1>
+          <BlurText text="Operations Dashboard" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Real-time logistics monitoring & diagnostics</p>
         </div>
 
@@ -169,7 +171,7 @@ export const Dashboard = () => {
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* KPI: Available Vehicles */}
-        <SpotlightCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
+        <TiltedCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
           <div className="flex flex-col">
             <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Available Fleet</span>
             <span className="text-2xl font-black text-slate-850 dark:text-white mt-1.5">{availableVehiclesCount}</span>
@@ -178,10 +180,10 @@ export const Dashboard = () => {
           <div className="h-10 w-10 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-450 rounded-xl flex items-center justify-center shrink-0">
             <FiTruck size={20} />
           </div>
-        </SpotlightCard>
+        </TiltedCard>
 
         {/* KPI: Active Dispatches */}
-        <SpotlightCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
+        <TiltedCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
           <div className="flex flex-col">
             <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Active Dispatches</span>
             <span className="text-2xl font-black text-slate-850 dark:text-white mt-1.5">{activeTripsCount}</span>
@@ -190,10 +192,10 @@ export const Dashboard = () => {
           <div className="h-10 w-10 bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-450 rounded-xl flex items-center justify-center shrink-0">
             <FiMapPin size={20} />
           </div>
-        </SpotlightCard>
+        </TiltedCard>
 
         {/* KPI: In Shop */}
-        <SpotlightCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
+        <TiltedCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
           <div className="flex flex-col">
             <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">In Shop (Maintenance)</span>
             <span className="text-2xl font-black text-slate-850 dark:text-white mt-1.5">{shopVehiclesCount}</span>
@@ -202,10 +204,10 @@ export const Dashboard = () => {
           <div className="h-10 w-10 bg-amber-50 dark:bg-amber-950/20 text-amber-600 dark:text-amber-450 rounded-xl flex items-center justify-center shrink-0">
             <FiTool size={20} />
           </div>
-        </SpotlightCard>
+        </TiltedCard>
 
         {/* KPI: Utilization Rate */}
-        <SpotlightCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
+        <TiltedCard className="p-5 flex items-center justify-between border-slate-200/80 dark:border-slate-800/80">
           <div className="flex flex-col">
             <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Fleet Utilization</span>
             <span className="text-2xl font-black text-slate-850 dark:text-white mt-1.5">{fleetUtilization}%</span>
@@ -214,7 +216,7 @@ export const Dashboard = () => {
           <div className="h-10 w-10 bg-indigo-50 dark:bg-indigo-950/20 text-indigo-600 dark:text-indigo-455 rounded-xl flex items-center justify-center shrink-0">
             <FiActivity size={20} />
           </div>
-        </SpotlightCard>
+        </TiltedCard>
       </div>
 
       {/* Analytics Charts Grid */}

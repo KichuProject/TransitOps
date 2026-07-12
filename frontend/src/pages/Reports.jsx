@@ -5,6 +5,8 @@ import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Table from '../components/ui/Table';
 import Button from '../components/ui/Button';
+import ShinyButton from '../components/reactbits/ShinyButton';
+import BlurText from '../components/reactbits/BlurText';
 import {
   ResponsiveContainer,
   BarChart,
@@ -131,13 +133,13 @@ export const Reports = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-800 dark:text-white">Reports & Financial Analytics</h1>
+          <BlurText text="Reports & Financial Analytics" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Review vehicle ROI matrices, resource fuel efficiency, and export csv records</p>
         </div>
-        <Button variant="primary" size="sm" onClick={handleExport}>
+        <ShinyButton size="sm" onClick={handleExport}>
           <FiDownload size={15} />
           <span>Export CSV Summary</span>
-        </Button>
+        </ShinyButton>
       </div>
 
       {/* KPI Cards */}

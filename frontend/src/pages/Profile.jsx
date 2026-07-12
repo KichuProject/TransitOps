@@ -3,6 +3,8 @@ import { useMockData } from '../context/MockDataContext';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
+import ShinyButton from '../components/reactbits/ShinyButton';
+import BlurText from '../components/reactbits/BlurText';
 
 export const Profile = () => {
   const { currentUser, addToast } = useMockData();
@@ -14,7 +16,7 @@ export const Profile = () => {
   return (
     <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full">
       <div>
-        <h1 className="text-xl font-bold text-slate-800 dark:text-white">Operator Profile</h1>
+        <BlurText text="Operator Profile" className="text-xl font-bold text-slate-800 dark:text-white" />
         <p className="text-xs text-slate-500 dark:text-slate-400">Manage account information, active view, and regional preferences</p>
       </div>
 
@@ -63,9 +65,9 @@ export const Profile = () => {
           <Button variant="outline" size="sm">
             Reset Preferences
           </Button>
-          <Button variant="primary" size="sm" onClick={handleSave}>
+          <ShinyButton size="sm" onClick={handleSave}>
             Save Configuration
-          </Button>
+          </ShinyButton>
         </div>
       </Card>
     </div>

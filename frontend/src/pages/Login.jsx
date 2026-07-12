@@ -7,6 +7,9 @@ import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import ShinyText from '../components/reactbits/ShinyText';
 import SpotlightCard from '../components/reactbits/SpotlightCard';
+import SquaresBackground from '../components/reactbits/SquaresBackground';
+import BlurText from '../components/reactbits/BlurText';
+import ShinyButton from '../components/reactbits/ShinyButton';
 
 export const Login = () => {
   const { login, loading } = useAuth();
@@ -33,15 +36,19 @@ export const Login = () => {
 
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-900 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-950 to-slate-950 px-6 py-12 select-none">
-      <div className="w-full max-w-md">
+    <div className="flex min-h-screen items-center justify-center bg-slate-900 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-955 to-slate-955 px-6 py-12 select-none relative overflow-hidden">
+      {/* Background square particles flashing */}
+      <SquaresBackground className="opacity-25 absolute inset-0" />
+
+      <div className="w-full max-w-md relative z-10">
         {/* Brand Header */}
         <div className="flex flex-col items-center mb-8">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white font-bold text-base shadow-xl shadow-blue-500/20 mb-3 select-none">
             TO
           </div>
           <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
-            Sign in to <ShinyText text="TransitOps" speed={6} className="font-extrabold text-xl" />
+            <BlurText text="Sign in to" className="text-white" />
+            <ShinyText text="TransitOps" speed={6} className="font-extrabold text-xl" />
           </h2>
           <p className="mt-1 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
             Fleet Intelligence Portal
@@ -69,13 +76,13 @@ export const Login = () => {
               {...register('password', { required: 'Password is required' })}
             />
 
-            <Button
+            <ShinyButton
               type="submit"
-              variant="primary"
               className="w-full mt-2 py-2.5 font-bold shadow-lg shadow-blue-600/10"
+              disabled={loading}
             >
-              Sign In
-            </Button>
+              {loading ? 'Signing In...' : 'Sign In'}
+            </ShinyButton>
           </form>
 
           {/* Quick selectors for demo roles */}
