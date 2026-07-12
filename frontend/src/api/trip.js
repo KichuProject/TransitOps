@@ -22,15 +22,15 @@ export const tripApi = {
     return response.data;
   },
   dispatchTrip: async (id) => {
-    const response = await api.patch(`/trips/${id}/dispatch`);
+    const response = await api.put(`/trips/${id}/dispatch`);
     return response.data;
   },
   completeTrip: async (id, data) => {
-    const response = await api.patch(`/trips/${id}/complete`, data); // data includes odometerEnd, fuelConsumed
+    const response = await api.put(`/trips/${id}/complete`, data); // data includes odometerEnd, fuelConsumed
     return response.data;
   },
   cancelTrip: async (id) => {
-    const response = await api.patch(`/trips/${id}/cancel`);
+    const response = await api.put(`/trips/${id}/cancel`);
     return response.data;
   }
 };

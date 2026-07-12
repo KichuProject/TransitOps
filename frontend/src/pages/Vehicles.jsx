@@ -50,10 +50,10 @@ export const Vehicles = () => {
       reset(vehicle);
     } else {
       reset({
-        regNo: '',
-        name: '',
-        type: 'Van',
-        maxCapacity: '',
+        registrationNumber: '',
+        vehicleName: '',
+        vehicleType: 'VAN',
+        maximumLoadCapacity: '',
         odometer: '',
         acquisitionCost: '',
         status: 'Available',
@@ -97,10 +97,10 @@ export const Vehicles = () => {
 
   // Filters logic
   const filtered = vehicles.filter(v => {
-    const matchesSearch = v.regNo.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          v.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = v.registrationNumber?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          v.vehicleName?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === 'All' || v.status === statusFilter;
-    const matchesType = typeFilter === 'All' || v.type === typeFilter;
+    const matchesType = typeFilter === 'All' || v.vehicleType === typeFilter;
     return matchesSearch && matchesStatus && matchesType;
   });
 
@@ -174,10 +174,11 @@ export const Vehicles = () => {
           <Select
             options={[
               { value: 'All', label: 'All Types' },
-              { value: 'Van', label: 'Van' },
-              { value: 'Heavy Truck', label: 'Heavy Truck' },
-              { value: 'Semi-Trailer', label: 'Semi-Trailer' },
-              { value: 'Pickup', label: 'Pickup' }
+              { value: 'VAN', label: 'Van' },
+              { value: 'TRUCK', label: 'Heavy Truck' },
+              { value: 'TANKER', label: 'Semi-Trailer' },
+              { value: 'PICKUP', label: 'Pickup' },
+              { value: 'BUS', label: 'Bus' }
             ]}
             value={typeFilter}
             onChange={(e) => { setTypeFilter(e.target.value); setCurrentPage(1); }}
@@ -192,11 +193,11 @@ export const Vehicles = () => {
           <Table headers={['Registration', 'Model/Name', 'Type', 'Max Load Capacity', 'Odometer', 'Region', 'Status', 'Actions']}>
             {currentItems.map((vehicle) => (
               <tr key={vehicle.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
-                <td className="px-5 py-3.5 font-bold text-xs text-slate-800 dark:text-white">{vehicle.regNo}</td>
-                <td className="px-5 py-3.5 text-xs font-semibold">{vehicle.name}</td>
-                <td className="px-5 py-3.5 text-xs text-slate-500 dark:text-slate-400 font-semibold">{vehicle.type}</td>
-                <td className="px-5 py-3.5 text-xs font-semibold">{vehicle.maxCapacity} kg</td>
-                <td className="px-5 py-3.5 text-xs font-semibold">{vehicle.odometer.toLocaleString()} km</td>
+                <td className="px-5 py-3.5 font-bold text-xs text-slate-800 dark:text-white">{vehicle.registrationNumber}</td>
+                <td className="px-5 py-3.5 text-xs font-semibold">{vehicle.vehicleName}</td>
+                <td className="px-5 py-3.5 text-xs text-slate-500 dark:text-slate-400 font-semibold">{vehicle.vehicleType}</td>
+                <td className="px-5 py-3.5 text-xs font-semibold">{vehicle.maximumLoadCapacity} kg</td>
+                <td className="px-5 py-3.5 text-xs font-semibold">{vehicle.odometer?.toLocaleString()} km</td>
                 <td className="px-5 py-3.5 text-xs font-semibold">{vehicle.region}</td>
                 <td className="px-5 py-3.5 text-xs">
                   <Badge variant={statusVariants[vehicle.status]}>
@@ -253,58 +254,49 @@ export const Vehicles = () => {
       <Modal
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
-        title={editingVehicle ? `Edit Vehicle ${editingVehicle.regNo}` : 'Register New Fleet Vehicle'}
+        title={editingVehicle ? `Edit Vehicle ${editingVehicle.registrationNumber}` : 'Register New Fleet Vehicle'}
       >
         <form onSubmit={handleSubmit(onSubmitForm)} className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="Registration Number (Unique)"
-              placeholder="e.g. Van-05"
-              error={errors.regNo}
-              {...register('regNo', { required: 'Registration number is required' })}
+              label="Registration Number"
+              placeholder="e.g. XY-1234"
+              error={errors.registrationNumber}
+              {...register('registrationNumber', { required: 'Required' })}
             />
             <Input
               label="Vehicle Model/Name"
               placeholder="e.g. Ford Transit Cargo"
-              error={errors.name}
-              {...register('name', { required: 'Name is required' })}
+              error={errors.vehicleName}
+              {...register('vehicleName', { required: 'Required' })}
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Select
-              label="Vehicle Classification"
+              label="Vehicle Type"
               options={[
-                { value: 'Van', label: 'Van' },
-                { value: 'Heavy Truck', label: 'Heavy Truck' },
-                { value: 'Semi-Trailer', label: 'Semi-Trailer' },
-                { value: 'Pickup', label: 'Pickup' }
+                { value: 'VAN', label: 'Cargo Van' },
+                { value: 'TRUCK', label: 'Heavy Duty Truck' },
+                { value: 'TANKER', label: 'Semi-Trailer' },
+                { value: 'PICKUP', label: 'Pickup Truck' },
+                { value: 'BUS', label: 'Bus' }
               ]}
-              {...register('type')}
+              {...register('vehicleType')}
             />
-            <Select
-              label="Region Assignment"
-              options={[
-                { value: 'North', label: 'North' },
-                { value: 'South', label: 'South' },
-                { value: 'East', label: 'East' },
-                { value: 'West', label: 'West' }
-              ]}
-              {...register('region')}
+            <Input
+              label="Max Load Capacity (kg)"
+              type="number"
+              placeholder="e.g. 1500"
+              error={errors.maximumLoadCapacity}
+              {...register('maximumLoadCapacity', { 
+                required: 'Required',
+                valueAsNumber: true 
+              })}
             />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <Input
-              label="Max Cargo Load (kg)"
-              type="number"
-              placeholder="e.g. 500"
-              error={errors.maxCapacity}
-              {...register('maxCapacity', {
-                required: 'Capacity is required',
-                min: { value: 1, message: 'Must be positive' }
-              })}
-            />
             <Input
               label="Current Odometer (km)"
               type="number"
@@ -324,6 +316,16 @@ export const Vehicles = () => {
                 required: 'Cost is required',
                 min: { value: 1, message: 'Must be positive' }
               })}
+            />
+            <Select
+              label="Region Assignment"
+              options={[
+                { value: 'North', label: 'North' },
+                { value: 'South', label: 'South' },
+                { value: 'East', label: 'East' },
+                { value: 'West', label: 'West' }
+              ]}
+              {...register('region')}
             />
           </div>
 
@@ -356,7 +358,7 @@ export const Vehicles = () => {
       <Modal
         isOpen={isViewOpen}
         onClose={() => setIsViewOpen(false)}
-        title={selectedVehicle ? `${selectedVehicle.regNo} Asset Dossier` : ''}
+        title={selectedVehicle ? `${selectedVehicle.registrationNumber} Asset Dossier` : ''}
         size="lg"
       >
         {selectedVehicle && (() => {
@@ -373,15 +375,15 @@ export const Vehicles = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg flex flex-col">
                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Classification</span>
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{selectedVehicle.type}</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{selectedVehicle.vehicleType}</span>
                 </div>
                 <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg flex flex-col">
                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cargo Limit</span>
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{selectedVehicle.maxCapacity} kg</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{selectedVehicle.maximumLoadCapacity} kg</span>
                 </div>
                 <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg flex flex-col">
                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Current Odometer</span>
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{selectedVehicle.odometer.toLocaleString()} km</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1">{selectedVehicle.odometer?.toLocaleString()} km</span>
                 </div>
                 <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-lg flex flex-col">
                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Status Badge</span>
@@ -430,8 +432,8 @@ export const Vehicles = () => {
         isOpen={isDeleteOpen}
         onClose={() => setIsDeleteOpen(false)}
         onConfirm={handleConfirmDelete}
-        title={`Retire & Remove Asset`}
-        message={selectedVehicle ? `Are you sure you want to delete vehicle registry for "${selectedVehicle.regNo}" (${selectedVehicle.name})? This action cannot be undone.` : ''}
+        title="Confirm Deletion"
+        message={`Are you sure you want to permanently remove vehicle ${selectedVehicle?.registrationNumber}?`}
         confirmText="Remove Registration"
       />
     </div>

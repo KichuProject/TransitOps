@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useMockData } from '../../context/MockDataContext';
-import { FiSearch, FiSun, FiMoon, FiBell, FiChevronDown } from 'react-icons/fi';
-import { INITIAL_USERS } from '../../constants/mockData';
+import { useAuth } from '../../context/AuthContext';
+import { FiSearch, FiSun, FiMoon, FiBell, FiChevronDown, FiLogOut } from 'react-icons/fi';
 
 export const TopNavbar = () => {
-  const { currentUser, setCurrentUser, darkMode, setDarkMode, addToast, drivers } = useMockData();
+  const { currentUser, darkMode, setDarkMode, addToast } = useMockData();
+  const { logout } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -25,10 +26,8 @@ export const TopNavbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Quick switch user role helper
-  const handleRoleSwitch = (user) => {
-    setCurrentUser(user);
-    addToast(`Role Switched: Now viewing dashboard as ${user.role}`, 'info');
+  const handleLogout = () => {
+    logout();
     setShowProfileMenu(false);
   };
 
@@ -138,25 +137,13 @@ export const TopNavbar = () => {
               </div>
 
               <div className="px-1.5 py-1">
-                <span className="block px-3 py-1.5 text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                  Test Platform Roles
-                </span>
-                {INITIAL_USERS.map((user) => (
-                  <button
-                    key={user.role}
-                    onClick={() => handleRoleSwitch(user)}
-                    className={`flex items-center justify-between w-full px-3 py-1.5 rounded-lg text-left text-xs font-semibold ${
-                      currentUser?.role === user.role
-                        ? 'bg-blue-50 text-blue-600 dark:bg-blue-950/30 dark:text-blue-400'
-                        : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-850'
-                    }`}
-                  >
-                    <span>{user.role}</span>
-                    {currentUser?.role === user.role && (
-                      <span className="w-1.5 h-1.5 bg-blue-600 dark:bg-blue-405 rounded-full" />
-                    )}
-                  </button>
-                ))}
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-left text-xs font-semibold text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 transition-colors"
+                >
+                  <FiLogOut size={14} />
+                  <span>Sign Out</span>
+                </button>
               </div>
             </div>
           )}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -19,9 +19,15 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor to handle 401 Unauthorized errors
+// Response interceptor to handle 401 Unauthorized errors and unwrap ApiResponse
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Unwrap the ApiResponse structure { success, message, data } if present
+    if (response.data && typeof response.data === 'object' && 'success' in response.data && 'data' in response.data) {
+      response.data = response.data.data;
+    }
+    return response;
+  },
   (error) => {
     if (error.response && error.response.status === 401) {
       // Clear auth tokens/user on auth failure

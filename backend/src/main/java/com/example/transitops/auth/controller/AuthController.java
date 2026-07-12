@@ -2,6 +2,7 @@ package com.example.transitops.auth.controller;
 
 import com.example.transitops.auth.dto.LoginRequest;
 import com.example.transitops.auth.dto.LoginResponse;
+import com.example.transitops.auth.dto.RegisterRequest;
 import com.example.transitops.auth.service.AuthService;
 import com.example.transitops.common.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,5 +27,12 @@ public class AuthController {
     public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest request) {
         LoginResponse response = authService.login(request);
         return ResponseEntity.ok(ApiResponse.success("Login successful", response));
+    }
+
+    @PostMapping("/register")
+    @Operation(summary = "Register a new user")
+    public ResponseEntity<ApiResponse<LoginResponse>> register(@Valid @RequestBody RegisterRequest request) {
+        LoginResponse response = authService.register(request);
+        return ResponseEntity.ok(ApiResponse.success("Registration successful", response));
     }
 }

@@ -22,7 +22,7 @@ export const maintenanceApi = {
     return response.data;
   },
   closeMaintenance: async (id, finalCost) => {
-    const response = await api.patch(`/maintenance/${id}/close`, { finalCost });
+    const response = await api.put(`/maintenance/${id}/close`, { finalCost });
     return response.data;
   }
 };

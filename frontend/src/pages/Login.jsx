@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { INITIAL_USERS } from '../constants/mockData';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import ShinyText from '../components/reactbits/ShinyText';
@@ -16,10 +15,10 @@ export const Login = () => {
   const { login, loading } = useAuth();
   const navigate = useNavigate();
   
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
-      email: INITIAL_USERS[0].email,
-      password: INITIAL_USERS[0].password,
+      email: '',
+      password: '',
     }
   });
 
@@ -29,12 +28,6 @@ export const Login = () => {
       navigate('/portal');
     }
   };
-
-  const handleDemoSelect = (user) => {
-    setValue('email', user.email);
-    setValue('password', user.password);
-  };
-
 
   return (
     <div className="dark flex min-h-screen items-center justify-center bg-slate-900 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-950 to-slate-950 px-6 py-12 select-none relative overflow-hidden z-0">
@@ -85,28 +78,6 @@ export const Login = () => {
               {loading ? 'Signing In...' : 'Sign In'}
             </ShinyButton>
           </form>
-
-          {/* Quick selectors for demo roles */}
-          <div className="mt-8 pt-6 border-t border-slate-800/80">
-            <span className="block text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-3.5">
-              Prefilled Demo Accounts
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              {INITIAL_USERS.map((user) => (
-                <button
-                  key={user.role}
-                  type="button"
-                  onClick={() => handleDemoSelect(user)}
-                  className="flex flex-col p-2 bg-slate-950/40 hover:bg-slate-950/80 border border-slate-850/80 hover:border-slate-800 rounded-lg text-left transition-all group"
-                >
-                  <span className="text-[10px] font-bold text-slate-300 group-hover:text-white truncate">{user.name}</span>
-                  <span className="text-[8px] text-blue-400 font-bold mt-1.5 uppercase tracking-wider leading-none">
-                    {user.role}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
 
           {/* Connection to Register */}
           <div className="mt-6 pt-4 border-t border-slate-800/80 text-center">

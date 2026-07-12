@@ -140,11 +140,11 @@ export const Maintenance = () => {
               const vehicle = vehicles.find(v => v.id === log.vehicleId);
               return (
                 <tr key={log.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
-                  <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">{log.logNo}</td>
+                  <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">MN-{log.id}</td>
                   <td className="px-5 py-4">
                     <div className="flex flex-col text-xs font-semibold">
-                      <span className="text-slate-850 dark:text-slate-200">{vehicle?.regNo || 'Deleted'}</span>
-                      <span className="text-[10px] text-slate-400 font-medium mt-0.5">{vehicle?.name}</span>
+                      <span className="text-slate-850 dark:text-slate-200">{vehicle?.registrationNumber || 'Deleted'}</span>
+                      <span className="text-[10px] text-slate-400 font-medium mt-0.5">{vehicle?.vehicleName}</span>
                     </div>
                   </td>
                   <td className="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[200px] truncate" title={log.description}>
@@ -202,10 +202,21 @@ export const Maintenance = () => {
             placeholder="Choose vehicle..."
             options={maintainableVehicles.map(v => ({
               value: v.id,
-              label: `${v.regNo} (${v.name} - Status: ${v.status})`
+              label: `${v.registrationNumber} (${v.vehicleName} - Status: ${v.status})`
             }))}
             error={errorsOpen.vehicleId}
             {...registerOpen('vehicleId', { required: 'Vehicle selection is required' })}
+          />
+
+          <Select
+            label="Maintenance Type"
+            options={[
+              { value: 'Preventive', label: 'Preventive / Routine' },
+              { value: 'Corrective', label: 'Corrective / Repair' },
+              { value: 'Inspection', label: 'Inspection' }
+            ]}
+            error={errorsOpen.maintenanceType}
+            {...registerOpen('maintenanceType', { required: 'Maintenance type is required' })}
           />
 
           <div className="grid grid-cols-2 gap-4">

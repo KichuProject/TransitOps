@@ -52,7 +52,7 @@ export const FuelLogs = () => {
   // Filter logs based on search query (Vehicle Reg No)
   const filteredLogs = fuelLogs.filter(log => {
     const vehicle = vehicles.find(v => v.id === log.vehicleId);
-    return vehicle?.regNo.toLowerCase().includes(searchQuery.toLowerCase()) || false;
+    return vehicle?.registrationNumber?.toLowerCase().includes(searchQuery.toLowerCase()) || false;
   });
 
   // Pagination logic
@@ -105,11 +105,11 @@ export const FuelLogs = () => {
               const vehicle = vehicles.find(v => v.id === log.vehicleId);
               return (
                 <tr key={log.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
-                  <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">{log.logNo}</td>
+                  <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">FL-{log.id}</td>
                   <td className="px-5 py-4">
                     <div className="flex flex-col text-xs font-semibold">
-                      <span className="text-slate-850 dark:text-slate-200">{vehicle?.regNo || 'Deleted'}</span>
-                      <span className="text-[10px] text-slate-400 font-medium mt-0.5">{vehicle?.name}</span>
+                      <span className="text-slate-850 dark:text-slate-200">{vehicle?.registrationNumber || 'Deleted'}</span>
+                      <span className="text-[10px] text-slate-400 font-medium mt-0.5">{vehicle?.vehicleName}</span>
                     </div>
                   </td>
                   <td className="px-5 py-4 text-xs font-bold">{log.liters} L</td>
@@ -141,7 +141,7 @@ export const FuelLogs = () => {
             placeholder="Choose vehicle..."
             options={vehicles.map(v => ({
               value: v.id,
-              label: `${v.regNo} (${v.name})`
+              label: `${v.registrationNumber} (${v.vehicleName})`
             }))}
             error={errors.vehicleId}
             {...register('vehicleId', { required: 'Vehicle selection is required' })}

@@ -36,8 +36,8 @@ export const Expenses = () => {
   const handleOpenForm = () => {
     reset({
       vehicleId: '',
-      type: 'Tolls',
-      cost: '',
+      expenseType: 'Tolls',
+      amount: '',
       date: new Date().toISOString().split('T')[0],
       description: ''
     });
@@ -55,12 +55,12 @@ export const Expenses = () => {
   // Filter Expense Logs
   const filteredExpenses = expenses.filter(exp => {
     const vehicle = vehicles.find(v => v.id === exp.vehicleId);
-    const regNo = vehicle?.regNo || '';
+    const regNo = vehicle?.registrationNumber || '';
     const description = exp.description || '';
     
     const matchesSearch = regNo.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesType = typeFilter === 'All' || exp.type === typeFilter;
+    const matchesType = typeFilter === 'All' || exp.expenseType === typeFilter;
     return matchesSearch && matchesType;
   });
 
@@ -128,21 +128,21 @@ export const Expenses = () => {
               const vehicle = vehicles.find(v => v.id === exp.vehicleId);
               return (
                 <tr key={exp.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
-                  <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">{exp.expenseNo}</td>
-                  <td className="px-5 py-4 text-xs font-semibold">{vehicle?.regNo || 'Deleted'}</td>
+                  <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">EXP-{exp.id}</td>
+                  <td className="px-5 py-4 text-xs font-semibold">{vehicle?.registrationNumber || 'Deleted'}</td>
                   <td className="px-5 py-4 text-xs">
                     <Badge variant={
-                      exp.type === 'Maintenance' ? 'warning' :
-                      exp.type === 'Tolls' ? 'primary' :
-                      exp.type === 'Parts' ? 'danger' : 'secondary'
+                      exp.expenseType === 'Maintenance' ? 'warning' :
+                      exp.expenseType === 'Tolls' ? 'primary' :
+                      exp.expenseType === 'Parts' ? 'danger' : 'secondary'
                     }>
-                      {exp.type}
+                      {exp.expenseType}
                     </Badge>
                   </td>
                   <td className="px-5 py-4 text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[220px] truncate" title={exp.description}>
                     {exp.description}
                   </td>
-                  <td className="px-5 py-4 text-xs font-black text-slate-850 dark:text-slate-100">${Number(exp.cost).toFixed(2)}</td>
+                  <td className="px-5 py-4 text-xs font-black text-slate-850 dark:text-slate-100">${Number(exp.amount).toFixed(2)}</td>
                   <td className="px-5 py-4 text-xs font-semibold text-slate-550 dark:text-slate-450">{exp.date}</td>
                 </tr>
               );
@@ -170,7 +170,7 @@ export const Expenses = () => {
             placeholder="Choose vehicle..."
             options={vehicles.map(v => ({
               value: v.id,
-              label: `${v.regNo} (${v.name})`
+              label: `${v.registrationNumber} (${v.vehicleName})`
             }))}
             error={errors.vehicleId}
             {...register('vehicleId', { required: 'Vehicle selection is required' })}
@@ -185,15 +185,15 @@ export const Expenses = () => {
                 { value: 'Parts', label: 'Spare Parts' },
                 { value: 'Other', label: 'Other Costs' }
               ]}
-              {...register('type')}
+              {...register('expenseType')}
             />
             <Input
               label="Amount Paid ($)"
               type="number"
               placeholder="e.g. 45"
-              error={errors.cost}
-              {...register('cost', {
-                required: 'Expense cost is required',
+              error={errors.amount}
+              {...register('amount', {
+                required: 'Expense amount is required',
                 min: { value: 1, message: 'Must be positive' }
               })}
             />

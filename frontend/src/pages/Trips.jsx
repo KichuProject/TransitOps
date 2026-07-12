@@ -67,7 +67,7 @@ export const Trips = () => {
       vehicleId: '',
       driverId: '',
       cargoWeight: '',
-      distance: ''
+      plannedDistance: ''
     });
     setIsCreateOpen(true);
   };
@@ -87,7 +87,7 @@ export const Trips = () => {
     
     setCompletingTripId(tripId);
     resetComplete({
-      odometerEnd: vehicle ? vehicle.odometer + trip.distance : '',
+      odometerEnd: vehicle ? vehicle.odometer + trip.plannedDistance : '',
       fuelConsumed: ''
     });
     setIsCompleteFormOpen(true);
@@ -148,7 +148,7 @@ export const Trips = () => {
                           : 'hover:bg-slate-50/50 dark:hover:bg-slate-900/20'
                       }`}
                     >
-                      <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">{trip.tripNo}</td>
+                      <td className="px-5 py-4 font-bold text-xs text-slate-800 dark:text-white">TRP-{trip.id}</td>
                       <td className="px-5 py-4">
                         <div className="flex flex-col text-xs font-semibold">
                           <span className="text-slate-800 dark:text-slate-200">{trip.source}</span>
@@ -159,13 +159,13 @@ export const Trips = () => {
                       <td className="px-5 py-4">
                         <div className="flex flex-col gap-0.5 text-xs font-semibold text-slate-655 dark:text-slate-400">
                           <span>Weight: {trip.cargoWeight} kg</span>
-                          <span className="text-[10px] text-slate-400 font-medium">Distance: {trip.distance} km</span>
+                          <span className="text-[10px] text-slate-400 font-medium">Distance: {trip.plannedDistance} km</span>
                         </div>
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex flex-col gap-0.5 text-xs font-semibold text-slate-655 dark:text-slate-400">
                           <span>Driver: {driver?.name || 'Deleted'}</span>
-                          <span className="text-[10px] text-slate-400 font-medium">Asset: {vehicle?.regNo || 'Deleted'}</span>
+                          <span className="text-[10px] text-slate-400 font-medium">Asset: {vehicle?.registrationNumber || 'Deleted'}</span>
                         </div>
                       </td>
                       <td className="px-5 py-4 text-xs">
@@ -239,7 +239,7 @@ export const Trips = () => {
                 <div className="flex justify-between items-start">
                   <div className="flex flex-col">
                     <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Route Dossier</span>
-                    <span className="text-sm font-bold text-slate-805 dark:text-white mt-1">{selectedTrip.tripNo}</span>
+                    <span className="text-sm font-bold text-slate-805 dark:text-white mt-1">TRP-{selectedTrip.id}</span>
                   </div>
                   <Badge variant={statusColors[selectedTrip.status]}>{selectedTrip.status}</Badge>
                 </div>
@@ -254,7 +254,7 @@ export const Trips = () => {
                     </span>
                     <div className="flex flex-col">
                       <span className="text-xs font-bold text-slate-800 dark:text-slate-205">Route Formulated</span>
-                      <span className="text-[10px] text-slate-450 dark:text-slate-500 font-semibold mt-0.5">Date: {selectedTrip.date}</span>
+                      <span className="text-[10px] text-slate-450 dark:text-slate-500 font-semibold mt-0.5">Start: {selectedTrip.startTime || 'Not started'}</span>
                     </div>
                   </div>
 
@@ -272,8 +272,8 @@ export const Trips = () => {
                       {['Dispatched', 'Completed'].includes(selectedTrip.status) ? (
                         <div className="flex flex-col text-[10px] text-slate-500 dark:text-slate-450 font-semibold mt-1 gap-0.5">
                           <span>Operator: {driver?.name}</span>
-                          <span>Vehicle Asset: {vehicle?.regNo}</span>
-                          <span>Starting Odo: {selectedTrip.odometerStart?.toLocaleString()} km</span>
+                          <span>Vehicle Asset: {vehicle?.registrationNumber}</span>
+                          <span>Starting Odo: {vehicle?.odometer?.toLocaleString()} km</span>
                         </div>
                       ) : (
                         <span className="text-[10px] text-slate-400 dark:text-slate-550 font-medium mt-0.5">Awaiting dispatch orders</span>
@@ -296,7 +296,7 @@ export const Trips = () => {
                       </span>
                       {selectedTrip.status === 'Completed' ? (
                         <div className="flex flex-col text-[10px] text-slate-550 dark:text-slate-450 font-semibold mt-1 gap-0.5">
-                          <span>Closing Odo: {selectedTrip.odometerEnd?.toLocaleString()} km</span>
+                          <span>Actual Distance: {selectedTrip.actualDistance?.toLocaleString()} km</span>
                           <span>Fuel Logged: {selectedTrip.fuelConsumed} Liters</span>
                         </div>
                       ) : selectedTrip.status === 'Cancelled' ? (
@@ -342,7 +342,7 @@ export const Trips = () => {
               placeholder="Choose vehicle..."
               options={dispatchableVehicles.map(v => ({
                 value: v.id,
-                label: `${v.regNo} (${v.name} - Cap: ${v.maxCapacity}kg)`
+                label: `${v.registrationNumber} (${v.vehicleName} - Cap: ${v.maximumLoadCapacity}kg)`
               }))}
               error={errorsCreate.vehicleId}
               {...registerCreate('vehicleId', { required: 'Vehicle is required' })}
@@ -354,7 +354,7 @@ export const Trips = () => {
               placeholder="Choose operator..."
               options={dispatchableDrivers.map(d => ({
                 value: d.id,
-                label: `${d.name} (${d.category} - Safety Score: ${d.safetyScore})`
+                label: `${d.name} (${d.licenseCategory} - Safety Score: ${d.safetyScore})`
               }))}
               error={errorsCreate.driverId}
               {...registerCreate('driverId', { required: 'Driver is required' })}
@@ -376,8 +376,8 @@ export const Trips = () => {
               label="Transit Distance (km)"
               type="number"
               placeholder="e.g. 280"
-              error={errorsCreate.distance}
-              {...registerCreate('distance', {
+              error={errorsCreate.plannedDistance}
+              {...registerCreate('plannedDistance', {
                 required: 'Distance is required',
                 min: { value: 1, message: 'Must be positive' }
               })}

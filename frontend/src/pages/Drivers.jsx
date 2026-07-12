@@ -49,11 +49,12 @@ export const Drivers = () => {
     } else {
       reset({
         name: '',
-        licenseNo: '',
-        category: 'Class A',
-        expiryDate: '',
-        contact: '',
-        safetyScore: 100,
+        licenseNumber: '',
+        licenseCategory: 'Class A',
+        licenseExpiryDate: '',
+        email: '',
+        contactNumber: '',
+        safetyScore: 10,
         status: 'Available'
       });
     }
@@ -88,18 +89,18 @@ export const Drivers = () => {
 
   // Filter Logic
   const filtered = drivers.filter(d => {
-    const matchesSearch = d.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          d.licenseNo.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = d.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          d.licenseNumber?.toLowerCase().includes(searchQuery.toLowerCase());
     
     const matchesStatus = statusFilter === 'All' || d.status === statusFilter;
     
     let matchesCompliance = true;
     if (complianceFilter === 'Expired') {
-      matchesCompliance = isLicenseExpired(d.expiryDate);
+      matchesCompliance = isLicenseExpired(d.licenseExpiryDate);
     } else if (complianceFilter === 'Suspended') {
       matchesCompliance = d.status === 'Suspended';
     } else if (complianceFilter === 'Compliant') {
-      matchesCompliance = !isLicenseExpired(d.expiryDate) && d.status !== 'Suspended';
+      matchesCompliance = !isLicenseExpired(d.licenseExpiryDate) && d.status !== 'Suspended';
     }
 
     return matchesSearch && matchesStatus && matchesCompliance;
@@ -122,14 +123,14 @@ export const Drivers = () => {
   };
 
   const getSafetyScoreColor = (score) => {
-    if (score >= 85) return 'bg-emerald-500';
-    if (score >= 70) return 'bg-amber-500';
+    if (score >= 8.5) return 'bg-emerald-500';
+    if (score >= 7.0) return 'bg-amber-500';
     return 'bg-red-500';
   };
 
   const getSafetyScoreText = (score) => {
-    if (score >= 85) return 'Excellent';
-    if (score >= 70) return 'Satisfactory';
+    if (score >= 8.5) return 'Excellent';
+    if (score >= 7.0) return 'Satisfactory';
     return 'Critical';
   };
 
@@ -201,13 +202,13 @@ export const Drivers = () => {
         <Card className="p-0 overflow-hidden">
           <Table headers={['Operator', 'License Details', 'Contact', 'Safety Score', 'Status', 'Actions']}>
             {currentItems.map((driver) => {
-              const expired = isLicenseExpired(driver.expiryDate);
+              const expired = isLicenseExpired(driver.licenseExpiryDate);
               return (
                 <tr key={driver.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/20 dark:text-blue-400 font-bold text-xs flex items-center justify-center">
-                        {driver.name.split(' ').map(n => n[0]).join('')}
+                        {driver.name?.split(' ').map(n => n[0]).join('') || '?'}
                       </div>
                       <div className="flex flex-col">
                         <span className="text-xs font-bold text-slate-800 dark:text-white">{driver.name}</span>
@@ -218,35 +219,38 @@ export const Drivers = () => {
                   <td className="px-5 py-4">
                     <div className="flex flex-col gap-0.5">
                       <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                        {driver.licenseNo} <span className="text-[10px] text-slate-400">({driver.category})</span>
+                        {driver.licenseNumber} <span className="text-[10px] text-slate-400">({driver.licenseCategory})</span>
                       </span>
                       <div className="flex items-center gap-1">
                         <span className={`text-[10px] font-semibold ${expired ? 'text-red-500' : 'text-slate-400 dark:text-slate-500'}`}>
-                          Expires: {driver.expiryDate}
+                          Expires: {driver.licenseExpiryDate}
                         </span>
                         {expired && <FiAlertTriangle size={12} className="text-red-500 shrink-0" title="License Expired!" />}
                       </div>
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400">
-                      <FiPhone size={12} className="text-slate-400" />
-                      <span>{driver.contact}</span>
+                    <div className="flex flex-col gap-0.5 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                      <div className="flex items-center gap-1.5">
+                        <FiPhone size={12} className="text-slate-400" />
+                        <span>{driver.contactNumber}</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400">{driver.email}</div>
                     </div>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="flex items-center gap-3 min-w-[120px]">
-                      <div className="flex-1 bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
-                        <div
-                          className={`h-full rounded-full ${getSafetyScoreColor(driver.safetyScore)}`}
-                          style={{ width: `${driver.safetyScore}%` }}
-                        />
+                      <div className="flex items-center gap-3 min-w-[120px]">
+                        <div className="flex-1 bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                          <div
+                            className={`h-full rounded-full ${getSafetyScoreColor(driver.safetyScore)}`}
+                            style={{ width: `${(driver.safetyScore || 0) * 10}%` }}
+                          />
+                        </div>
+                        <div className="flex flex-col text-right shrink-0">
+                          <span className="text-xs font-bold text-slate-850 dark:text-slate-105">{driver.safetyScore}/10</span>
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{getSafetyScoreText(driver.safetyScore)}</span>
+                        </div>
                       </div>
-                      <div className="flex flex-col text-right shrink-0">
-                        <span className="text-xs font-bold text-slate-850 dark:text-slate-105">{driver.safetyScore}</span>
-                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">{getSafetyScoreText(driver.safetyScore)}</span>
-                      </div>
-                    </div>
                   </td>
                   <td className="px-5 py-4 text-xs">
                     <Badge variant={statusVariants[driver.status]}>
@@ -300,18 +304,25 @@ export const Drivers = () => {
         title={editingDriver ? `Edit Operator Profile: ${editingDriver.name}` : 'Create Driver Profile'}
       >
         <form onSubmit={handleSubmit(onSubmitForm)} className="flex flex-col gap-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Input
               label="Full Name"
               placeholder="e.g. Alex Johnson"
               error={errors.name}
-              {...register('name', { required: 'Driver name is required' })}
+              {...register('name', { required: 'Required' })}
+            />
+            <Input
+              label="Email Address"
+              type="email"
+              placeholder="e.g. alex@example.com"
+              error={errors.email}
+              {...register('email', { required: 'Required' })}
             />
             <Input
               label="Contact Number"
               placeholder="e.g. +1 555-0192"
-              error={errors.contact}
-              {...register('contact', { required: 'Contact phone is required' })}
+              error={errors.contactNumber}
+              {...register('contactNumber', { required: 'Required' })}
             />
           </div>
 
@@ -319,8 +330,8 @@ export const Drivers = () => {
             <Input
               label="License Number"
               placeholder="e.g. DL-88492"
-              error={errors.licenseNo}
-              {...register('licenseNo', { required: 'License number is required' })}
+              error={errors.licenseNumber}
+              {...register('licenseNumber', { required: 'Required' })}
             />
             <Select
               label="License Class"
@@ -329,26 +340,27 @@ export const Drivers = () => {
                 { value: 'Class B', label: 'Class B (Light Truck)' },
                 { value: 'Class C', label: 'Class C (Standard Car)' }
               ]}
-              {...register('category')}
+              {...register('licenseCategory')}
             />
             <Input
               label="License Expiry"
               type="date"
-              error={errors.expiryDate}
-              {...register('expiryDate', { required: 'Expiry date is required' })}
+              error={errors.licenseExpiryDate}
+              {...register('licenseExpiryDate', { required: 'Required' })}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="Safety compliance Score (0-100)"
+              label="Safety compliance Score (0-10)"
               type="number"
-              placeholder="100"
+              placeholder="10"
+              step="0.1"
               error={errors.safetyScore}
               {...register('safetyScore', {
                 required: 'Safety score is required',
                 min: { value: 0, message: 'Minimum score is 0' },
-                max: { value: 100, message: 'Maximum score is 100' }
+                max: { value: 10, message: 'Maximum score is 10' }
               })}
             />
             <Select
