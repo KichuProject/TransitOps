@@ -21,6 +21,7 @@ public class TripResponse {
     private Double plannedDistance;
     private Double actualDistance;
     private Double fuelConsumed;
+    private Double revenue;
     private TripStatus status;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

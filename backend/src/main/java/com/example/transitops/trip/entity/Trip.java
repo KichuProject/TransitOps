@@ -37,6 +37,9 @@ public class Trip {
     @Column(name = "fuel_consumed")
     private Double fuelConsumed;
 
+    @Column
+    private Double revenue;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TripStatus status = TripStatus.DRAFT;

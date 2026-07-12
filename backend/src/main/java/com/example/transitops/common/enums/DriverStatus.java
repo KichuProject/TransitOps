@@ -2,7 +2,7 @@ package com.example.transitops.common.enums;
 
 public enum DriverStatus {
     AVAILABLE,
-    ON_DUTY,
-    ON_LEAVE,
-    INACTIVE
+    ON_TRIP,
+    OFF_DUTY,
+    SUSPENDED
 }

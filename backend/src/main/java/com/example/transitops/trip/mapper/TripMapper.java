@@ -22,5 +22,7 @@ public interface TripMapper {
     @Mapping(target = "endTime", ignore = true)
     @Mapping(target = "actualDistance", ignore = true)
     @Mapping(target = "fuelConsumed", ignore = true)
+    @Mapping(target = "revenue", ignore = true)
+    @Mapping(target = "id", ignore = true)
     Trip toEntity(TripRequest request);
 }

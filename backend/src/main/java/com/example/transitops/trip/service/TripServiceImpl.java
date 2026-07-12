@@ -19,6 +19,7 @@ import com.example.transitops.vehicle.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,8 +33,10 @@ public class TripServiceImpl implements TripService {
     private final DriverRepository driverRepository;
     private final TripMapper tripMapper;
 
-    public TripServiceImpl(TripRepository tripRepository, VehicleRepository vehicleRepository,
-                           DriverRepository driverRepository, TripMapper tripMapper) {
+    public TripServiceImpl(TripRepository tripRepository,
+                           VehicleRepository vehicleRepository,
+                           DriverRepository driverRepository,
+                           TripMapper tripMapper) {
         this.tripRepository = tripRepository;
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
@@ -47,11 +50,28 @@ public class TripServiceImpl implements TripService {
         Driver driver = driverRepository.findById(request.getDriverId())
                 .orElseThrow(() -> new ResourceNotFoundException("Driver not found with id: " + request.getDriverId()));
 
+        // PDF Rule: Retired or In Shop vehicles must never appear in dispatch selection
         if (vehicle.getStatus() == VehicleStatus.RETIRED) {
             throw new BusinessException("Cannot assign a RETIRED vehicle to a trip");
         }
-        if (driver.getStatus() == DriverStatus.INACTIVE) {
-            throw new BusinessException("Cannot assign an INACTIVE driver to a trip");
+        if (vehicle.getStatus() == VehicleStatus.IN_SHOP) {
+            throw new BusinessException("Cannot assign an IN_SHOP vehicle to a trip");
+        }
+        // PDF Rule: Drivers with Suspended status cannot be assigned to trips
+        if (driver.getStatus() == DriverStatus.SUSPENDED) {
+            throw new BusinessException("Cannot assign a SUSPENDED driver to a trip");
+        }
+        // PDF Rule: Drivers with expired licenses cannot be assigned to trips
+        if (driver.getLicenseExpiryDate() != null && driver.getLicenseExpiryDate().isBefore(LocalDate.now())) {
+            throw new BusinessException("Cannot assign a driver with an expired license to a trip");
+        }
+        // PDF Rule: A driver already marked On Trip cannot be assigned to another trip
+        if (driver.getStatus() == DriverStatus.ON_TRIP) {
+            throw new BusinessException("Driver is already ON_TRIP and cannot be assigned to another trip");
+        }
+        // PDF Rule: A vehicle already marked On Trip cannot be assigned to another trip
+        if (vehicle.getStatus() == VehicleStatus.ON_TRIP) {
+            throw new BusinessException("Vehicle is already ON_TRIP and cannot be assigned to another trip");
         }
 
         Trip trip = tripMapper.toEntity(request);
@@ -121,12 +141,17 @@ public class TripServiceImpl implements TripService {
         if (driver.getStatus() != DriverStatus.AVAILABLE) {
             throw new BusinessException("Driver is not AVAILABLE for dispatch. Current status: " + driver.getStatus());
         }
+        // PDF Rule: Drivers with expired licenses cannot be assigned to trips
+        if (driver.getLicenseExpiryDate() != null && driver.getLicenseExpiryDate().isBefore(LocalDate.now())) {
+            throw new BusinessException("Cannot dispatch: driver's license has expired");
+        }
         if (vehicle.getMaximumLoadCapacity() < trip.getCargoWeight()) {
             throw new BusinessException("Cargo weight exceeds vehicle maximum load capacity");
         }
 
-        vehicle.setStatus(VehicleStatus.IN_USE);
-        driver.setStatus(DriverStatus.ON_DUTY);
+        // PDF Rule: Dispatching automatically changes both to On Trip
+        vehicle.setStatus(VehicleStatus.ON_TRIP);
+        driver.setStatus(DriverStatus.ON_TRIP);
         vehicleRepository.save(vehicle);
         driverRepository.save(driver);
 
@@ -145,6 +170,7 @@ public class TripServiceImpl implements TripService {
         Vehicle vehicle = trip.getVehicle();
         Driver driver = trip.getDriver();
 
+        // PDF Rule: Completing a trip automatically changes both back to Available
         vehicle.setStatus(VehicleStatus.AVAILABLE);
         vehicle.setOdometer(vehicle.getOdometer() + request.getActualDistance());
         driver.setStatus(DriverStatus.AVAILABLE);
@@ -155,6 +181,7 @@ public class TripServiceImpl implements TripService {
         trip.setEndTime(LocalDateTime.now());
         trip.setActualDistance(request.getActualDistance());
         trip.setFuelConsumed(request.getFuelConsumed());
+        trip.setRevenue(request.getRevenue());
         return tripMapper.toResponse(tripRepository.save(trip));
     }
 
@@ -165,6 +192,7 @@ public class TripServiceImpl implements TripService {
             throw new BusinessException("Trip is already " + trip.getStatus());
         }
 
+        // PDF Rule: Cancelling a dispatched trip restores vehicle and driver to Available
         if (trip.getStatus() == TripStatus.DISPATCHED) {
             Vehicle vehicle = trip.getVehicle();
             Driver driver = trip.getDriver();

@@ -20,5 +20,6 @@ public class VehicleResponse {
     private Double maximumLoadCapacity;
     private Double odometer;
     private Double acquisitionCost;
+    private String region;
     private VehicleStatus status;
 }

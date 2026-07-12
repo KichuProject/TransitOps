@@ -73,8 +73,8 @@ public class DriverServiceImpl implements DriverService {
     public void delete(Long id) {
         Driver driver = driverRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Driver not found with id: " + id));
-        if (driver.getStatus() == DriverStatus.ON_DUTY) {
-            throw new BusinessException("Cannot delete a driver that is currently ON_DUTY");
+        if (driver.getStatus() == DriverStatus.ON_TRIP) {
+            throw new BusinessException("Cannot delete a driver that is currently ON_TRIP");
         }
         driverRepository.deleteById(id);
     }

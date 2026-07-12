@@ -13,13 +13,13 @@ public class DashboardResponse {
 
     private long totalVehicles;
     private long availableVehicles;
-    private long vehiclesInUse;
-    private long vehiclesUnderMaintenance;
+    private long vehiclesOnTrip;
+    private long vehiclesInShop;
     private long retiredVehicles;
 
     private long totalDrivers;
     private long availableDrivers;
-    private long driversOnDuty;
+    private long driversOnTrip;
 
     private long totalTrips;
     private long activeTrips;       // DISPATCHED
@@ -27,5 +27,5 @@ public class DashboardResponse {
     private long completedTrips;
     private long cancelledTrips;
 
-    private double fleetUtilizationPercent; // (IN_USE / total) * 100
+    private double fleetUtilizationPercent; // (ON_TRIP / total) * 100
 }

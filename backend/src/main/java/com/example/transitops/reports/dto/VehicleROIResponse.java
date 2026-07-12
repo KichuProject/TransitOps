@@ -15,9 +15,10 @@ public class VehicleROIResponse {
     private String vehicleName;
     private String registrationNumber;
     private Double acquisitionCost;
+    private Double totalRevenue;
     private Double totalOperationalCost;
     private Double totalDistanceKm;
     private long completedTrips;
-    private Double costPerKm;               // operational cost / total distance
-    private Double roiScore;                // distance / (acquisition + operational cost) * 1000
+    private Double costPerKm;
+    private Double roiScore;                // (Revenue - (Maintenance + Fuel)) / Acquisition Cost
 }

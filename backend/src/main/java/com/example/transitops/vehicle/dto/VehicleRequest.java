@@ -31,4 +31,6 @@ public class VehicleRequest {
     @NotNull(message = "Acquisition cost is required")
     @Positive(message = "Acquisition cost must be positive")
     private Double acquisitionCost;
+
+    private String region;
 }

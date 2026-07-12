@@ -35,6 +35,9 @@ public class Vehicle {
     @Column(name = "acquisition_cost", nullable = false)
     private Double acquisitionCost;
 
+    @Column
+    private String region;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private VehicleStatus status = VehicleStatus.AVAILABLE;

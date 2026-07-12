@@ -16,4 +16,7 @@ public class CompleteTripRequest {
     @NotNull(message = "Fuel consumed is required")
     @Positive(message = "Fuel consumed must be positive")
     private Double fuelConsumed;
+
+    @Positive(message = "Revenue must be positive")
+    private Double revenue;
 }

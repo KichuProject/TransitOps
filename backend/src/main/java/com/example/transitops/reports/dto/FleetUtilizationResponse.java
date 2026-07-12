@@ -13,10 +13,10 @@ public class FleetUtilizationResponse {
 
     private long totalVehicles;
     private long availableVehicles;
-    private long vehiclesInUse;
-    private long vehiclesUnderMaintenance;
+    private long vehiclesOnTrip;
+    private long vehiclesInShop;
     private long retiredVehicles;
-    private double utilizationPercent;      // (in_use / total) * 100
+    private double utilizationPercent;      // (ON_TRIP / total) * 100
     private long totalCompletedTrips;
     private double averageTripsPerVehicle;
 }

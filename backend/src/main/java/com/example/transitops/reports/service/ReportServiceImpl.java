@@ -7,6 +7,7 @@ import com.example.transitops.finance.repository.ExpenseRepository;
 import com.example.transitops.finance.repository.FuelLogRepository;
 import com.example.transitops.maintenance.repository.MaintenanceRepository;
 import com.example.transitops.reports.dto.*;
+import com.example.transitops.trip.entity.Trip;
 import com.example.transitops.trip.repository.TripRepository;
 import com.example.transitops.vehicle.entity.Vehicle;
 import com.example.transitops.vehicle.repository.VehicleRepository;
@@ -72,13 +73,13 @@ public class ReportServiceImpl implements ReportService {
     public FleetUtilizationResponse getFleetUtilization() {
         long total              = vehicleRepository.count();
         long available          = vehicleRepository.countByStatus(VehicleStatus.AVAILABLE);
-        long inUse              = vehicleRepository.countByStatus(VehicleStatus.IN_USE);
-        long underMaintenance   = vehicleRepository.countByStatus(VehicleStatus.UNDER_MAINTENANCE);
+        long onTrip             = vehicleRepository.countByStatus(VehicleStatus.ON_TRIP);
+        long inShop             = vehicleRepository.countByStatus(VehicleStatus.IN_SHOP);
         long retired            = vehicleRepository.countByStatus(VehicleStatus.RETIRED);
         long completedTrips     = tripRepository.countByStatus(TripStatus.COMPLETED);
 
         double utilization = total > 0
-                ? Math.round((inUse * 100.0 / total) * 100.0) / 100.0 : 0.0;
+                ? Math.round((onTrip * 100.0 / total) * 100.0) / 100.0 : 0.0;
 
         double avgTrips = total > 0
                 ? Math.round((completedTrips * 100.0 / total) * 100.0) / 100.0 : 0.0;
@@ -86,8 +87,8 @@ public class ReportServiceImpl implements ReportService {
         return FleetUtilizationResponse.builder()
                 .totalVehicles(total)
                 .availableVehicles(available)
-                .vehiclesInUse(inUse)
-                .vehiclesUnderMaintenance(underMaintenance)
+                .vehiclesOnTrip(onTrip)
+                .vehiclesInShop(inShop)
                 .retiredVehicles(retired)
                 .utilizationPercent(utilization)
                 .totalCompletedTrips(completedTrips)
@@ -125,33 +126,40 @@ public class ReportServiceImpl implements ReportService {
     public List<VehicleROIResponse> getVehicleROI() {
         return vehicleRepository.findAll().stream().map(vehicle -> {
             double fuelCost    = orZero(fuelLogRepository.sumCostByVehicleId(vehicle.getId()));
-            double expCost     = orZero(expenseRepository.sumAmountByVehicleId(vehicle.getId()));
             double maintCost   = maintenanceRepository.findByVehicleId(vehicle.getId()).stream()
                     .mapToDouble(m -> m.getCost() != null ? m.getCost() : 0.0).sum();
 
-            double totalOps = fuelCost + expCost + maintCost;
+            // PDF ROI Formula: [Revenue - (Maintenance + Fuel)] / Acquisition Cost
+            double totalRevenue = tripRepository.findByVehicleId(vehicle.getId()).stream()
+                    .filter(t -> t.getStatus() == TripStatus.COMPLETED && t.getRevenue() != null)
+                    .mapToDouble(Trip::getRevenue)
+                    .sum();
 
             double totalDistance = tripRepository.findByVehicleId(vehicle.getId()).stream()
                     .filter(t -> t.getStatus() == TripStatus.COMPLETED && t.getActualDistance() != null)
-                    .mapToDouble(t -> t.getActualDistance())
+                    .mapToDouble(Trip::getActualDistance)
                     .sum();
 
             long completedTrips = tripRepository.findByVehicleId(vehicle.getId()).stream()
                     .filter(t -> t.getStatus() == TripStatus.COMPLETED)
                     .count();
 
+            double totalOps = fuelCost + maintCost;
+
             double costPerKm = (totalOps > 0 && totalDistance > 0)
                     ? Math.round((totalOps / totalDistance) * 100.0) / 100.0 : 0.0;
 
-            double totalInvestment = vehicle.getAcquisitionCost() + totalOps;
-            double roiScore = totalInvestment > 0
-                    ? Math.round((totalDistance / totalInvestment * 1000) * 100.0) / 100.0 : 0.0;
+            // ROI = (Revenue - (Maintenance + Fuel)) / Acquisition Cost
+            double roiScore = vehicle.getAcquisitionCost() > 0
+                    ? Math.round(((totalRevenue - totalOps) / vehicle.getAcquisitionCost()) * 10000.0) / 10000.0
+                    : 0.0;
 
             return VehicleROIResponse.builder()
                     .vehicleId(vehicle.getId())
                     .vehicleName(vehicle.getVehicleName())
                     .registrationNumber(vehicle.getRegistrationNumber())
                     .acquisitionCost(vehicle.getAcquisitionCost())
+                    .totalRevenue(totalRevenue)
                     .totalOperationalCost(totalOps)
                     .totalDistanceKm(totalDistance)
                     .completedTrips(completedTrips)
@@ -167,7 +175,7 @@ public class ReportServiceImpl implements ReportService {
 
         List<String> headers = List.of(
                 "VehicleId", "RegistrationNumber", "VehicleName", "Status",
-                "TotalFuelCost", "TotalExpenses", "TotalOperationalCost", "TotalDistanceKm", "CompletedTrips"
+                "TotalFuelCost", "TotalExpenses", "TotalOperationalCost", "TotalDistanceKm", "CompletedTrips", "Revenue", "ROI"
         );
 
         List<List<String>> rows = vehicles.stream().map(vehicle -> {
@@ -184,6 +192,14 @@ public class ReportServiceImpl implements ReportService {
             long completedTrips = tripRepository.findByVehicleId(vehicle.getId()).stream()
                     .filter(t -> t.getStatus() == TripStatus.COMPLETED).count();
 
+            double totalRevenue = tripRepository.findByVehicleId(vehicle.getId()).stream()
+                    .filter(t -> t.getStatus() == TripStatus.COMPLETED && t.getRevenue() != null)
+                    .mapToDouble(Trip::getRevenue).sum();
+
+            double roi = vehicle.getAcquisitionCost() > 0
+                    ? Math.round(((totalRevenue - (fuelCost + maintCost)) / vehicle.getAcquisitionCost()) * 10000.0) / 10000.0
+                    : 0.0;
+
             return List.of(
                     String.valueOf(vehicle.getId()),
                     vehicle.getRegistrationNumber(),
@@ -193,7 +209,9 @@ public class ReportServiceImpl implements ReportService {
                     String.valueOf(expCost),
                     String.valueOf(totalOps),
                     String.valueOf(totalDistance),
-                    String.valueOf(completedTrips)
+                    String.valueOf(completedTrips),
+                    String.valueOf(totalRevenue),
+                    String.valueOf(roi)
             );
         }).collect(Collectors.toList());
 

@@ -39,8 +39,8 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         Vehicle vehicle = vehicleRepository.findById(request.getVehicleId())
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found with id: " + request.getVehicleId()));
 
-        if (vehicle.getStatus() == VehicleStatus.IN_USE) {
-            throw new BusinessException("Cannot schedule maintenance for a vehicle that is currently IN_USE");
+        if (vehicle.getStatus() == VehicleStatus.ON_TRIP) {
+            throw new BusinessException("Cannot schedule maintenance for a vehicle that is currently ON_TRIP");
         }
         if (vehicle.getStatus() == VehicleStatus.RETIRED) {
             throw new BusinessException("Cannot schedule maintenance for a RETIRED vehicle");
@@ -50,7 +50,8 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         log.setVehicle(vehicle);
         log.setStatus(MaintenanceStatus.ACTIVE);
 
-        vehicle.setStatus(VehicleStatus.UNDER_MAINTENANCE);
+        // PDF Rule: Creating an active maintenance record automatically changes vehicle status to In Shop
+        vehicle.setStatus(VehicleStatus.IN_SHOP);
         vehicleRepository.save(vehicle);
 
         return maintenanceMapper.toResponse(maintenanceRepository.save(log));
@@ -107,9 +108,12 @@ public class MaintenanceServiceImpl implements MaintenanceService {
             throw new BusinessException("Maintenance record is already COMPLETED");
         }
 
+        // PDF Rule: Closing maintenance restores the vehicle to Available (unless retired)
         Vehicle vehicle = log.getVehicle();
-        vehicle.setStatus(VehicleStatus.AVAILABLE);
-        vehicleRepository.save(vehicle);
+        if (vehicle.getStatus() != VehicleStatus.RETIRED) {
+            vehicle.setStatus(VehicleStatus.AVAILABLE);
+            vehicleRepository.save(vehicle);
+        }
 
         log.setStatus(MaintenanceStatus.COMPLETED);
         log.setEndDate(LocalDate.now());

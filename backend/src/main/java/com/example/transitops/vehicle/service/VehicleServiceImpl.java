@@ -73,8 +73,8 @@ public class VehicleServiceImpl implements VehicleService {
     public void delete(Long id) {
         Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found with id: " + id));
-        if (vehicle.getStatus() == VehicleStatus.IN_USE) {
-            throw new BusinessException("Cannot delete a vehicle that is currently IN_USE");
+        if (vehicle.getStatus() == VehicleStatus.ON_TRIP) {
+            throw new BusinessException("Cannot delete a vehicle that is currently ON_TRIP");
         }
         vehicleRepository.deleteById(id);
     }
