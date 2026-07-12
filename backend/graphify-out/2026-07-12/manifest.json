@@ -1,0 +1,512 @@
+{
+  "mvnw": {
+    "mtime": 1783833113.265025,
+    "ast_hash": "ab50dd89da7da2346b28003352eeeeeb",
+    "semantic_hash": "ab50dd89da7da2346b28003352eeeeeb"
+  },
+  "pom.xml": {
+    "mtime": 1783839159.6998818,
+    "ast_hash": "8826aec6f4018a887838767044ecf4ce",
+    "semantic_hash": "8826aec6f4018a887838767044ecf4ce"
+  },
+  "src/test/java/com/example/transitops/transit/TransitApplicationTests.java": {
+    "mtime": 1783833977.656267,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "src/main/java/com/example/transitops/TransitOpsApplication.java": {
+    "mtime": 1783839127.1173542,
+    "ast_hash": "7b148e3fdf7b0e1e822c69946e4ff4d6",
+    "semantic_hash": "7b148e3fdf7b0e1e822c69946e4ff4d6"
+  },
+  "src/main/java/com/example/transitops/auth/controller/AuthController.java": {
+    "mtime": 1783838443.8956463,
+    "ast_hash": "def533f29f290f4f5173f5c5ad01969b",
+    "semantic_hash": "def533f29f290f4f5173f5c5ad01969b"
+  },
+  "src/main/java/com/example/transitops/auth/dto/LoginRequest.java": {
+    "mtime": 1783838428.3897946,
+    "ast_hash": "400fccf09fe9c4df0578917199610ee1",
+    "semantic_hash": "400fccf09fe9c4df0578917199610ee1"
+  },
+  "src/main/java/com/example/transitops/auth/dto/LoginResponse.java": {
+    "mtime": 1783838431.158824,
+    "ast_hash": "48e772342fe21b0779379e3f68f0b8ac",
+    "semantic_hash": "48e772342fe21b0779379e3f68f0b8ac"
+  },
+  "src/main/java/com/example/transitops/auth/entity/Role.java": {
+    "mtime": 1783838415.2401304,
+    "ast_hash": "afd430b81011d7f55586faf12a3c0984",
+    "semantic_hash": "afd430b81011d7f55586faf12a3c0984"
+  },
+  "src/main/java/com/example/transitops/auth/entity/User.java": {
+    "mtime": 1783838417.0784094,
+    "ast_hash": "a949268802a0634500a8f79a8399549b",
+    "semantic_hash": "a949268802a0634500a8f79a8399549b"
+  },
+  "src/main/java/com/example/transitops/auth/mapper/UserMapper.java": {
+    "mtime": 1783838434.1134794,
+    "ast_hash": "63334d48a23348cac198c225c9706669",
+    "semantic_hash": "63334d48a23348cac198c225c9706669"
+  },
+  "src/main/java/com/example/transitops/auth/repository/RoleRepository.java": {
+    "mtime": 1783838419.1588044,
+    "ast_hash": "a4b44d4f92ce8867b562f84614fe7e2a",
+    "semantic_hash": "a4b44d4f92ce8867b562f84614fe7e2a"
+  },
+  "src/main/java/com/example/transitops/auth/repository/UserRepository.java": {
+    "mtime": 1783838420.2863154,
+    "ast_hash": "5e5575e25ab3e432eb900ebf0568facb",
+    "semantic_hash": "5e5575e25ab3e432eb900ebf0568facb"
+  },
+  "src/main/java/com/example/transitops/auth/service/AuthService.java": {
+    "mtime": 1783838438.988003,
+    "ast_hash": "44402fe2ccf8f2a1dee384be1191e147",
+    "semantic_hash": "44402fe2ccf8f2a1dee384be1191e147"
+  },
+  "src/main/java/com/example/transitops/auth/service/AuthServiceImpl.java": {
+    "mtime": 1783838441.8736331,
+    "ast_hash": "3846812e28ec962db8f737f57d067761",
+    "semantic_hash": "3846812e28ec962db8f737f57d067761"
+  },
+  "src/main/java/com/example/transitops/common/enums/DriverStatus.java": {
+    "mtime": 1783838349.530496,
+    "ast_hash": "c56fc5fd47a9f63d99ad418b52697700",
+    "semantic_hash": "c56fc5fd47a9f63d99ad418b52697700"
+  },
+  "src/main/java/com/example/transitops/common/enums/ExpenseType.java": {
+    "mtime": 1783838355.7207382,
+    "ast_hash": "058d74a643757dc08d9671c6219d8c7d",
+    "semantic_hash": "058d74a643757dc08d9671c6219d8c7d"
+  },
+  "src/main/java/com/example/transitops/common/enums/MaintenanceStatus.java": {
+    "mtime": 1783838353.6738486,
+    "ast_hash": "5b3f1f887c0b5be7d3fda9075b42653a",
+    "semantic_hash": "5b3f1f887c0b5be7d3fda9075b42653a"
+  },
+  "src/main/java/com/example/transitops/common/enums/TripStatus.java": {
+    "mtime": 1783838351.6656435,
+    "ast_hash": "fda5d5e3d0635ab2550e8a7973181dbe",
+    "semantic_hash": "fda5d5e3d0635ab2550e8a7973181dbe"
+  },
+  "src/main/java/com/example/transitops/common/enums/VehicleStatus.java": {
+    "mtime": 1783838347.9116397,
+    "ast_hash": "b15d8581bdc0ee26d0ff218268db9e1c",
+    "semantic_hash": "b15d8581bdc0ee26d0ff218268db9e1c"
+  },
+  "src/main/java/com/example/transitops/common/enums/VehicleType.java": {
+    "mtime": 1783838357.738089,
+    "ast_hash": "6823c28575941017d157d95c0110f683",
+    "semantic_hash": "6823c28575941017d157d95c0110f683"
+  },
+  "src/main/java/com/example/transitops/common/exception/BusinessException.java": {
+    "mtime": 1783838380.5662858,
+    "ast_hash": "343442404b86687fc9f08040a5323ddd",
+    "semantic_hash": "343442404b86687fc9f08040a5323ddd"
+  },
+  "src/main/java/com/example/transitops/common/exception/DuplicateResourceException.java": {
+    "mtime": 1783838378.545082,
+    "ast_hash": "96568c9ac5e5a2bb2ddf481be9bd6e40",
+    "semantic_hash": "96568c9ac5e5a2bb2ddf481be9bd6e40"
+  },
+  "src/main/java/com/example/transitops/common/exception/GlobalExceptionHandler.java": {
+    "mtime": 1783838389.5702045,
+    "ast_hash": "3488a1b1d9545b6058138852f73f0afb",
+    "semantic_hash": "3488a1b1d9545b6058138852f73f0afb"
+  },
+  "src/main/java/com/example/transitops/common/exception/ResourceNotFoundException.java": {
+    "mtime": 1783838376.5270188,
+    "ast_hash": "72ffdba2878fc370d8ed0cd2538299b9",
+    "semantic_hash": "72ffdba2878fc370d8ed0cd2538299b9"
+  },
+  "src/main/java/com/example/transitops/common/exception/UnauthorizedException.java": {
+    "mtime": 1783838387.5547452,
+    "ast_hash": "51257f5d03aef8117909cd6515c2accd",
+    "semantic_hash": "51257f5d03aef8117909cd6515c2accd"
+  },
+  "src/main/java/com/example/transitops/common/response/ApiError.java": {
+    "mtime": 1783838369.61212,
+    "ast_hash": "637c244236967c4a8f9cf3a6af6b3a72",
+    "semantic_hash": "637c244236967c4a8f9cf3a6af6b3a72"
+  },
+  "src/main/java/com/example/transitops/common/response/ApiResponse.java": {
+    "mtime": 1783838368.6108558,
+    "ast_hash": "c69326cd62a7cbc09cded45f8374e4d7",
+    "semantic_hash": "c69326cd62a7cbc09cded45f8374e4d7"
+  },
+  "src/main/java/com/example/transitops/common/util/CsvExporter.java": {
+    "mtime": 1783838400.6418614,
+    "ast_hash": "052ebd79a5ecc2ca2e1247385299463e",
+    "semantic_hash": "052ebd79a5ecc2ca2e1247385299463e"
+  },
+  "src/main/java/com/example/transitops/common/util/ValidationUtil.java": {
+    "mtime": 1783838402.679994,
+    "ast_hash": "92aa0c920e71f123c1c09a9e4147192f",
+    "semantic_hash": "92aa0c920e71f123c1c09a9e4147192f"
+  },
+  "src/main/java/com/example/transitops/config/AppConfig.java": {
+    "mtime": 1783838266.128314,
+    "ast_hash": "f100820460dedde5bfbe63c9f704930a",
+    "semantic_hash": "f100820460dedde5bfbe63c9f704930a"
+  },
+  "src/main/java/com/example/transitops/config/CorsConfig.java": {
+    "mtime": 1783838270.1499307,
+    "ast_hash": "7a42b9f664ca89e6bdbcfeadb634491e",
+    "semantic_hash": "7a42b9f664ca89e6bdbcfeadb634491e"
+  },
+  "src/main/java/com/example/transitops/config/DataInitializer.java": {
+    "mtime": 1783838304.7767189,
+    "ast_hash": "ae39090020687f4ab1e677c2004390e9",
+    "semantic_hash": "ae39090020687f4ab1e677c2004390e9"
+  },
+  "src/main/java/com/example/transitops/config/OpenApiConfig.java": {
+    "mtime": 1783838272.2555497,
+    "ast_hash": "6d5a504cef1ac04d69870cd6dcd95e69",
+    "semantic_hash": "6d5a504cef1ac04d69870cd6dcd95e69"
+  },
+  "src/main/java/com/example/transitops/config/PasswordEncoderConfig.java": {
+    "mtime": 1783838274.2667928,
+    "ast_hash": "689a9db73601568e6cd48a30cd7ca9c8",
+    "semantic_hash": "689a9db73601568e6cd48a30cd7ca9c8"
+  },
+  "src/main/java/com/example/transitops/config/SecurityConfig.java": {
+    "mtime": 1783838290.4601133,
+    "ast_hash": "1b4f72b91517c1465a6f96323e676508",
+    "semantic_hash": "1b4f72b91517c1465a6f96323e676508"
+  },
+  "src/main/java/com/example/transitops/dashboard/controller/DashboardController.java": {
+    "mtime": 1783839053.134552,
+    "ast_hash": "7be53a6fedc69e9d7dec9515fa15ac63",
+    "semantic_hash": "7be53a6fedc69e9d7dec9515fa15ac63"
+  },
+  "src/main/java/com/example/transitops/dashboard/dto/DashboardResponse.java": {
+    "mtime": 1783839038.4773371,
+    "ast_hash": "fcd7519c3d601a1e33ab233326455c5b",
+    "semantic_hash": "fcd7519c3d601a1e33ab233326455c5b"
+  },
+  "src/main/java/com/example/transitops/dashboard/service/DashboardService.java": {
+    "mtime": 1783839047.7184112,
+    "ast_hash": "e410e2e68807227528969042d391ea02",
+    "semantic_hash": "e410e2e68807227528969042d391ea02"
+  },
+  "src/main/java/com/example/transitops/dashboard/service/DashboardServiceImpl.java": {
+    "mtime": 1783839051.1140954,
+    "ast_hash": "bc8ccb9293da11271461f99de8e92efe",
+    "semantic_hash": "bc8ccb9293da11271461f99de8e92efe"
+  },
+  "src/main/java/com/example/transitops/driver/controller/DriverController.java": {
+    "mtime": 1783838529.9204874,
+    "ast_hash": "9c15984be171cb9311f9456f302b4532",
+    "semantic_hash": "9c15984be171cb9311f9456f302b4532"
+  },
+  "src/main/java/com/example/transitops/driver/dto/DriverRequest.java": {
+    "mtime": 1783838508.9810421,
+    "ast_hash": "b02a85d99f4407612732eb2b2934736c",
+    "semantic_hash": "b02a85d99f4407612732eb2b2934736c"
+  },
+  "src/main/java/com/example/transitops/driver/dto/DriverResponse.java": {
+    "mtime": 1783838511.3875222,
+    "ast_hash": "e385610cde97687dd8c09178995c20c2",
+    "semantic_hash": "e385610cde97687dd8c09178995c20c2"
+  },
+  "src/main/java/com/example/transitops/driver/entity/Driver.java": {
+    "mtime": 1783838502.979323,
+    "ast_hash": "7b4bc0591b5314dad908be28a9491c3a",
+    "semantic_hash": "7b4bc0591b5314dad908be28a9491c3a"
+  },
+  "src/main/java/com/example/transitops/driver/mapper/DriverMapper.java": {
+    "mtime": 1783838513.7922292,
+    "ast_hash": "4fb0f6c32f2f0efb18be2b4403bcfa80",
+    "semantic_hash": "4fb0f6c32f2f0efb18be2b4403bcfa80"
+  },
+  "src/main/java/com/example/transitops/driver/repository/DriverRepository.java": {
+    "mtime": 1783838506.1918468,
+    "ast_hash": "87ab6a893165db68d9117aa17bea8201",
+    "semantic_hash": "87ab6a893165db68d9117aa17bea8201"
+  },
+  "src/main/java/com/example/transitops/driver/service/DriverService.java": {
+    "mtime": 1783838522.2733848,
+    "ast_hash": "f3629324c18075c0a3d5152736f5ac25",
+    "semantic_hash": "f3629324c18075c0a3d5152736f5ac25"
+  },
+  "src/main/java/com/example/transitops/driver/service/DriverServiceImpl.java": {
+    "mtime": 1783838527.9083855,
+    "ast_hash": "6d4d0d17493486cc15b45c35ec3bce63",
+    "semantic_hash": "6d4d0d17493486cc15b45c35ec3bce63"
+  },
+  "src/main/java/com/example/transitops/finance/controller/ExpenseController.java": {
+    "mtime": 1783839026.6680923,
+    "ast_hash": "8ed808bf8886c381e9bdcba02baeeff3",
+    "semantic_hash": "8ed808bf8886c381e9bdcba02baeeff3"
+  },
+  "src/main/java/com/example/transitops/finance/controller/FuelLogController.java": {
+    "mtime": 1783839024.614223,
+    "ast_hash": "2984257a2fea96ac62a3a5dc63844595",
+    "semantic_hash": "2984257a2fea96ac62a3a5dc63844595"
+  },
+  "src/main/java/com/example/transitops/finance/dto/ExpenseRequest.java": {
+    "mtime": 1783838700.7589495,
+    "ast_hash": "0e6ff8d653fb70b271064f3948f8a9d8",
+    "semantic_hash": "0e6ff8d653fb70b271064f3948f8a9d8"
+  },
+  "src/main/java/com/example/transitops/finance/dto/ExpenseResponse.java": {
+    "mtime": 1783838702.7729707,
+    "ast_hash": "28bfeee96b46ce1bb9955e8f6ebbe799",
+    "semantic_hash": "28bfeee96b46ce1bb9955e8f6ebbe799"
+  },
+  "src/main/java/com/example/transitops/finance/dto/FuelLogRequest.java": {
+    "mtime": 1783838693.819476,
+    "ast_hash": "ad1e03e101bc96c3ccfb1afec7f6eaae",
+    "semantic_hash": "ad1e03e101bc96c3ccfb1afec7f6eaae"
+  },
+  "src/main/java/com/example/transitops/finance/dto/FuelLogResponse.java": {
+    "mtime": 1783838697.1031148,
+    "ast_hash": "065b6633cd68cfba1b3a100a0b84137b",
+    "semantic_hash": "065b6633cd68cfba1b3a100a0b84137b"
+  },
+  "src/main/java/com/example/transitops/finance/entity/Expense.java": {
+    "mtime": 1783838677.3730683,
+    "ast_hash": "f41d21f54523873904cc88a0da3c4be9",
+    "semantic_hash": "f41d21f54523873904cc88a0da3c4be9"
+  },
+  "src/main/java/com/example/transitops/finance/entity/FuelLog.java": {
+    "mtime": 1783838673.8892927,
+    "ast_hash": "5c8c1c80f18345c49e50325a76f2485a",
+    "semantic_hash": "5c8c1c80f18345c49e50325a76f2485a"
+  },
+  "src/main/java/com/example/transitops/finance/mapper/ExpenseMapper.java": {
+    "mtime": 1783838706.9701393,
+    "ast_hash": "0fad33c55d83dad923ca66395e6494eb",
+    "semantic_hash": "0fad33c55d83dad923ca66395e6494eb"
+  },
+  "src/main/java/com/example/transitops/finance/mapper/FuelLogMapper.java": {
+    "mtime": 1783838705.418619,
+    "ast_hash": "38c96a844c2f355318e56aed5c3983a8",
+    "semantic_hash": "38c96a844c2f355318e56aed5c3983a8"
+  },
+  "src/main/java/com/example/transitops/finance/repository/ExpenseRepository.java": {
+    "mtime": 1783838681.7991579,
+    "ast_hash": "8490e6da41cd53964fc905795f3d4dce",
+    "semantic_hash": "8490e6da41cd53964fc905795f3d4dce"
+  },
+  "src/main/java/com/example/transitops/finance/repository/FuelLogRepository.java": {
+    "mtime": 1783838679.7837806,
+    "ast_hash": "184324a492384b889e68749d481b5ba7",
+    "semantic_hash": "184324a492384b889e68749d481b5ba7"
+  },
+  "src/main/java/com/example/transitops/finance/service/ExpenseService.java": {
+    "mtime": 1783838737.4464529,
+    "ast_hash": "09dc1f0fcacc7699b6de38ebaf56b6e2",
+    "semantic_hash": "09dc1f0fcacc7699b6de38ebaf56b6e2"
+  },
+  "src/main/java/com/example/transitops/finance/service/ExpenseServiceImpl.java": {
+    "mtime": 1783838739.4557867,
+    "ast_hash": "f9c6c80730366718b04ed1140d4e2797",
+    "semantic_hash": "f9c6c80730366718b04ed1140d4e2797"
+  },
+  "src/main/java/com/example/transitops/finance/service/FuelLogService.java": {
+    "mtime": 1783838726.8265572,
+    "ast_hash": "caa878ff578974691f803f57c1cb1e0b",
+    "semantic_hash": "caa878ff578974691f803f57c1cb1e0b"
+  },
+  "src/main/java/com/example/transitops/finance/service/FuelLogServiceImpl.java": {
+    "mtime": 1783838728.840256,
+    "ast_hash": "29cb4fa23f33853049c72e1f7a2bd377",
+    "semantic_hash": "29cb4fa23f33853049c72e1f7a2bd377"
+  },
+  "src/main/java/com/example/transitops/maintenance/controller/MaintenanceController.java": {
+    "mtime": 1783838659.7991087,
+    "ast_hash": "b9987a9f1f4f7b0373f843c5906fc4d8",
+    "semantic_hash": "b9987a9f1f4f7b0373f843c5906fc4d8"
+  },
+  "src/main/java/com/example/transitops/maintenance/dto/MaintenanceRequest.java": {
+    "mtime": 1783838617.6895635,
+    "ast_hash": "e56efd676e2c96e0347b5c547eae60bc",
+    "semantic_hash": "e56efd676e2c96e0347b5c547eae60bc"
+  },
+  "src/main/java/com/example/transitops/maintenance/dto/MaintenanceResponse.java": {
+    "mtime": 1783838620.7873778,
+    "ast_hash": "dc4d31a05988ea97768a4f7e21eb7be4",
+    "semantic_hash": "dc4d31a05988ea97768a4f7e21eb7be4"
+  },
+  "src/main/java/com/example/transitops/maintenance/entity/MaintenanceLog.java": {
+    "mtime": 1783838614.0611553,
+    "ast_hash": "94d89a72b16a40d4cd5ff077e69d5f71",
+    "semantic_hash": "94d89a72b16a40d4cd5ff077e69d5f71"
+  },
+  "src/main/java/com/example/transitops/maintenance/mapper/MaintenanceMapper.java": {
+    "mtime": 1783838625.7400424,
+    "ast_hash": "c8d274024f0ed9960701f7dacd821058",
+    "semantic_hash": "c8d274024f0ed9960701f7dacd821058"
+  },
+  "src/main/java/com/example/transitops/maintenance/repository/MaintenanceRepository.java": {
+    "mtime": 1783838615.6704886,
+    "ast_hash": "96f9a3b540b09ce5bd57cf2fbdbd9ad0",
+    "semantic_hash": "96f9a3b540b09ce5bd57cf2fbdbd9ad0"
+  },
+  "src/main/java/com/example/transitops/maintenance/service/MaintenanceService.java": {
+    "mtime": 1783838648.0205917,
+    "ast_hash": "37d728a669dd0ea45b0dec0d5948b555",
+    "semantic_hash": "37d728a669dd0ea45b0dec0d5948b555"
+  },
+  "src/main/java/com/example/transitops/maintenance/service/MaintenanceServiceImpl.java": {
+    "mtime": 1783838657.7845972,
+    "ast_hash": "fb6b697171f6dadef69243bec9fb4b8e",
+    "semantic_hash": "fb6b697171f6dadef69243bec9fb4b8e"
+  },
+  "src/main/java/com/example/transitops/reports/controller/ReportController.java": {
+    "mtime": 1783839119.4159794,
+    "ast_hash": "a53ce88edfd4db1fde45caeffaf27ff2",
+    "semantic_hash": "a53ce88edfd4db1fde45caeffaf27ff2"
+  },
+  "src/main/java/com/example/transitops/reports/dto/CsvExportResponse.java": {
+    "mtime": 1783839076.1558638,
+    "ast_hash": "5b8233aab285575f1cb49a4c0b1327b9",
+    "semantic_hash": "5b8233aab285575f1cb49a4c0b1327b9"
+  },
+  "src/main/java/com/example/transitops/reports/dto/FleetUtilizationResponse.java": {
+    "mtime": 1783839068.82839,
+    "ast_hash": "7866fdb0bc419dc60be10a9ff4f67e48",
+    "semantic_hash": "7866fdb0bc419dc60be10a9ff4f67e48"
+  },
+  "src/main/java/com/example/transitops/reports/dto/FuelEfficiencyResponse.java": {
+    "mtime": 1783839066.3000443,
+    "ast_hash": "dddd3657040636a354a1867a33797f0a",
+    "semantic_hash": "dddd3657040636a354a1867a33797f0a"
+  },
+  "src/main/java/com/example/transitops/reports/dto/OperationalCostResponse.java": {
+    "mtime": 1783839072.0495377,
+    "ast_hash": "37af0c84f6866dcf5d26fe65361c6424",
+    "semantic_hash": "37af0c84f6866dcf5d26fe65361c6424"
+  },
+  "src/main/java/com/example/transitops/reports/dto/VehicleROIResponse.java": {
+    "mtime": 1783839074.114769,
+    "ast_hash": "6145babf64b32f6beaf371cb19064193",
+    "semantic_hash": "6145babf64b32f6beaf371cb19064193"
+  },
+  "src/main/java/com/example/transitops/reports/service/ReportService.java": {
+    "mtime": 1783839111.2625842,
+    "ast_hash": "8e3865dfd213a96c6d586d29d9c06035",
+    "semantic_hash": "8e3865dfd213a96c6d586d29d9c06035"
+  },
+  "src/main/java/com/example/transitops/reports/service/ReportServiceImpl.java": {
+    "mtime": 1783839117.4015057,
+    "ast_hash": "4dfd12bd51949b59eaa918f5b9e0c4ff",
+    "semantic_hash": "4dfd12bd51949b59eaa918f5b9e0c4ff"
+  },
+  "src/main/java/com/example/transitops/security/CustomUserDetailsService.java": {
+    "mtime": 1783838326.7829542,
+    "ast_hash": "848b138a9497ba31c0b891fd9e92fc3b",
+    "semantic_hash": "848b138a9497ba31c0b891fd9e92fc3b"
+  },
+  "src/main/java/com/example/transitops/security/JwtAccessDeniedHandler.java": {
+    "mtime": 1783838340.482246,
+    "ast_hash": "bc00ad6089ef1c4b032ccbb94e250c1c",
+    "semantic_hash": "bc00ad6089ef1c4b032ccbb94e250c1c"
+  },
+  "src/main/java/com/example/transitops/security/JwtAuthenticationEntryPoint.java": {
+    "mtime": 1783838339.169893,
+    "ast_hash": "b58dac00c6ad04e73cbd99ac3a28f365",
+    "semantic_hash": "b58dac00c6ad04e73cbd99ac3a28f365"
+  },
+  "src/main/java/com/example/transitops/security/JwtAuthenticationFilter.java": {
+    "mtime": 1783838331.2711647,
+    "ast_hash": "c87f11f1167342e5ea40fdf80225e433",
+    "semantic_hash": "c87f11f1167342e5ea40fdf80225e433"
+  },
+  "src/main/java/com/example/transitops/security/JwtService.java": {
+    "mtime": 1783838321.1244955,
+    "ast_hash": "dc0792fb0ea143d7fc71ddbfe9f960bf",
+    "semantic_hash": "dc0792fb0ea143d7fc71ddbfe9f960bf"
+  },
+  "src/main/java/com/example/transitops/trip/controller/TripController.java": {
+    "mtime": 1783838598.4938385,
+    "ast_hash": "a5be31561032ee2f939fdd63503afdf5",
+    "semantic_hash": "a5be31561032ee2f939fdd63503afdf5"
+  },
+  "src/main/java/com/example/transitops/trip/dto/CompleteTripRequest.java": {
+    "mtime": 1783838559.1799154,
+    "ast_hash": "00b48b37c802605593cc7dc482f2fa85",
+    "semantic_hash": "00b48b37c802605593cc7dc482f2fa85"
+  },
+  "src/main/java/com/example/transitops/trip/dto/DispatchTripRequest.java": {
+    "mtime": 1783838555.2875524,
+    "ast_hash": "57268b602b287ab3c1d731d076952c68",
+    "semantic_hash": "57268b602b287ab3c1d731d076952c68"
+  },
+  "src/main/java/com/example/transitops/trip/dto/TripRequest.java": {
+    "mtime": 1783838549.9452047,
+    "ast_hash": "8b1cbe73ebed4449d1b50a2a8db44a91",
+    "semantic_hash": "8b1cbe73ebed4449d1b50a2a8db44a91"
+  },
+  "src/main/java/com/example/transitops/trip/dto/TripResponse.java": {
+    "mtime": 1783838552.764917,
+    "ast_hash": "f142915f4e32cd698fea39be49713f2d",
+    "semantic_hash": "f142915f4e32cd698fea39be49713f2d"
+  },
+  "src/main/java/com/example/transitops/trip/entity/Trip.java": {
+    "mtime": 1783838543.8225179,
+    "ast_hash": "352349b9b4a5c3426b05ceb237656305",
+    "semantic_hash": "352349b9b4a5c3426b05ceb237656305"
+  },
+  "src/main/java/com/example/transitops/trip/mapper/TripMapper.java": {
+    "mtime": 1783838561.1895235,
+    "ast_hash": "21b5fee9d58d3fbe46b547a6bea1fb9d",
+    "semantic_hash": "21b5fee9d58d3fbe46b547a6bea1fb9d"
+  },
+  "src/main/java/com/example/transitops/trip/repository/TripRepository.java": {
+    "mtime": 1783838547.9332306,
+    "ast_hash": "3f632364101a01064f7e6c3048c4f5cf",
+    "semantic_hash": "3f632364101a01064f7e6c3048c4f5cf"
+  },
+  "src/main/java/com/example/transitops/trip/service/TripService.java": {
+    "mtime": 1783838593.9248562,
+    "ast_hash": "b56b13d3faddab6082e9e2dfbd5c9d78",
+    "semantic_hash": "b56b13d3faddab6082e9e2dfbd5c9d78"
+  },
+  "src/main/java/com/example/transitops/trip/service/TripServiceImpl.java": {
+    "mtime": 1783838596.4822304,
+    "ast_hash": "eb78a5fecd31fbea309f61095fb1ef1c",
+    "semantic_hash": "eb78a5fecd31fbea309f61095fb1ef1c"
+  },
+  "src/main/java/com/example/transitops/vehicle/controller/VehicleController.java": {
+    "mtime": 1783838491.2341638,
+    "ast_hash": "29d41b10827b51d21f249222830935fc",
+    "semantic_hash": "29d41b10827b51d21f249222830935fc"
+  },
+  "src/main/java/com/example/transitops/vehicle/dto/VehicleRequest.java": {
+    "mtime": 1783838462.7057245,
+    "ast_hash": "484f03a17e19b3e5d4e2d9563e2a3557",
+    "semantic_hash": "484f03a17e19b3e5d4e2d9563e2a3557"
+  },
+  "src/main/java/com/example/transitops/vehicle/dto/VehicleResponse.java": {
+    "mtime": 1783838465.228714,
+    "ast_hash": "3d8a3ed8e2eafda37719a971dccae337",
+    "semantic_hash": "3d8a3ed8e2eafda37719a971dccae337"
+  },
+  "src/main/java/com/example/transitops/vehicle/entity/Vehicle.java": {
+    "mtime": 1783838457.2800786,
+    "ast_hash": "552fe47d34fe424220b255382c287eb7",
+    "semantic_hash": "552fe47d34fe424220b255382c287eb7"
+  },
+  "src/main/java/com/example/transitops/vehicle/mapper/VehicleMapper.java": {
+    "mtime": 1783838467.2377675,
+    "ast_hash": "c960d6082bb40de8ed997d7fe7a2d3be",
+    "semantic_hash": "c960d6082bb40de8ed997d7fe7a2d3be"
+  },
+  "src/main/java/com/example/transitops/vehicle/repository/VehicleRepository.java": {
+    "mtime": 1783838459.6299725,
+    "ast_hash": "80ed1627566b5b68f175234348405d51",
+    "semantic_hash": "80ed1627566b5b68f175234348405d51"
+  },
+  "src/main/java/com/example/transitops/vehicle/service/VehicleService.java": {
+    "mtime": 1783838482.904569,
+    "ast_hash": "7ba6e3d10102fe74b5de3c3ac838b067",
+    "semantic_hash": "7ba6e3d10102fe74b5de3c3ac838b067"
+  },
+  "src/main/java/com/example/transitops/vehicle/service/VehicleServiceImpl.java": {
+    "mtime": 1783838489.2241015,
+    "ast_hash": "13d7c29d18307027c884068309d2be73",
+    "semantic_hash": "13d7c29d18307027c884068309d2be73"
+  }
+}
