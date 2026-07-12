@@ -1,5 +1,17 @@
 package com.example.transitops.maintenance.entity;
 
+
+// Vehicle Maintenance Module.
+//
+// Schedules and tracks repairs and routine servicing.
+//
+// Workflow:
+//
+// Scheduled
+// ↓
+// In Progress
+// ↓
+// Completed
 import com.example.transitops.common.enums.MaintenanceStatus;
 import com.example.transitops.vehicle.entity.Vehicle;
 import jakarta.persistence.*;
@@ -41,3 +53,4 @@ public class MaintenanceLog {
     @Column(name = "end_date")
     private LocalDate endDate;
 }
+

@@ -1,5 +1,17 @@
 package com.example.transitops.vehicle.entity;
 
+
+// Vehicle Management Module.
+//
+// Responsible for tracking and managing the fleet.
+//
+// Lifecycle:
+//
+// Active
+// ↓
+// In Maintenance
+// ↓
+// Retired
 import com.example.transitops.common.enums.VehicleStatus;
 import com.example.transitops.common.enums.VehicleType;
 import jakarta.persistence.*;
@@ -42,3 +54,4 @@ public class Vehicle {
     @Column(nullable = false)
     private VehicleStatus status = VehicleStatus.AVAILABLE;
 }
+

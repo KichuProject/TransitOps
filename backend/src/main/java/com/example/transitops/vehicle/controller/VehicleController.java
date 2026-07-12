@@ -1,5 +1,17 @@
 package com.example.transitops.vehicle.controller;
 
+
+// Vehicle Management Module.
+//
+// Responsible for tracking and managing the fleet.
+//
+// Lifecycle:
+//
+// Active
+// ↓
+// In Maintenance
+// ↓
+// Retired
 import com.example.transitops.common.response.ApiResponse;
 import com.example.transitops.vehicle.dto.VehicleRequest;
 import com.example.transitops.vehicle.dto.VehicleResponse;
@@ -14,6 +26,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/*
+ * REST Controller for Vehicle operations.
+ *
+ * Responsibilities:
+ * - Accept HTTP requests
+ * - Validate request payload
+ * - Delegate processing to Service layer
+ * - Return standardized API responses
+ *
+ * Never implement business logic here.
+ */
 
 @RestController
 @RequestMapping("/vehicles")
@@ -69,3 +93,4 @@ public class VehicleController {
         return ResponseEntity.ok(ApiResponse.success("Vehicle deleted successfully", null));
     }
 }
+

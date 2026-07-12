@@ -1,5 +1,17 @@
 package com.example.transitops.finance.entity;
 
+
+// Finance & Fuel Management Module.
+//
+// Tracks operational expenses and fuel consumption.
+//
+// Flow:
+//
+// Log Entry
+// ↓
+// Verification
+// ↓
+// Financial Reporting
 import com.example.transitops.trip.entity.Trip;
 import com.example.transitops.vehicle.entity.Vehicle;
 import jakarta.persistence.*;
@@ -35,3 +47,4 @@ public class FuelLog {
     @Column(name = "log_date", nullable = false)
     private LocalDate date;
 }
+

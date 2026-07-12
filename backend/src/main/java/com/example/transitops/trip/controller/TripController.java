@@ -1,5 +1,17 @@
 package com.example.transitops.trip.controller;
 
+
+// Trip Management Module.
+//
+// This is the core workflow of TransitOps.
+//
+// Workflow:
+//
+// Draft
+// ↓
+// Dispatched
+// ↓
+// Completed
 import com.example.transitops.common.response.ApiResponse;
 import com.example.transitops.trip.dto.CompleteTripRequest;
 import com.example.transitops.trip.dto.DispatchTripRequest;
@@ -14,6 +26,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/*
+ * Trip API Gateway.
+ *
+ * This controller exposes endpoints for:
+ * - Trip Creation
+ * - Dispatch
+ * - Completion
+ * - Cancellation
+ *
+ * Complex workflow logic belongs in TripService.
+ */
 
 @RestController
 @RequestMapping("/trips")
@@ -76,3 +100,4 @@ public class TripController {
         return ResponseEntity.ok(ApiResponse.success("Trip cancelled", tripService.cancel(id)));
     }
 }
+

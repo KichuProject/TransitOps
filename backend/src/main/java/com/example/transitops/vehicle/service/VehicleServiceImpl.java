@@ -1,5 +1,17 @@
 package com.example.transitops.vehicle.service;
 
+
+// Vehicle Management Module.
+//
+// Responsible for tracking and managing the fleet.
+//
+// Lifecycle:
+//
+// Active
+// ↓
+// In Maintenance
+// ↓
+// Retired
 import com.example.transitops.common.exception.BusinessException;
 import com.example.transitops.common.exception.DuplicateResourceException;
 import com.example.transitops.common.exception.ResourceNotFoundException;
@@ -32,6 +44,13 @@ public class VehicleServiceImpl implements VehicleService {
         this.vehicleMapper = vehicleMapper;
     }
 
+    /*
+ * Registers a new vehicle.
+ *
+ * Business Rules:
+ * - Registration Number must be unique.
+ * - Initial Status = AVAILABLE.
+ */
     @Override
     @Transactional(readOnly = true)
     public Page<VehicleResponse> searchVehicles(String keyword, VehicleStatus status, VehicleType type, String region, Pageable pageable) {
@@ -54,6 +73,14 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleMapper.toResponse(vehicleRepository.save(vehicle));
     }
 
+    /*
+ * Internal status transition.
+ *
+ * This method should only be called by
+ * Trip or Maintenance services.
+ *
+ * Avoid exposing this endpoint directly.
+ */
     @Override
     @Transactional(readOnly = true)
     public List<VehicleResponse> findAll() {
@@ -95,3 +122,4 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleRepository.deleteById(id);
     }
 }
+

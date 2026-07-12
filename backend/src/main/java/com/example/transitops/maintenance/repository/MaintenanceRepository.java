@@ -1,5 +1,17 @@
 package com.example.transitops.maintenance.repository;
 
+
+// Vehicle Maintenance Module.
+//
+// Schedules and tracks repairs and routine servicing.
+//
+// Workflow:
+//
+// Scheduled
+// ↓
+// In Progress
+// ↓
+// Completed
 import com.example.transitops.common.enums.MaintenanceStatus;
 import com.example.transitops.maintenance.entity.MaintenanceLog;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,3 +26,4 @@ public interface MaintenanceRepository extends JpaRepository<MaintenanceLog, Lon
     long countByStatus(MaintenanceStatus status);
     List<MaintenanceLog> findByStatus(MaintenanceStatus status);
 }
+

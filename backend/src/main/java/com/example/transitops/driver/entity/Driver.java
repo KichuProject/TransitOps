@@ -1,5 +1,17 @@
 package com.example.transitops.driver.entity;
 
+
+// Driver Management Module.
+//
+// Handles driver profiles, availability, and assignments.
+//
+// States:
+//
+// Available
+// ↓
+// On Trip
+// ↓
+// Off Duty
 import com.example.transitops.common.enums.DriverStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -45,3 +57,4 @@ public class Driver {
     @Column(nullable = false)
     private DriverStatus status = DriverStatus.AVAILABLE;
 }
+

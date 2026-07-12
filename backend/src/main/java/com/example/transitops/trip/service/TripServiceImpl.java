@@ -1,5 +1,17 @@
 package com.example.transitops.trip.service;
 
+
+// Trip Management Module.
+//
+// This is the core workflow of TransitOps.
+//
+// Workflow:
+//
+// Draft
+// ↓
+// Dispatched
+// ↓
+// Completed
 import com.example.transitops.common.enums.DriverStatus;
 import com.example.transitops.common.enums.TripStatus;
 import com.example.transitops.common.enums.VehicleStatus;
@@ -212,3 +224,4 @@ public class TripServiceImpl implements TripService {
                 .orElseThrow(() -> new ResourceNotFoundException("Trip not found with id: " + id));
     }
 }
+

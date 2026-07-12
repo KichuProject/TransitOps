@@ -1,5 +1,17 @@
 package com.example.transitops.finance.repository;
 
+
+// Finance & Fuel Management Module.
+//
+// Tracks operational expenses and fuel consumption.
+//
+// Flow:
+//
+// Log Entry
+// ↓
+// Verification
+// ↓
+// Financial Reporting
 import com.example.transitops.finance.entity.FuelLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,3 +31,4 @@ public interface FuelLogRepository extends JpaRepository<FuelLog, Long>, JpaSpec
     @Query("SELECT COALESCE(SUM(f.liters), 0) FROM FuelLog f WHERE f.vehicle.id = :vehicleId")
     Double sumLitersByVehicleId(Long vehicleId);
 }
+

@@ -1,5 +1,17 @@
 package com.example.transitops.trip.entity;
 
+
+// Trip Management Module.
+//
+// This is the core workflow of TransitOps.
+//
+// Workflow:
+//
+// Draft
+// ↓
+// Dispatched
+// ↓
+// Completed
 import com.example.transitops.common.enums.TripStatus;
 import com.example.transitops.driver.entity.Driver;
 import com.example.transitops.vehicle.entity.Vehicle;
@@ -8,6 +20,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+
+/*
+ * Trip Entity
+ *
+ * Represents transport operations
+ * between a source and destination.
+ *
+ * Status:
+ * DRAFT
+ * DISPATCHED
+ * COMPLETED
+ * CANCELLED
+ */
 
 @Entity
 @Table(name = "trips")
@@ -58,3 +83,4 @@ public class Trip {
     @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 }
+

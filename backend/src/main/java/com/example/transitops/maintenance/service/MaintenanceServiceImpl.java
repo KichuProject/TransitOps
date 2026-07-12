@@ -1,5 +1,17 @@
 package com.example.transitops.maintenance.service;
 
+
+// Vehicle Maintenance Module.
+//
+// Schedules and tracks repairs and routine servicing.
+//
+// Workflow:
+//
+// Scheduled
+// ↓
+// In Progress
+// ↓
+// Completed
 import com.example.transitops.common.enums.MaintenanceStatus;
 import com.example.transitops.common.enums.VehicleStatus;
 import com.example.transitops.common.exception.BusinessException;
@@ -125,3 +137,4 @@ public class MaintenanceServiceImpl implements MaintenanceService {
                 .orElseThrow(() -> new ResourceNotFoundException("Maintenance record not found with id: " + id));
     }
 }
+
