@@ -63,7 +63,7 @@ export const FuelLogs = () => {
     setCurrentPage(page);
   };
 
-  const isDispatcher = currentUser?.role === 'Dispatcher';
+  const isWriteAuthorized = currentUser?.role === 'Financial Analyst';
 
   return (
     <div className="flex flex-col gap-6">
@@ -73,7 +73,7 @@ export const FuelLogs = () => {
           <BlurText text="Fuel Logs" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Record fuel consumption, log refill invoices, and monitor liters consumed</p>
         </div>
-        {!isDispatcher && (
+        {isWriteAuthorized && (
           <ShinyButton size="sm" onClick={handleOpenForm}>
             <FiPlus size={16} />
             <span>Refuel Log</span>

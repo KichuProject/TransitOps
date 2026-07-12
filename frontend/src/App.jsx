@@ -6,6 +6,8 @@ import { MockDataProvider } from './context/MockDataContext';
 import { Toaster } from 'react-hot-toast';
 import MainLayout from './components/layout/MainLayout';
 import Login from './pages/Login';
+import Register from './pages/Register';
+import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import Vehicles from './pages/Vehicles';
 import Drivers from './pages/Drivers';
@@ -25,11 +27,13 @@ function App() {
           <BrowserRouter>
             <Toaster position="bottom-right" reverseOrder={false} />
             <Routes>
-              {/* Public Login Route */}
+              {/* Public Routes */}
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
               {/* Protected Main Application Layout Routes */}
-              <Route path="/" element={<MainLayout />}>
+              <Route path="/portal" element={<MainLayout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="vehicles" element={<Vehicles />} />
                 <Route path="drivers" element={<Drivers />} />

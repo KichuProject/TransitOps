@@ -108,7 +108,7 @@ export const Trips = () => {
     Cancelled: 'danger'
   };
 
-  const isWriteAuthorized = currentUser?.role === 'Dispatcher';
+  const isWriteAuthorized = currentUser?.role === 'Dispatcher' || currentUser?.role === 'Fleet Manager';
 
   return (
     <div className="flex flex-col gap-6">

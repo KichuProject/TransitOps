@@ -90,3 +90,55 @@
     background-position: 200% 0;
   }
 }
+
+/* 
+  Global Theme Contrast Enhancements for Text readability
+  Ensures that gray and sub-text elements are clearly visible:
+  - Shifts light mode secondary text to darker, crisp slate-600/700/800
+  - Shifts dark mode secondary text to bright, clean slate-100/200/white
+*/
+.text-slate-400 {
+  color: #475569 !important; /* slate-600 */
+}
+.text-slate-450, .text-slate-500 {
+  color: #334155 !important; /* slate-700 */
+}
+.text-slate-550, .text-slate-600 {
+  color: #1E293B !important; /* slate-800 */
+}
+.text-slate-650, .text-slate-700 {
+  color: #0F172A !important; /* slate-900 / almost black */
+}
+
+/* Dark Mode bright text overrides */
+.dark .text-slate-400 {
+  color: #CBD5E1 !important; /* slate-300 */
+}
+.dark .text-slate-450, .dark .text-slate-500 {
+  color: #E2E8F0 !important; /* slate-200 */
+}
+.dark .text-slate-550, .dark .text-slate-600 {
+  color: #F1F5F9 !important; /* slate-100 */
+}
+.dark .text-slate-650, .dark .text-slate-700, .dark .text-slate-800 {
+  color: #FFFFFF !important; /* pure white */
+}
+
+/* 
+  Landing Page Specificity Reset:
+  Prevents dark mode class overrides from applying inside the light-theme landing page.
+  Guarantees high-contrast dark text on the light background.
+*/
+.dark .landing-page-root .text-slate-400, .landing-page-root .text-slate-400 {
+  color: #475569 !important;
+}
+.dark .landing-page-root .text-slate-450, .dark .landing-page-root .text-slate-500, .landing-page-root .text-slate-500 {
+  color: #334155 !important;
+}
+.dark .landing-page-root .text-slate-550, .dark .landing-page-root .text-slate-600, .landing-page-root .text-slate-600 {
+  color: #1E293B !important;
+}
+.dark .landing-page-root .text-slate-650, .dark .landing-page-root .text-slate-700, .dark .landing-page-root .text-slate-800, .dark .landing-page-root .text-slate-900, .landing-page-root .text-slate-700, .landing-page-root .text-slate-800, .landing-page-root .text-slate-900 {
+  color: #0F172A !important;
+}
+

@@ -33,7 +33,7 @@ void main() {
 
   uv += (uMouse - vec2(0.5)) * uAmplitude;
 
-  float d = -uTime * 0.5 * uSpeed;
+  float d = -uTime * 1  * uSpeed;
   float a = 0.0;
   for (float i = 0.0; i < 8.0; ++i) {
     a += cos(i - d - a * uv.x);
@@ -42,6 +42,8 @@ void main() {
   d += uTime * 0.5 * uSpeed;
   vec3 col = vec3(cos(uv * vec2(d, a)) * 0.6 + 0.4, cos(a + d) * 0.5 + 0.5);
   col = cos(col * cos(vec3(d, a, 2.5)) * 0.5 + 0.5) * uColor;
+  float luma = dot(col, vec3(0.2126, 0.7152, 0.0722));
+  col = clamp(mix(vec3(luma), col, 1.6), 0.0, 1.0);
   gl_FragColor = vec4(col, 1.0);
 }
 `;
@@ -61,13 +63,13 @@ export default function Iridescence({ color = [1, 1, 1], speed = 1.0, amplitude 
 
     function resize() {
       const scale = 1;
-      renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
+      const w = ctn.offsetWidth || window.innerWidth;
+      const h = ctn.offsetHeight || window.innerHeight;
+      renderer.setSize(w * scale, h * scale);
       if (program) {
-        program.uniforms.uResolution.value = new Color(
-          gl.canvas.width,
-          gl.canvas.height,
-          gl.canvas.width / gl.canvas.height
-        );
+        program.uniforms.uResolution.value[0] = gl.canvas.width;
+        program.uniforms.uResolution.value[1] = gl.canvas.height;
+        program.uniforms.uResolution.value[2] = gl.canvas.width / gl.canvas.height;
       }
     }
     window.addEventListener('resize', resize, false);
@@ -79,9 +81,9 @@ export default function Iridescence({ color = [1, 1, 1], speed = 1.0, amplitude 
       fragment: fragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        uColor: { value: new Color(...color) },
+        uColor: { value: new Float32Array(color) },
         uResolution: {
-          value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+          value: new Float32Array([gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height])
         },
         uMouse: { value: new Float32Array([mousePos.current.x, mousePos.current.y]) },
         uAmplitude: { value: amplitude },

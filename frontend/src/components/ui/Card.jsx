@@ -20,7 +20,7 @@ export const Card = ({ children, className = '', ...props }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative overflow-hidden rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/70 dark:bg-slate-950/40 backdrop-blur-md shadow-md hover:shadow-lg hover:border-slate-350 dark:hover:border-slate-700/80 transition-all duration-300 ${className}`}
+      className={`relative overflow-hidden rounded-xl border border-slate-200/50 dark:border-slate-800/40 bg-white/65 dark:bg-slate-950/65 backdrop-blur-md shadow-md hover:shadow-lg hover:border-slate-350 dark:hover:border-slate-700/80 transition-all duration-300 ${className}`}
       {...props}
     >
       <div

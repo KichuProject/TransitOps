@@ -27,44 +27,40 @@ export const Sidebar = ({ className = '' }) => {
   };
 
   const navItems = [
-    { name: 'Dashboard', path: '/', icon: FiGrid },
-    { name: 'Vehicles', path: '/vehicles', icon: FiTruck },
-    { name: 'Drivers', path: '/drivers', icon: FiUsers },
-    { name: 'Trips', path: '/trips', icon: FiMapPin },
-    { name: 'Maintenance', path: '/maintenance', icon: FiTool },
-    { name: 'Fuel Logs', path: '/fuel', icon: FiDroplet },
-    { name: 'Expenses', path: '/expenses', icon: FiDollarSign },
-    { name: 'Reports', path: '/reports', icon: FiPieChart },
-    { name: 'Profile', path: '/profile', icon: FiUser },
+    { name: 'Dashboard', path: '/portal', icon: FiGrid },
+    { name: 'Vehicles', path: '/portal/vehicles', icon: FiTruck },
+    { name: 'Drivers', path: '/portal/drivers', icon: FiUsers },
+    { name: 'Trips', path: '/portal/trips', icon: FiMapPin },
+    { name: 'Maintenance', path: '/portal/maintenance', icon: FiTool },
+    { name: 'Fuel Logs', path: '/portal/fuel', icon: FiDroplet },
+    { name: 'Expenses', path: '/portal/expenses', icon: FiDollarSign },
+    { name: 'Reports', path: '/portal/reports', icon: FiPieChart },
+    { name: 'Profile', path: '/portal/profile', icon: FiUser },
   ];
 
   const getFilteredNavItems = () => {
     const role = currentUser?.role;
-    if (role === 'Fleet Manager') {
-      return navItems.filter(item => 
-        ['/', '/vehicles', '/drivers', '/maintenance', '/reports', '/profile'].includes(item.path)
-      );
-    }
-    if (role === 'Dispatcher') {
-      return navItems.filter(item => 
-        ['/', '/vehicles', '/trips', '/profile'].includes(item.path)
-      );
-    }
-    if (role === 'Safety Officer') {
-      return navItems.filter(item => 
-        ['/', '/drivers', '/trips', '/profile'].includes(item.path)
-      );
-    }
-    if (role === 'Financial Analyst') {
-      return navItems.filter(item => 
-        ['/', '/vehicles', '/fuel', '/expenses', '/reports', '/profile'].includes(item.path)
-      );
-    }
-    return navItems;
+    const filterFn = (item) => {
+      const subpath = item.path === '/portal' ? '/' : item.path.replace('/portal', '');
+      if (role === 'Fleet Manager') {
+        return ['/', '/vehicles', '/drivers', '/maintenance', '/reports', '/profile'].includes(subpath);
+      }
+      if (role === 'Dispatcher') {
+        return ['/', '/vehicles', '/trips', '/profile'].includes(subpath);
+      }
+      if (role === 'Safety Officer') {
+        return ['/', '/drivers', '/trips', '/profile'].includes(subpath);
+      }
+      if (role === 'Financial Analyst') {
+        return ['/', '/vehicles', '/fuel', '/expenses', '/reports', '/profile'].includes(subpath);
+      }
+      return true;
+    };
+    return navItems.filter(filterFn);
   };
 
   return (
-    <aside className={`w-64 border-r border-slate-200/60 bg-white/70 dark:border-slate-800/80 dark:bg-slate-950/40 backdrop-blur-md flex flex-col h-screen shrink-0 ${className}`}>
+    <aside className={`w-64 border-r border-slate-200/40 bg-white/60 dark:border-slate-800/40 dark:bg-slate-950/65 backdrop-blur-md flex flex-col h-screen shrink-0 ${className}`}>
       {/* Brand Logo */}
       <div className="flex items-center gap-2.5 px-6 py-5 border-b border-slate-100 dark:border-slate-900">
         <div className="flex h-8.5 w-8.5 items-center justify-center rounded-lg bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20 shrink-0">
@@ -90,7 +86,7 @@ export const Sidebar = ({ className = '' }) => {
                 `flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all duration-150 ${
                   isActive
                     ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/10'
-                    : 'text-slate-550 hover:bg-slate-50 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-900/60 dark:hover:text-slate-200'
+                    : 'text-slate-700 hover:bg-slate-50 hover:text-slate-800 dark:text-slate-300 dark:hover:bg-slate-900/60 dark:hover:text-slate-200'
                 }`
               }
             >
