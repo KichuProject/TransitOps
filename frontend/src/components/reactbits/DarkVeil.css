@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .darkveil-container {
   width: 100%;
   height: 100%;
@@ -9,7 +8,7 @@
   height: 100vh;
   z-index: 0;
   pointer-events: none;
-=======
+}
 .darkveil-canvas {
   position: absolute;
   top: 0;
@@ -17,7 +16,6 @@
   width: 100%;
   height: 100%;
   display: block;
->>>>>>> e81604b114b486e72d8601044074d463a160b1da
 }
 .darkveil-container canvas {
   display: block;
