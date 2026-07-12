@@ -1,0 +1,182 @@
+{
+  "eslint.config.js": {
+    "mtime": 1783832726.6511712,
+    "ast_hash": "3aa4b57d7f08181d86bde52a4dcb7f22",
+    "semantic_hash": "3aa4b57d7f08181d86bde52a4dcb7f22"
+  },
+  "package.json": {
+    "mtime": 1783834179.5587556,
+    "ast_hash": "5d62d1ebc607b143cde516a47094bdd1",
+    "semantic_hash": "5d62d1ebc607b143cde516a47094bdd1"
+  },
+  "src/App.jsx": {
+    "mtime": 1783834440.3815763,
+    "ast_hash": "cc78d91642743b58e2a24c3b19a5a8f5",
+    "semantic_hash": "cc78d91642743b58e2a24c3b19a5a8f5"
+  },
+  "src/components/layout/Breadcrumb.jsx": {
+    "mtime": 1783834312.5688562,
+    "ast_hash": "f89a4c3d163e745e9dd4101b86191a31",
+    "semantic_hash": "f89a4c3d163e745e9dd4101b86191a31"
+  },
+  "src/components/layout/MainLayout.jsx": {
+    "mtime": 1783834317.6772635,
+    "ast_hash": "7c379bb99e9ce1c72d2290987f7f1336",
+    "semantic_hash": "7c379bb99e9ce1c72d2290987f7f1336"
+  },
+  "src/components/layout/Sidebar.jsx": {
+    "mtime": 1783834297.30537,
+    "ast_hash": "755d5d64317741e9f23ece073204d9a4",
+    "semantic_hash": "755d5d64317741e9f23ece073204d9a4"
+  },
+  "src/components/layout/TopNavbar.jsx": {
+    "mtime": 1783834307.0316622,
+    "ast_hash": "be0cb7dfee9e4fb14335da4f0a438ebe",
+    "semantic_hash": "be0cb7dfee9e4fb14335da4f0a438ebe"
+  },
+  "src/components/reactbits/ShinyText.jsx": {
+    "mtime": 1783834213.5262747,
+    "ast_hash": "a0ec4142257c4cce30bfabbce546572a",
+    "semantic_hash": "a0ec4142257c4cce30bfabbce546572a"
+  },
+  "src/components/reactbits/SpotlightCard.jsx": {
+    "mtime": 1783834206.861109,
+    "ast_hash": "a9cb1d21eb5faa28875cc2cf0324edf2",
+    "semantic_hash": "a9cb1d21eb5faa28875cc2cf0324edf2"
+  },
+  "src/components/ui/Badge.jsx": {
+    "mtime": 1783834241.823042,
+    "ast_hash": "a42312392bd20d8177aa668b7399e2d9",
+    "semantic_hash": "a42312392bd20d8177aa668b7399e2d9"
+  },
+  "src/components/ui/Button.jsx": {
+    "mtime": 1783834231.8761797,
+    "ast_hash": "d45e054d8239a621797c4099fc4d0a0d",
+    "semantic_hash": "d45e054d8239a621797c4099fc4d0a0d"
+  },
+  "src/components/ui/Card.jsx": {
+    "mtime": 1783834236.629661,
+    "ast_hash": "5a15c5258166d8b876992e5b8343e715",
+    "semantic_hash": "5a15c5258166d8b876992e5b8343e715"
+  },
+  "src/components/ui/ConfirmDialog.jsx": {
+    "mtime": 1783834277.55358,
+    "ast_hash": "bd1611f5c6fbbe872d39453c0c039b85",
+    "semantic_hash": "bd1611f5c6fbbe872d39453c0c039b85"
+  },
+  "src/components/ui/EmptyState.jsx": {
+    "mtime": 1783834282.250116,
+    "ast_hash": "0377bcabed2592a02a49307568502175",
+    "semantic_hash": "0377bcabed2592a02a49307568502175"
+  },
+  "src/components/ui/Input.jsx": {
+    "mtime": 1783834246.7379692,
+    "ast_hash": "a1f56176b6d04eeeb53ec4433b42251a",
+    "semantic_hash": "a1f56176b6d04eeeb53ec4433b42251a"
+  },
+  "src/components/ui/Loader.jsx": {
+    "mtime": 1783834267.4075656,
+    "ast_hash": "78a49a2fb3ef3294886cc96dbc1329a2",
+    "semantic_hash": "78a49a2fb3ef3294886cc96dbc1329a2"
+  },
+  "src/components/ui/Modal.jsx": {
+    "mtime": 1783834257.385165,
+    "ast_hash": "d0957e6df7bfadda2c03da3b457163e1",
+    "semantic_hash": "d0957e6df7bfadda2c03da3b457163e1"
+  },
+  "src/components/ui/Pagination.jsx": {
+    "mtime": 1783834272.2350628,
+    "ast_hash": "701c4d2586e4838f3b5be7e9bd988629",
+    "semantic_hash": "701c4d2586e4838f3b5be7e9bd988629"
+  },
+  "src/components/ui/Select.jsx": {
+    "mtime": 1783834251.2832334,
+    "ast_hash": "87feca904854f3654fcebc373f55c0e7",
+    "semantic_hash": "87feca904854f3654fcebc373f55c0e7"
+  },
+  "src/components/ui/Table.jsx": {
+    "mtime": 1783834262.9417198,
+    "ast_hash": "bd5de58a5277db70e6361249c0c335ba",
+    "semantic_hash": "bd5de58a5277db70e6361249c0c335ba"
+  },
+  "src/components/ui/Toast.jsx": {
+    "mtime": 1783834287.8047762,
+    "ast_hash": "6859d7e6ef79d741c6a5e18eafad8482",
+    "semantic_hash": "6859d7e6ef79d741c6a5e18eafad8482"
+  },
+  "src/constants/mockData.js": {
+    "mtime": 1783834188.3701813,
+    "ast_hash": "65b5bf602a0657a199414832cfa5b0a2",
+    "semantic_hash": "65b5bf602a0657a199414832cfa5b0a2"
+  },
+  "src/context/MockDataContext.jsx": {
+    "mtime": 1783834198.2428222,
+    "ast_hash": "bbe4d3870da37ee764e4818124415aca",
+    "semantic_hash": "bbe4d3870da37ee764e4818124415aca"
+  },
+  "src/main.jsx": {
+    "mtime": 1783832714.1658485,
+    "ast_hash": "e13723e2574429d9a6d849727e3ff695",
+    "semantic_hash": "e13723e2574429d9a6d849727e3ff695"
+  },
+  "src/pages/Dashboard.jsx": {
+    "mtime": 1783834341.445027,
+    "ast_hash": "23816799b0709447ed0e590e19e6bf8f",
+    "semantic_hash": "23816799b0709447ed0e590e19e6bf8f"
+  },
+  "src/pages/Drivers.jsx": {
+    "mtime": 1783834366.6337223,
+    "ast_hash": "e310190ff2c01d9c08805902e87739fc",
+    "semantic_hash": "e310190ff2c01d9c08805902e87739fc"
+  },
+  "src/pages/Expenses.jsx": {
+    "mtime": 1783834408.0022445,
+    "ast_hash": "2ce928eaf2bc1e79c39a2b95ab96f690",
+    "semantic_hash": "2ce928eaf2bc1e79c39a2b95ab96f690"
+  },
+  "src/pages/FuelLogs.jsx": {
+    "mtime": 1783834401.652434,
+    "ast_hash": "ed3ba6b842044b69beba290c81b7fac4",
+    "semantic_hash": "ed3ba6b842044b69beba290c81b7fac4"
+  },
+  "src/pages/Login.jsx": {
+    "mtime": 1783834327.513203,
+    "ast_hash": "071374dba4845a6af8e5bf39e1d264c5",
+    "semantic_hash": "071374dba4845a6af8e5bf39e1d264c5"
+  },
+  "src/pages/Maintenance.jsx": {
+    "mtime": 1783834391.7292647,
+    "ast_hash": "c76dea084a2046467189a9c741c6866d",
+    "semantic_hash": "c76dea084a2046467189a9c741c6866d"
+  },
+  "src/pages/NotFound.jsx": {
+    "mtime": 1783834432.6825838,
+    "ast_hash": "676a56e9a24700427798acf30318f3f2",
+    "semantic_hash": "676a56e9a24700427798acf30318f3f2"
+  },
+  "src/pages/Profile.jsx": {
+    "mtime": 1783834428.4813592,
+    "ast_hash": "fc4df2808dda401be764205fd045becd",
+    "semantic_hash": "fc4df2808dda401be764205fd045becd"
+  },
+  "src/pages/Reports.jsx": {
+    "mtime": 1783834418.9565022,
+    "ast_hash": "c5efc8e7d4f6eb6c3216623dcd732d04",
+    "semantic_hash": "c5efc8e7d4f6eb6c3216623dcd732d04"
+  },
+  "src/pages/Trips.jsx": {
+    "mtime": 1783834380.4308033,
+    "ast_hash": "f10581e7fe8236edaf56f2bae4ce9ffd",
+    "semantic_hash": "f10581e7fe8236edaf56f2bae4ce9ffd"
+  },
+  "src/pages/Vehicles.jsx": {
+    "mtime": 1783834354.9822257,
+    "ast_hash": "db88e2d55307f14f90ac8b4bbb71e71d",
+    "semantic_hash": "db88e2d55307f14f90ac8b4bbb71e71d"
+  },
+  "vite.config.js": {
+    "mtime": 1783834166.5045354,
+    "ast_hash": "d281d66c4390899f561fa3db9b8e9eac",
+    "semantic_hash": "d281d66c4390899f561fa3db9b8e9eac"
+  }
+}
