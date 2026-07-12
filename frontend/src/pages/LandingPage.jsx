@@ -80,7 +80,7 @@ export const LandingPage = () => {
         <div className="flex items-center gap-4">
           {currentUser ? (
             <Link to="/portal">
-              <ShinyButton size="sm">Go to Portal</ShinyButton>
+              <ShinyButton size="sm">Get Started</ShinyButton>
             </Link>
           ) : (
             <>
@@ -99,8 +99,14 @@ export const LandingPage = () => {
       <section className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-20 text-center flex flex-col items-center">
         <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight max-w-4xl text-center text-slate-900">
           <BlurText text="Revolutionize Your" className="text-slate-900 inline" />{' '}
-          <span className="bg-gradient-to-r from-blue-600 to-indigo-605 bg-clip-text text-transparent font-black inline-block">
-            Fleet Operations
+          <span 
+            className="bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 bg-no-repeat bg-clip-text text-transparent font-black inline-block"
+            style={{
+              backgroundSize: '200% 100%',
+              animation: 'shimmer 5s linear infinite',
+            }}
+          >
+            Transit Operations
           </span>
         </h1>
 
@@ -115,9 +121,6 @@ export const LandingPage = () => {
               <FiArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
             </ShinyButton>
           </Link>
-          <Link to="/login" className="px-6 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors border border-slate-250 bg-white/70 rounded-lg backdrop-blur-md shadow-xs">
-            View Live Demo
-          </Link>
         </div>
       </section>
 
@@ -125,7 +128,6 @@ export const LandingPage = () => {
       <section className="relative z-10 max-w-7xl mx-auto px-6 py-20 border-t border-slate-200">
         <div className="text-center mb-16">
           <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Modules & Capability</span>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Built For Logistics Operators</h2>
           <p className="text-xs text-slate-550 mt-2 max-w-lg mx-auto leading-relaxed">
             A comprehensive suite of transport management modules designed to enforce business rules and automate dispatch workflows.
           </p>
