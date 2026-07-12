@@ -7,7 +7,6 @@ import Breadcrumb from './Breadcrumb';
 import { FiAlertTriangle } from 'react-icons/fi';
 import BlurText from '../reactbits/BlurText';
 import Button from '../ui/Button';
-import DarkVeil from '../reactbits/DarkVeil';
 import Iridescence from '../reactbits/Iridescence';
 import { motion } from 'framer-motion';
 
