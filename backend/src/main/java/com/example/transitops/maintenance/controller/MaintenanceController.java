@@ -1,5 +1,17 @@
 package com.example.transitops.maintenance.controller;
 
+
+// Vehicle Maintenance Module.
+//
+// Schedules and tracks repairs and routine servicing.
+//
+// Workflow:
+//
+// Scheduled
+// ↓
+// In Progress
+// ↓
+// Completed
 import com.example.transitops.common.response.ApiResponse;
 import com.example.transitops.maintenance.dto.MaintenanceRequest;
 import com.example.transitops.maintenance.dto.MaintenanceResponse;
@@ -62,3 +74,4 @@ public class MaintenanceController {
         return ResponseEntity.ok(ApiResponse.success("Maintenance record closed", maintenanceService.close(id)));
     }
 }
+

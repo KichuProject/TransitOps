@@ -1,5 +1,17 @@
 package com.example.transitops.driver.service;
 
+
+// Driver Management Module.
+//
+// Handles driver profiles, availability, and assignments.
+//
+// States:
+//
+// Available
+// ↓
+// On Trip
+// ↓
+// Off Duty
 import com.example.transitops.driver.dto.DriverRequest;
 import com.example.transitops.driver.dto.DriverResponse;
 
@@ -12,3 +24,4 @@ public interface DriverService {
     DriverResponse update(Long id, DriverRequest request);
     void delete(Long id);
 }
+

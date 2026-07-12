@@ -1,5 +1,17 @@
 package com.example.transitops.driver.controller;
 
+
+// Driver Management Module.
+//
+// Handles driver profiles, availability, and assignments.
+//
+// States:
+//
+// Available
+// ↓
+// On Trip
+// ↓
+// Off Duty
 import com.example.transitops.common.response.ApiResponse;
 import com.example.transitops.driver.dto.DriverRequest;
 import com.example.transitops.driver.dto.DriverResponse;
@@ -65,3 +77,4 @@ public class DriverController {
         return ResponseEntity.ok(ApiResponse.success("Driver deleted successfully", null));
     }
 }
+

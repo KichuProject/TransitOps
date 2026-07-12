@@ -1,5 +1,11 @@
 package com.example.transitops.dashboard.service;
 
+
+// Analytics & Reporting Module.
+//
+// Aggregates data across modules to provide actionable insights.
+// 
+// Key Metrics: Fleet Utilization, Fuel Efficiency, Operational Costs, ROI.
 import com.example.transitops.common.enums.DriverStatus;
 import com.example.transitops.common.enums.TripStatus;
 import com.example.transitops.common.enums.VehicleStatus;
@@ -90,3 +96,4 @@ public class DashboardServiceImpl implements DashboardService {
                 .build();
     }
 }
+

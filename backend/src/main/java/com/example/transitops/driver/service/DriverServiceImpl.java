@@ -1,5 +1,17 @@
 package com.example.transitops.driver.service;
 
+
+// Driver Management Module.
+//
+// Handles driver profiles, availability, and assignments.
+//
+// States:
+//
+// Available
+// ↓
+// On Trip
+// ↓
+// Off Duty
 import com.example.transitops.common.enums.DriverStatus;
 import com.example.transitops.common.exception.BusinessException;
 import com.example.transitops.common.exception.DuplicateResourceException;
@@ -79,3 +91,4 @@ public class DriverServiceImpl implements DriverService {
         driverRepository.deleteById(id);
     }
 }
+

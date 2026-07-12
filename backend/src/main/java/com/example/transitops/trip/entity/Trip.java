@@ -1,5 +1,17 @@
 package com.example.transitops.trip.entity;
 
+
+// Trip Management Module.
+//
+// This is the core workflow of TransitOps.
+//
+// Workflow:
+//
+// Draft
+// ↓
+// Dispatched
+// ↓
+// Completed
 import com.example.transitops.common.enums.TripStatus;
 import com.example.transitops.driver.entity.Driver;
 import com.example.transitops.vehicle.entity.Vehicle;
@@ -71,3 +83,4 @@ public class Trip {
     @JoinColumn(name = "driver_id", nullable = false)
     private Driver driver;
 }
+

@@ -1,5 +1,17 @@
 package com.example.transitops.trip.service;
 
+
+// Trip Management Module.
+//
+// This is the core workflow of TransitOps.
+//
+// Workflow:
+//
+// Draft
+// ↓
+// Dispatched
+// ↓
+// Completed
 import com.example.transitops.trip.dto.CompleteTripRequest;
 import com.example.transitops.trip.dto.DispatchTripRequest;
 import com.example.transitops.trip.dto.TripRequest;
@@ -26,3 +38,4 @@ public interface TripService {
     TripResponse complete(Long id, CompleteTripRequest request);
     TripResponse cancel(Long id);
 }
+

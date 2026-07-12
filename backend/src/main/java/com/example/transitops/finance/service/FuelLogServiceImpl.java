@@ -1,5 +1,17 @@
 package com.example.transitops.finance.service;
 
+
+// Finance & Fuel Management Module.
+//
+// Tracks operational expenses and fuel consumption.
+//
+// Flow:
+//
+// Log Entry
+// ↓
+// Verification
+// ↓
+// Financial Reporting
 import com.example.transitops.common.exception.ResourceNotFoundException;
 import com.example.transitops.finance.dto.FuelLogRequest;
 import com.example.transitops.finance.dto.FuelLogResponse;
@@ -99,3 +111,4 @@ public class FuelLogServiceImpl implements FuelLogService {
                 .orElseThrow(() -> new ResourceNotFoundException("Fuel log not found with id: " + id));
     }
 }
+

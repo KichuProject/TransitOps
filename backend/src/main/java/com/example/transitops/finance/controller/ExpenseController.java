@@ -1,5 +1,17 @@
 package com.example.transitops.finance.controller;
 
+
+// Finance & Fuel Management Module.
+//
+// Tracks operational expenses and fuel consumption.
+//
+// Flow:
+//
+// Log Entry
+// ↓
+// Verification
+// ↓
+// Financial Reporting
 import com.example.transitops.common.response.ApiResponse;
 import com.example.transitops.finance.dto.ExpenseRequest;
 import com.example.transitops.finance.dto.ExpenseResponse;
@@ -56,3 +68,4 @@ public class ExpenseController {
         return ResponseEntity.ok(ApiResponse.success("Expense deleted", null));
     }
 }
+

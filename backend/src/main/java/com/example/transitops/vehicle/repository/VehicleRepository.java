@@ -1,5 +1,17 @@
 package com.example.transitops.vehicle.repository;
 
+
+// Vehicle Management Module.
+//
+// Responsible for tracking and managing the fleet.
+//
+// Lifecycle:
+//
+// Active
+// ↓
+// In Maintenance
+// ↓
+// Retired
 import com.example.transitops.common.enums.VehicleStatus;
 import com.example.transitops.common.enums.VehicleType;
 import com.example.transitops.vehicle.entity.Vehicle;
@@ -31,3 +43,4 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     List<Vehicle> findByVehicleTypeAndRegion(VehicleType vehicleType, String region);
     List<Vehicle> findByStatusAndRegion(VehicleStatus status, String region);
 }
+

@@ -1,5 +1,11 @@
 package com.example.transitops.reports.service;
 
+
+// Analytics & Reporting Module.
+//
+// Aggregates data across modules to provide actionable insights.
+// 
+// Key Metrics: Fleet Utilization, Fuel Efficiency, Operational Costs, ROI.
 import com.example.transitops.common.enums.TripStatus;
 import com.example.transitops.common.enums.VehicleStatus;
 import com.example.transitops.common.util.CsvExporter;
@@ -228,3 +234,4 @@ public class ReportServiceImpl implements ReportService {
         return value != null ? value : 0.0;
     }
 }
+

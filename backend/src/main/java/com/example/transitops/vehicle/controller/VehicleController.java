@@ -1,5 +1,17 @@
 package com.example.transitops.vehicle.controller;
 
+
+// Vehicle Management Module.
+//
+// Responsible for tracking and managing the fleet.
+//
+// Lifecycle:
+//
+// Active
+// ↓
+// In Maintenance
+// ↓
+// Retired
 import com.example.transitops.common.response.ApiResponse;
 import com.example.transitops.vehicle.dto.VehicleRequest;
 import com.example.transitops.vehicle.dto.VehicleResponse;
@@ -68,3 +80,4 @@ public class VehicleController {
         return ResponseEntity.ok(ApiResponse.success("Vehicle deleted successfully", null));
     }
 }
+

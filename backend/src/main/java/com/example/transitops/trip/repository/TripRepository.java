@@ -1,5 +1,17 @@
 package com.example.transitops.trip.repository;
 
+
+// Trip Management Module.
+//
+// This is the core workflow of TransitOps.
+//
+// Workflow:
+//
+// Draft
+// ↓
+// Dispatched
+// ↓
+// Completed
 import com.example.transitops.common.enums.TripStatus;
 import com.example.transitops.trip.entity.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,3 +32,4 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
     List<Trip> findByVehicleId(Long vehicleId);
     List<Trip> findByDriverId(Long driverId);
 }
+

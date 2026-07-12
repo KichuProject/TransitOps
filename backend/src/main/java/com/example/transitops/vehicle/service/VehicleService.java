@@ -1,5 +1,17 @@
 package com.example.transitops.vehicle.service;
 
+
+// Vehicle Management Module.
+//
+// Responsible for tracking and managing the fleet.
+//
+// Lifecycle:
+//
+// Active
+// ↓
+// In Maintenance
+// ↓
+// Retired
 import com.example.transitops.vehicle.dto.VehicleRequest;
 import com.example.transitops.vehicle.dto.VehicleResponse;
 
@@ -12,3 +24,4 @@ public interface VehicleService {
     VehicleResponse update(Long id, VehicleRequest request);
     void delete(Long id);
 }
+

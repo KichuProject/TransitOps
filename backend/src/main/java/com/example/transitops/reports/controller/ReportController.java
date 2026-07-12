@@ -1,5 +1,11 @@
 package com.example.transitops.reports.controller;
 
+
+// Analytics & Reporting Module.
+//
+// Aggregates data across modules to provide actionable insights.
+// 
+// Key Metrics: Fleet Utilization, Fuel Efficiency, Operational Costs, ROI.
 import com.example.transitops.common.response.ApiResponse;
 import com.example.transitops.reports.dto.*;
 import com.example.transitops.reports.service.ReportService;
@@ -53,3 +59,4 @@ public class ReportController {
         return ResponseEntity.ok(ApiResponse.success(reportService.exportCsv()));
     }
 }
+

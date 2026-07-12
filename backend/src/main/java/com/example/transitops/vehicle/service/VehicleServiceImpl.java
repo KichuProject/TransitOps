@@ -1,5 +1,17 @@
 package com.example.transitops.vehicle.service;
 
+
+// Vehicle Management Module.
+//
+// Responsible for tracking and managing the fleet.
+//
+// Lifecycle:
+//
+// Active
+// ↓
+// In Maintenance
+// ↓
+// Retired
 import com.example.transitops.common.exception.BusinessException;
 import com.example.transitops.common.exception.DuplicateResourceException;
 import com.example.transitops.common.exception.ResourceNotFoundException;
@@ -94,3 +106,4 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleRepository.deleteById(id);
     }
 }
+
