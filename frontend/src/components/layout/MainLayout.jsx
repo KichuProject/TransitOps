@@ -23,18 +23,20 @@ export const MainLayout = () => {
 
   // Authorization check
   const isAllowed = (role, pathname) => {
+    // Normalize path by stripping '/portal' prefix
+    const subpath = pathname === '/portal' ? '/' : pathname.replace('/portal', '');
     if (!role) return true;
     if (role === 'Fleet Manager') {
-      return ['/', '/vehicles', '/drivers', '/maintenance', '/reports', '/profile'].includes(pathname);
+      return ['/', '/vehicles', '/drivers', '/maintenance', '/reports', '/profile'].includes(subpath);
     }
     if (role === 'Dispatcher') {
-      return ['/', '/vehicles', '/trips', '/profile'].includes(pathname);
+      return ['/', '/vehicles', '/trips', '/profile'].includes(subpath);
     }
     if (role === 'Safety Officer') {
-      return ['/', '/drivers', '/trips', '/profile'].includes(pathname);
+      return ['/', '/drivers', '/trips', '/profile'].includes(subpath);
     }
     if (role === 'Financial Analyst') {
-      return ['/', '/vehicles', '/fuel', '/expenses', '/reports', '/profile'].includes(pathname);
+      return ['/', '/vehicles', '/fuel', '/expenses', '/reports', '/profile'].includes(subpath);
     }
     return true;
   };
@@ -44,12 +46,8 @@ export const MainLayout = () => {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-bg-light dark:bg-bg-dark font-sans relative z-0">
       {/* Background canvas WebGL shader backdrop */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-15 dark:opacity-35">
-        {darkMode ? (
-          <DarkVeil speed={0.25} warpAmount={0.03} resolutionScale={0.7} />
-        ) : (
-          <Iridescence color={[0.9, 0.93, 0.98]} speed={0.3} amplitude={0.05} mouseReact={true} />
-        )}
+      <div className="fixed inset-0 w-screen h-screen pointer-events-none z-0 opacity-40 dark:opacity-30">
+        <Iridescence color={darkMode ? [0.0, 0.85, 1.0] : [1.0, 1.0, 1.0]} speed={0.3} amplitude={0.05} mouseReact={true} />
       </div>
 
       {/* Sidebar panel */}

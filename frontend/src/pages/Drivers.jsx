@@ -133,7 +133,7 @@ export const Drivers = () => {
     return 'Critical';
   };
 
-  const isDispatcher = currentUser?.role === 'Dispatcher';
+  const isWriteAuthorized = currentUser?.role === 'Fleet Manager' || currentUser?.role === 'Safety Officer';
 
   return (
     <div className="flex flex-col gap-6">
@@ -143,7 +143,7 @@ export const Drivers = () => {
           <BlurText text="Driver Profiles" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Manage credentials, contact directories, compliance records, and driver safety scoring</p>
         </div>
-        {!isDispatcher && (
+        {isWriteAuthorized && (
           <ShinyButton size="sm" onClick={() => handleOpenForm(null)}>
             <FiPlus size={16} />
             <span>Add Driver</span>
@@ -255,7 +255,7 @@ export const Drivers = () => {
                   </td>
                   <td className="px-5 py-4 text-xs">
                     <div className="flex items-center gap-2">
-                      {!isDispatcher && (
+                      {isWriteAuthorized && (
                         <>
                           <button
                             onClick={() => handleOpenForm(driver)}

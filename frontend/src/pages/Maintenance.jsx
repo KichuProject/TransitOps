@@ -80,7 +80,7 @@ export const Maintenance = () => {
     return true;
   });
 
-  const isDispatcher = currentUser?.role === 'Dispatcher';
+  const isWriteAuthorized = currentUser?.role === 'Fleet Manager';
 
   return (
     <div className="flex flex-col gap-6">
@@ -90,7 +90,7 @@ export const Maintenance = () => {
           <BlurText text="Maintenance Workshop" className="text-xl font-bold text-slate-800 dark:text-white" />
           <p className="text-xs text-slate-500 dark:text-slate-400">Schedule vehicle repairs, inspect active work orders, and review service costs</p>
         </div>
-        {!isDispatcher && (
+        {isWriteAuthorized && (
           <ShinyButton size="sm" onClick={handleOpenOrder}>
             <FiPlus size={16} />
             <span>Open Work Order</span>
@@ -163,7 +163,7 @@ export const Maintenance = () => {
                     </Badge>
                   </td>
                   <td className="px-5 py-4 text-xs" onClick={(e) => e.stopPropagation()}>
-                    {log.status === 'Open' && !isDispatcher ? (
+                    {log.status === 'Open' && isWriteAuthorized ? (
                       <Button
                         variant="success"
                         size="sm"

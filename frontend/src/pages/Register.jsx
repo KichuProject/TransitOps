@@ -2,41 +2,43 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { INITIAL_USERS } from '../constants/mockData';
 import Input from '../components/ui/Input';
-import Button from '../components/ui/Button';
+import Select from '../components/ui/Select';
 import ShinyText from '../components/reactbits/ShinyText';
 import SpotlightCard from '../components/reactbits/SpotlightCard';
 import Iridescence from '../components/reactbits/Iridescence';
 import BlurText from '../components/reactbits/BlurText';
 import ShinyButton from '../components/reactbits/ShinyButton';
 
-export const Login = () => {
-  const { login, loading } = useAuth();
+export const Register = () => {
+  const { register: registerUser, loading } = useAuth();
   const navigate = useNavigate();
   
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
-      email: INITIAL_USERS[0].email,
-      password: INITIAL_USERS[0].password,
+      name: '',
+      email: '',
+      password: '',
+      role: 'Fleet Manager',
     }
   });
 
   const onSubmit = async (data) => {
-    const success = await login(data.email, data.password);
+    const success = await registerUser(data.name, data.email, data.password, data.role);
     if (success) {
       navigate('/portal');
     }
   };
 
-  const handleDemoSelect = (user) => {
-    setValue('email', user.email);
-    setValue('password', user.password);
-  };
-
+  const roleOptions = [
+    { value: 'Fleet Manager', label: 'Fleet Manager' },
+    { value: 'Dispatcher', label: 'Dispatcher' },
+    { value: 'Safety Officer', label: 'Safety Officer' },
+    { value: 'Financial Analyst', label: 'Financial Analyst' }
+  ];
 
   return (
-    <div className="dark flex min-h-screen items-center justify-center bg-slate-900 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-950 to-slate-950 px-6 py-12 select-none relative overflow-hidden z-0">
+    <div className="dark flex min-h-screen items-center justify-center bg-slate-900 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-955 to-slate-955 px-6 py-12 select-none relative overflow-hidden z-0">
       {/* Background WebGL shader backdrop */}
       <div className="fixed inset-0 pointer-events-none z-0 opacity-20">
         <Iridescence color={[0.0, 0.85, 1.0]} speed={0.3} amplitude={0.05} mouseReact={true} />
@@ -44,22 +46,31 @@ export const Login = () => {
 
       <div className="w-full max-w-md relative z-10">
         {/* Brand Header */}
-        <div className="flex flex-col items-center mb-8">
+        <div className="flex flex-col items-center mb-6">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white font-bold text-base shadow-xl shadow-blue-500/30 mb-3 select-none">
             TO
           </div>
           <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
-            <BlurText text="Sign in to" className="text-white" />
+            <BlurText text="Register on" className="text-white" />
             <ShinyText text="TransitOps" speed={6} className="font-extrabold text-xl" />
           </h2>
           <p className="mt-1 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-            Fleet Intelligence Portal
+            Create Operational Profile
           </p>
         </div>
 
-        {/* Login Form Container */}
+        {/* Register Form Container */}
         <SpotlightCard className="w-full p-8 border border-slate-800 bg-slate-900/60 shadow-2xl backdrop-blur-xl rounded-2xl">
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <Input
+              label="Full Display Name"
+              type="text"
+              placeholder="e.g. Alex Johnson"
+              className="bg-slate-950 border-slate-800 text-white focus:border-blue-500 placeholder-slate-600 focus:ring-1 focus:ring-blue-500"
+              error={errors.name}
+              {...register('name', { required: 'Name is required' })}
+            />
+
             <Input
               label="Work Email Address"
               type="email"
@@ -78,43 +89,28 @@ export const Login = () => {
               {...register('password', { required: 'Password is required' })}
             />
 
+            <Select
+              label="Operational Role (RBAC)"
+              options={roleOptions}
+              className="bg-slate-950 border-slate-800 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              {...register('role')}
+            />
+
             <ShinyButton
               type="submit"
               className="w-full mt-2 py-2.5 font-bold shadow-lg shadow-blue-600/10"
               disabled={loading}
             >
-              {loading ? 'Signing In...' : 'Sign In'}
+              {loading ? 'Creating Account...' : 'Create Account'}
             </ShinyButton>
           </form>
 
-          {/* Quick selectors for demo roles */}
-          <div className="mt-8 pt-6 border-t border-slate-800/80">
-            <span className="block text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-3.5">
-              Prefilled Demo Accounts
-            </span>
-            <div className="grid grid-cols-2 gap-2">
-              {INITIAL_USERS.map((user) => (
-                <button
-                  key={user.role}
-                  type="button"
-                  onClick={() => handleDemoSelect(user)}
-                  className="flex flex-col p-2 bg-slate-950/40 hover:bg-slate-950/80 border border-slate-850/80 hover:border-slate-800 rounded-lg text-left transition-all group"
-                >
-                  <span className="text-[10px] font-bold text-slate-300 group-hover:text-white truncate">{user.name}</span>
-                  <span className="text-[8px] text-blue-400 font-bold mt-1.5 uppercase tracking-wider leading-none">
-                    {user.role}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Connection to Register */}
+          {/* Connection back to Login */}
           <div className="mt-6 pt-4 border-t border-slate-800/80 text-center">
-            <span className="text-xs text-slate-400 font-semibold">
-              New to the platform?{' '}
-              <Link to="/register" className="text-blue-400 hover:text-blue-300 font-bold transition-colors">
-                Create Account
+            <span className="text-xs text-slate-400">
+              Already have an account?{' '}
+              <Link to="/login" className="text-blue-400 hover:text-blue-300 font-bold transition-colors">
+                Sign In
               </Link>
             </span>
           </div>
@@ -124,4 +120,4 @@ export const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
